@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>*{box-sizing:border-box;}html,body{margin:0;}</style>
+</helmet>
+
+<div style="min-width:100%;min-height:100vh;width:max-content;box-sizing:border-box;padding:48px;background:#e7e5df;font-family:'Manrope',system-ui,sans-serif;">
+
+  <div style="max-width:1120px;margin-bottom:42px;">
+    <div style="font-family:'Manrope';font-weight:700;font-size:14px;letter-spacing:.16em;color:#a08; opacity:.55;color:#9a8b84;">HI-FI EXPLORATION · 3 DIRECTIONS</div>
+    <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:42px;color:#2a2320;margin-top:8px;line-height:1.05;">House Game-Night Dashboard</div>
+    <div style="font-family:'Manrope';font-weight:500;font-size:18px;color:#6b5e58;margin-top:12px;line-height:1.55;max-width:860px;">A vertical wall-display scoreboard (1080&times;1920) for Dad, Mom, Ellie &amp; Ollie across Hand &amp; Foot, Catan, and Ticket to Ride. Ranked by <strong style="color:#3a302b;">win rate</strong>, with a reigning-champion hero, per-game leaders, recent results, most-played and head-to-head rivalries. Same layout in three color directions &mdash; pick a vibe and we&rsquo;ll refine. Avatars are initial-based for now; real photos can drop in later, and a light admin area comes next.</div>
+  </div>
+
+  <div style="display:flex;gap:56px;align-items:flex-start;">
+
+    <!-- ============================ DIRECTION 1 — TAVERN RED ============================ -->
+    <div style="flex:none;width:1080px;">
+      <div style="font-family:'Manrope';font-weight:700;font-size:15px;letter-spacing:.05em;color:#5d4a45;margin-bottom:16px;">DIRECTION 1 &middot; TAVERN RED <span style="font-weight:500;color:#9a8b84;">&mdash; faithful to the reference</span></div>
+      <div style="width:1080px;height:1920px;border-radius:6px;overflow:hidden;box-shadow:0 30px 80px -24px rgba(0,0,0,.4);background:linear-gradient(168deg,#3b141a 0%,#2c0e13 60%,#220a0f 100%);display:flex;flex-direction:column;gap:24px;padding:44px;">
+
+        <!-- header -->
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div style="display:flex;align-items:center;gap:18px;">
+            <div style="width:60px;height:60px;border-radius:17px;background:#e8615a;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px -6px rgba(232,97,90,.6);">
+              <div style="width:22px;height:22px;background:#fff;transform:rotate(45deg);border-radius:5px;"></div>
+            </div>
+            <div>
+              <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:33px;color:#fceeec;line-height:1;white-space:nowrap;">THE HOUSE CUP</div>
+              <div style="font-family:'Manrope';font-weight:500;font-size:16px;color:#cf9f9a;margin-top:5px;">Family Game Night &middot; Standings</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;">
+            <div style="font-family:'Manrope';font-weight:600;font-size:17px;color:#cf9f9a;">Sat &middot; Jun 20</div>
+            <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(240,138,127,.16);padding:9px 15px;border-radius:999px;">
+              <div style="width:9px;height:9px;border-radius:50%;background:#f08a7f;"></div>
+              <span style="font-family:'Manrope';font-weight:800;font-size:13px;letter-spacing:.12em;color:#f3a59c;">SEASON 3</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- hero: avatar left, text right -->
+        <div style="position:relative;height:380px;border-radius:30px;overflow:hidden;background:linear-gradient(125deg,#e8615a 0%,#c23b54 56%,#7e2440 100%);box-shadow:0 24px 60px -22px rgba(0,0,0,.6);">
+          <div style="position:absolute;top:-90px;right:-50px;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(255,212,150,.5),rgba(255,212,150,0) 70%);"></div>
+          <div style="position:absolute;bottom:-130px;left:-50px;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(110,25,60,.65),transparent 70%);"></div>
+          <div style="position:relative;height:100%;padding:38px 44px;display:flex;align-items:center;gap:42px;color:#fff;">
+            <div style="flex:none;width:182px;height:182px;border-radius:50%;background:#b07be0;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:62px;color:#fff;box-shadow:0 0 0 8px rgba(255,255,255,.18),0 20px 50px -12px rgba(0,0,0,.5);">EL</div>
+            <div style="flex:1;min-width:0;">
+              <div style="display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.16);padding:9px 16px;border-radius:999px;">
+                <div style="width:12px;height:12px;background:#f0c869;transform:rotate(45deg);border-radius:2px;"></div>
+                <span style="font-family:'Manrope';font-weight:800;font-size:14px;letter-spacing:.16em;">REIGNING CHAMPION</span>
+              </div>
+              <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:92px;line-height:.92;margin:18px 0 8px;">Ellie</div>
+              <div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:33px;color:#ffe6e0;">72% win rate <span style="font-family:'Manrope';font-weight:500;font-size:24px;color:rgba(255,255,255,.6);">&middot; 39&ndash;15 record</span></div>
+              <div style="font-family:'Manrope';font-weight:500;font-size:19px;color:rgba(255,255,255,.78);margin-top:14px;">Holds the crown since April &middot; 5-night win streak</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- overall standings -->
+        <div style="background:#4a1822;border:1px solid rgba(255,255,255,.06);border-radius:28px;padding:28px 34px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+            <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:30px;color:#fceeec;">Overall Standings</div>
+            <div style="font-family:'Manrope';font-weight:700;font-size:14px;letter-spacing:.12em;color:#cf9f9a;">WIN RATE</div>
+          </div>
+          <sc-for list="{{ overall }}" as="row" hint-placeholder-count="4">
+            <div style="display:flex;align-items:center;gap:18px;padding:15px 2px;border-bottom:1px solid rgba(255,255,255,.07);">
+              <div style="width:30px;font-family:'Bricolage Grotesque';font-weight:800;font-size:28px;color:#f08a7f;text-align:center;">{{ row.rank }}</div>
+              <div style="width:56px;height:56px;border-radius:50%;background:{{ row.color }};display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:19px;color:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.1);flex:none;">{{ row.initials }}</div>
+              <div style="min-width:0;">
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <span style="font-family:'Bricolage Grotesque';font-weight:700;font-size:26px;color:#fceeec;">{{ row.name }}</span>
+                  <sc-if value="{{ row.champ }}" hint-placeholder-val="{{ true }}"><span style="font-family:'Manrope';font-weight:800;font-size:11px;letter-spacing:.12em;color:#f3a59c;background:rgba(240,138,127,.16);padding:4px 9px;border-radius:999px;">CHAMPION</span></sc-if>
+                </div>
+                <div style="font-family:'Manrope';font-weight:500;font-size:15px;color:#cf9f9a;margin-top:3px;">{{ row.record }} &middot; {{ row.playedLabel }}</div>
+              </div>
+              <div style="flex:1;"></div>
+              <div style="width:250px;display:flex;align-items:center;gap:16px;">
+                <div style="flex:1;height:12px;border-radius:999px;background:rgba(255,255,255,.09);overflow:hidden;"><div style="{{ row.fillStyle }}"></div></div>
+                <div style="width:74px;text-align:right;font-family:'Bricolage Grotesque';font-weight:800;font-size:28px;color:#fceeec;">{{ row.rateLabel }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <!-- per-game leaders -->
+        <div style="display:flex;gap:22px;">
+          <div style="flex:1;background:#4a1822;border:1px solid rgba(255,255,255,.06);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:13px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div style="width:58px;height:58px;border-radius:16px;background:rgba(240,138,127,.14);display:flex;align-items:center;justify-content:center;"><div style="width:30px;height:30px;background:#f08a7f;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);"></div></div>
+              <span style="font-family:'Manrope';font-weight:600;font-size:14px;color:#cf9f9a;">84 nights</span>
+            </div>
+            <div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:23px;color:#fceeec;line-height:1.1;">Settlers of Catan</div>
+            <div style="flex:1;"></div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:38px;height:38px;border-radius:50%;background:#b07be0;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:14px;color:#fff;">EL</div>
+              <span style="font-family:'Manrope';font-weight:700;font-size:19px;color:#fceeec;">Ellie</span>
+              <div style="flex:1;"></div>
+              <span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:28px;color:#f08a7f;">70%</span>
+            </div>
+            <div style="height:9px;border-radius:999px;background:rgba(255,255,255,.09);overflow:hidden;"><div style="width:70%;height:100%;background:#b07be0;border-radius:999px;"></div></div>
+            <div style="font-family:'Manrope';font-weight:500;font-size:14px;color:#cf9f9a;">Dad 58 &middot; Ollie 50 &middot; Mom 45</div>
+          </div>
+          <div style="flex:1;background:#4a1822;border:1px solid rgba(255,255,255,.06);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:13px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div style="width:58px;height:58px;border-radius:16px;background:rgba(240,138,127,.14);display:flex;align-items:center;justify-content:center;"><div style="position:relative;width:38px;height:18px;"><div style="position:absolute;top:7px;left:2px;right:2px;height:4px;border-radius:2px;background:#f08a7f;"></div><div style="position:absolute;top:4px;left:0;width:11px;height:11px;border-radius:50%;background:#f3a59c;"></div><div style="position:absolute;top:4px;right:0;width:11px;height:11px;border-radius:50%;background:#f3a59c;"></div></div></div>
+              <span style="font-family:'Manrope';font-weight:600;font-size:14px;color:#cf9f9a;">71 nights</span>
+            </div>
+            <div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:23px;color:#fceeec;line-height:1.1;">Ticket to Ride</div>
+            <div style="flex:1;"></div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:38px;height:38px;border-radius:50%;background:#4fb0c2;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:14px;color:#fff;">DA</div>
+              <span style="font-family:'Manrope';font-weight:700;font-size:19px;color:#fceeec;">Dad</span>
+              <div style="flex:1;"></div>
+              <span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:28px;color:#f08a7f;">66%</span>
+            </div>
+            <div style="height:9px;border-radius:999px;background:rgba(255,255,255,.09);overflow:hidden;"><div style="width:66%;height:100%;background:#4fb0c2;border-radius:999px;"></div></div>
+            <div style="font-family:'Manrope';font-weight:500;font-size:14px;color:#cf9f9a;">Ellie 60 &middot; Mom 52 &middot; Ollie 38</div>
+          </div>
+          <div style="flex:1;background:#4a1822;border:1px solid rgba(255,255,255,.06);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:13px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div style="width:58px;height:58px;border-radius:16px;background:rgba(240,138,127,.14);display:flex;align-items:center;justify-content:center;"><div style="position:relative;width:34px;height:30px;"><div style="position:absolute;left:1px;top:2px;width:19px;height:26px;border-radius:4px;background:#f3a59c;transform:rotate(-13deg);"></div><div style="position:absolute;right:1px;top:2px;width:19px;height:26px;border-radius:4px;background:#f08a7f;transform:rotate(13deg);"></div></div></div>
+              <span style="font-family:'Manrope';font-weight:600;font-size:14px;color:#cf9f9a;">63 nights</span>
+            </div>
+            <div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:23px;color:#fceeec;line-height:1.1;">Hand &amp; Foot</div>
+            <div style="flex:1;"></div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:38px;height:38px;border-radius:50%;background:#e8728f;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:14px;color:#fff;">MO</div>
+              <span style="font-family:'Manrope';font-weight:700;font-size:19px;color:#fceeec;">Mom</span>
+              <div style="flex:1;"></div>
+              <span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:28px;color:#f08a7f;">74%</span>
+            </div>
+            <div style="height:9px;border-radius:999px;background:rgba(255,255,255,.09);overflow:hidden;"><div style="width:74%;height:100%;background:#e8728f;border-radius:999px;"></div></div>
+            <div style="font-family:'Manrope';font-weight:500;font-size:14px;color:#cf9f9a;">Dad 62 &middot; Ellie 55 &middot; Ollie 48</div>
+          </div>
+        </div>
+
+        <!-- bottom: recent + side -->
+        <div style="display:flex;gap:24px;flex:1;min-height:0;">
+          <div style="flex:1;background:#4a1822;border:1px solid rgba(255,255,255,.06);border-radius:28px;padding:28px 34px;display:flex;flex-direction:column;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:28px;color:#fceeec;">Recent Game Nights</div>
+              <div style="font-family:'Manrope';font-weight:700;font-size:14px;letter-spacing:.08em;color:#cf9f9a;">LAST 5</div>
+            </div>
+            <sc-for list="{{ results }}" as="row" hint-placeholder-count="5">
+              <div style="display:flex;align-items:center;gap:16px;padding:14px 2px;border-bottom:1px solid rgba(255,255,255,.07);">
+                <div style="width:108px;font-family:'Manrope';font-weight:600;font-size:15px;color:#cf9f9a;flex:none;">{{ row.when }}</div>
+                <div style="flex:1;min-width:0;font-family:'Bricolage Grotesque';font-weight:700;font-size:21px;color:#fceeec;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ row.game }}</div>
+                <div style="display:flex;align-items:center;gap:10px;flex:none;">
+                  <div style="width:36px;height:36px;border-radius:50%;background:{{ row.wColor }};display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:13px;color:#fff;">{{ row.wInit }}</div>
+                  <span style="font-family:'Manrope';font-weight:700;font-size:18px;color:#fceeec;">{{ row.winner }}</span>
+                  <span style="font-family:'Manrope';font-weight:800;font-size:11px;letter-spacing:.1em;color:#f08a7f;">WON</span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="width:374px;flex:none;display:flex;flex-direction:column;gap:24px;">
+            <div style="background:#4a1822;border:1px solid rgba(255,255,255,.06);border-radius:28px;padding:26px 28px;">
+              <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:24px;color:#fceeec;margin-bottom:18px;">Most Played</div>
+              <div style="display:flex;flex-direction:column;gap:16px;">
+                <div><div style="display:flex;justify-content:space-between;margin-bottom:7px;"><span style="font-family:'Manrope';font-weight:700;font-size:18px;color:#fceeec;">Catan</span><span style="font-family:'Manrope';font-weight:600;font-size:15px;color:#cf9f9a;">84</span></div><div style="height:10px;border-radius:999px;background:rgba(255,255,255,.09);overflow:hidden;"><div style="width:100%;height:100%;background:#f08a7f;border-radius:999px;"></div></div></div>
+                <div><div style="display:flex;justify-content:space-between;margin-bottom:7px;"><span style="font-family:'Manrope';font-weight:700;font-size:18px;color:#fceeec;">Ticket to Ride</span><span style="font-family:'Manrope';font-weight:600;font-size:15px;color:#cf9f9a;">71</span></div><div style="height:10px;border-radius:999px;background:rgba(255,255,255,.09);overflow:hidden;"><div style="width:85%;height:100%;background:#f08a7f;border-radius:999px;"></div></div></div>
+                <div><div style="display:flex;justify-content:space-between;margin-bottom:7px;"><span style="font-family:'Manrope';font-weight:700;font-size:18px;color:#fceeec;">Hand &amp; Foot</span><span style="font-family:'Manrope';font-weight:600;font-size:15px;color:#cf9f9a;">63</span></div><div style="height:10px;border-radius:999px;background:rgba(255,255,255,.09);overflow:hidden;"><div style="width:75%;height:100%;background:#f08a7f;border-radius:999px;"></div></div></div>
+              </div>
+            </div>
+            <div style="background:#4a1822;border:1px solid rgba(255,255,255,.06);border-radius:28px;padding:26px 28px;flex:1;">
+              <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:24px;color:#fceeec;margin-bottom:18px;">Top Rivalries</div>
+              <div style="display:flex;flex-direction:column;gap:22px;">
+                <div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;">
+                    <div style="display:flex;align-items:center;gap:9px;"><div style="width:34px;height:34px;border-radius:50%;background:#e8728f;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:12px;color:#fff;">MO</div><span style="font-family:'Manrope';font-weight:700;font-size:17px;color:#fceeec;">Mom</span></div>
+                    <span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:19px;color:#fceeec;">23&ndash;19</span>
+                    <div style="display:flex;align-items:center;gap:9px;"><span style="font-family:'Manrope';font-weight:700;font-size:17px;color:#fceeec;">Dad</span><div style="width:34px;height:34px;border-radius:50%;background:#4fb0c2;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:12px;color:#fff;">DA</div></div>
+                  </div>
+                  <div style="display:flex;height:10px;border-radius:999px;overflow:hidden;"><div style="width:55%;background:#e8728f;"></div><div style="flex:1;background:#4fb0c2;"></div></div>
+                </div>
+                <div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;">
+                    <div style="display:flex;align-items:center;gap:9px;"><div style="width:34px;height:34px;border-radius:50%;background:#b07be0;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:12px;color:#fff;">EL</div><span style="font-family:'Manrope';font-weight:700;font-size:17px;color:#fceeec;">Ellie</span></div>
+                    <span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:19px;color:#fceeec;">18&ndash;11</span>
+                    <div style="display:flex;align-items:center;gap:9px;"><span style="font-family:'Manrope';font-weight:700;font-size:17px;color:#fceeec;">Ollie</span><div style="width:34px;height:34px;border-radius:50%;background:#e0a84e;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:12px;color:#fff;">OL</div></div>
+                  </div>
+                  <div style="display:flex;height:10px;border-radius:999px;overflow:hidden;"><div style="width:62%;background:#b07be0;"></div><div style="flex:1;background:#e0a84e;"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ============================ DIRECTION 2 — FOREST & BRASS ============================ -->
+    <div style="flex:none;width:1080px;">
+      <div style="font-family:'Manrope';font-weight:700;font-size:15px;letter-spacing:.05em;color:#5d4a45;margin-bottom:16px;">DIRECTION 2 &middot; FOREST &amp; BRASS <span style="font-weight:500;color:#9a8b84;">&mdash; cozy game-night tavern</span></div>
+      <div style="width:1080px;height:1920px;border-radius:6px;overflow:hidden;box-shadow:0 30px 80px -24px rgba(0,0,0,.4);background:linear-gradient(168deg,#15251c 0%,#0f1a13 60%,#0b140e 100%);display:flex;flex-direction:column;gap:24px;padding:44px;">
+
+        <!-- header -->
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div style="display:flex;align-items:center;gap:18px;">
+            <div style="width:60px;height:60px;border-radius:17px;background:#e0b15c;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px -6px rgba(224,177,92,.5);">
+              <div style="width:22px;height:22px;background:#15251c;transform:rotate(45deg);border-radius:5px;"></div>
+            </div>
+            <div>
+              <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:33px;color:#f1ede0;line-height:1;white-space:nowrap;">THE HOUSE CUP</div>
+              <div style="font-family:'Manrope';font-weight:500;font-size:16px;color:#a6b8ac;margin-top:5px;">Family Game Night &middot; Standings</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;">
+            <div style="font-family:'Manrope';font-weight:600;font-size:17px;color:#a6b8ac;">Sat &middot; Jun 20</div>
+            <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(224,177,92,.18);padding:9px 15px;border-radius:999px;">
+              <div style="width:9px;height:9px;border-radius:50%;background:#e0b15c;"></div>
+              <span style="font-family:'Manrope';font-weight:800;font-size:13px;letter-spacing:.12em;color:#e8c887;">SEASON 3</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- hero: centered banner -->
+        <div style="position:relative;height:380px;border-radius:30px;overflow:hidden;background:linear-gradient(160deg,#326044 0%,#1d3c2a 58%,#122019 100%);box-shadow:0 24px 60px -22px rgba(0,0,0,.6);border:1px solid rgba(224,177,92,.22);">
+          <div style="position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:440px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(224,177,92,.4),transparent 68%);"></div>
+          <div style="position:relative;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#f1ede0;padding:28px;">
+            <div style="display:inline-flex;align-items:center;gap:10px;background:rgba(224,177,92,.18);padding:8px 16px;border-radius:999px;">
+              <div style="width:11px;height:11px;background:#e0b15c;transform:rotate(45deg);border-radius:2px;"></div>
+              <span style="font-family:'Manrope';font-weight:800;font-size:13px;letter-spacing:.16em;color:#e8c887;">REIGNING CHAMPION</span>
+            </div>
+            <div style="width:124px;height:124px;border-radius:50%;background:#b07be0;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:44px;color:#fff;margin:16px 0 12px;box-shadow:0 0 0 6px rgba(224,177,92,.35),0 16px 40px -12px rgba(0,0,0,.5);">EL</div>
+            <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:70px;line-height:.92;">Ellie</div>
+            <div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:29px;color:#e8c887;margin-top:8px;">72% win rate <span style="font-family:'Manrope';font-weight:500;font-size:21px;color:rgba(241,237,224,.6);">&middot; 39&ndash;15</span></div>
+            <div style="display:flex;gap:12px;margin-top:18px;">
+              <span style="background:rgba(255,255,255,.08);padding:9px 16px;border-radius:999px;font-family:'Manrope';font-weight:600;font-size:16px;color:#cdddcf;">54 nights played</span>
+              <span style="background:rgba(255,255,255,.08);padding:9px 16px;border-radius:999px;font-family:'Manrope';font-weight:600;font-size:16px;color:#cdddcf;">5-night streak</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- overall standings -->
+        <div style="background:#1a2c22;border:1px solid rgba(255,255,255,.06);border-radius:28px;padding:28px 34px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+            <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:30px;color:#f1ede0;">Overall Standings</div>
+            <div style="font-family:'Manrope';font-weight:700;font-size:14px;letter-spacing:.12em;color:#a6b8ac;">WIN RATE</div>
+          </div>
+          <sc-for list="{{ overall }}" as="row" hint-placeholder-count="4">
+            <div style="display:flex;align-items:center;gap:18px;padding:15px 2px;border-bottom:1px solid rgba(255,255,255,.07);">
+              <div style="width:30px;font-family:'Bricolage Grotesque';font-weight:800;font-size:28px;color:#e0b15c;text-align:center;">{{ row.rank }}</div>
+              <div style="width:56px;height:56px;border-radius:50%;background:{{ row.color }};display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:19px;color:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.1);flex:none;">{{ row.initials }}</div>
+              <div style="min-width:0;">
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <span style="font-family:'Bricolage Grotesque';font-weight:700;font-size:26px;color:#f1ede0;">{{ row.name }}</span>
+                  <sc-if value="{{ row.champ }}" hint-placeholder-val="{{ true }}"><span style="font-family:'Manrope';font-weight:800;font-size:11px;letter-spacing:.12em;color:#e8c887;background:rgba(224,177,92,.18);padding:4px 9px;border-radius:999px;">CHAMPION</span></sc-if>
+                </div>
+                <div style="font-family:'Manrope';font-weight:500;font-size:15px;color:#a6b8ac;margin-top:3px;">{{ row.record }} &middot; {{ row.playedLabel }}</div>
+              </div>
+              <div style="flex:1;"></div>
+              <div style="width:250px;display:flex;align-items:center;gap:16px;">
+                <div style="flex:1;height:12px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;"><div style="{{ row.fillStyle }}"></div></div>
+                <div style="width:74px;text-align:right;font-family:'Bricolage Grotesque';font-weight:800;font-size:28px;color:#f1ede0;">{{ row.rateLabel }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <!-- per-game leaders -->
+        <div style="display:flex;gap:22px;">
+          <div style="flex:1;background:#1a2c22;border:1px solid rgba(255,255,255,.06);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:13px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div style="width:58px;height:58px;border-radius:16px;background:rgba(224,177,92,.14);display:flex;align-items:center;justify-content:center;"><div style="width:30px;height:30px;background:#e0b15c;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);"></div></div>
+              <span style="font-family:'Manrope';font-weight:600;font-size:14px;color:#a6b8ac;">84 nights</span>
+            </div>
+            <div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:23px;color:#f1ede0;line-height:1.1;">Settlers of Catan</div>
+            <div style="flex:1;"></div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:38px;height:38px;border-radius:50%;background:#b07be0;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:14px;color:#fff;">EL</div>
+              <span style="font-family:'Manrope';font-weight:700;font-size:19px;color:#f1ede0;">Ellie</span>
+              <div style="flex:1;"></div>
+              <span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:28px;color:#e0b15c;">70%</span>
+            </div>
+            <div style="height:9px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;"><div style="width:70%;height:100%;background:#b07be0;border-radius:999px;"></div></div>
+            <div style="font-family:'Manrope';font-weight:500;font-size:14px;color:#a6b8ac;">Dad 58 &middot; Ollie 50 &middot; Mom 45</div>
+          </div>
+          <div style="flex:1;background:#1a2c22;border:1px solid rgba(255,255,255,.06);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:13px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div style="width:58px;height:58px;border-radius:16px;background:rgba(224,177,92,.14);display:flex;align-items:center;justify-content:center;"><div style="position:relative;width:38px;height:18px;"><div style="position:absolute;top:7px;left:2px;right:2px;height:4px;border-radius:2px;background:#e0b15c;"></div><div style="position:absolute;top:4px;left:0;width:11px;height:11px;border-radius:50%;background:#e8c887;"></div><div style="position:absolute;top:4px;right:0;width:11px;height:11px;border-radius:50%;background:#e8c887;"></div></div></div>
+              <span style="font-family:'Manrope';font-weight:600;font-size:14px;color:#a6b8ac;">71 nights</span>
+            </div>
+            <div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:23px;color:#f1ede0;line-height:1.1;">Ticket to Ride</div>
+            <div style="flex:1;"></div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:38px;height:38px;border-radius:50%;background:#4fb0c2;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:14px;color:#fff;">DA</div>
+              <span style="font-family:'Manrope';font-weight:700;font-size:19px;color:#f1ede0;">Dad</span>
+              <div style="flex:1;"></div>
+              <span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:28px;color:#e0b15c;">66%</span>
+            </div>
+            <div style="height:9px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;"><div style="width:66%;height:100%;background:#4fb0c2;border-radius:999px;"></div></div>
+            <div style="font-family:'Manrope';font-weight:500;font-size:14px;color:#a6b8ac;">Ellie 60 &middot; Mom 52 &middot; Ollie 38</div>
+          </div>
+          <div style="flex:1;background:#1a2c22;border:1px solid rgba(255,255,255,.06);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:13px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div style="width:58px;height:58px;border-radius:16px;background:rgba(224,177,92,.14);display:flex;align-items:center;justify-content:center;"><div style="position:relative;width:34px;height:30px;"><div style="position:absolute;left:1px;top:2px;width:19px;height:26px;border-radius:4px;background:#e8c887;transform:rotate(-13deg);"></div><div style="position:absolute;right:1px;top:2px;width:19px;height:26px;border-radius:4px;background:#e0b15c;transform:rotate(13deg);"></div></div></div>
+              <span style="font-family:'Manrope';font-weight:600;font-size:14px;color:#a6b8ac;">63 nights</span>
+            </div>
+            <div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:23px;color:#f1ede0;line-height:1.1;">Hand &amp; Foot</div>
+            <div style="flex:1;"></div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:38px;height:38px;border-radius:50%;background:#e8728f;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:14px;color:#fff;">MO</div>
+              <span style="font-family:'Manrope';font-weight:700;font-size:19px;color:#f1ede0;">Mom</span>
+              <div style="flex:1;"></div>
+              <span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:28px;color:#e0b15c;">74%</span>
+            </div>
+            <div style="height:9px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;"><div style="width:74%;height:100%;background:#e8728f;border-radius:999px;"></div></div>
+            <div style="font-family:'Manrope';font-weight:500;font-size:14px;color:#a6b8ac;">Dad 62 &middot; Ellie 55 &middot; Ollie 48</div>
+          </div>
+        </div>
+
+        <!-- bottom -->
+        <div style="display:flex;gap:24px;flex:1;min-height:0;">
+          <div style="flex:1;background:#1a2c22;border:1px solid rgba(255,255,255,.06);border-radius:28px;padding:28px 34px;display:flex;flex-direction:column;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:28px;color:#f1ede0;">Recent Game Nights</div>
+              <div style="font-family:'Manrope';font-weight:700;font-size:14px;letter-spacing:.08em;color:#a6b8ac;">LAST 5</div>
+            </div>
+            <sc-for list="{{ results }}" as="row" hint-placeholder-count="5">
+              <div style="display:flex;align-items:center;gap:16px;padding:14px 2px;border-bottom:1px solid rgba(255,255,255,.07);">
+                <div style="width:108px;font-family:'Manrope';font-weight:600;font-size:15px;color:#a6b8ac;flex:none;">{{ row.when }}</div>
+                <div style="flex:1;min-width:0;font-family:'Bricolage Grotesque';font-weight:700;font-size:21px;color:#f1ede0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ row.game }}</div>
+                <div style="display:flex;align-items:center;gap:10px;flex:none;">
+                  <div style="width:36px;height:36px;border-radius:50%;background:{{ row.wColor }};display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:13px;color:#fff;">{{ row.wInit }}</div>
+                  <span style="font-family:'Manrope';font-weight:700;font-size:18px;color:#f1ede0;">{{ row.winner }}</span>
+                  <span style="font-family:'Manrope';font-weight:800;font-size:11px;letter-spacing:.1em;color:#e0b15c;">WON</span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="width:374px;flex:none;display:flex;flex-direction:column;gap:24px;">
+            <div style="background:#1a2c22;border:1px solid rgba(255,255,255,.06);border-radius:28px;padding:26px 28px;">
+              <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:24px;color:#f1ede0;margin-bottom:18px;">Most Played</div>
+              <div style="display:flex;flex-direction:column;gap:16px;">
+                <div><div style="display:flex;justify-content:space-between;margin-bottom:7px;"><span style="font-family:'Manrope';font-weight:700;font-size:18px;color:#f1ede0;">Catan</span><span style="font-family:'Manrope';font-weight:600;font-size:15px;color:#a6b8ac;">84</span></div><div style="height:10px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;"><div style="width:100%;height:100%;background:#e0b15c;border-radius:999px;"></div></div></div>
+                <div><div style="display:flex;justify-content:space-between;margin-bottom:7px;"><span style="font-family:'Manrope';font-weight:700;font-size:18px;color:#f1ede0;">Ticket to Ride</span><span style="font-family:'Manrope';font-weight:600;font-size:15px;color:#a6b8ac;">71</span></div><div style="height:10px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;"><div style="width:85%;height:100%;background:#e0b15c;border-radius:999px;"></div></div></div>
+                <div><div style="display:flex;justify-content:space-between;margin-bottom:7px;"><span style="font-family:'Manrope';font-weight:700;font-size:18px;color:#f1ede0;">Hand &amp; Foot</span><span style="font-family:'Manrope';font-weight:600;font-size:15px;color:#a6b8ac;">63</span></div><div style="height:10px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;"><div style="width:75%;height:100%;background:#e0b15c;border-radius:999px;"></div></div></div>
+              </div>
+            </div>
+            <div style="background:#1a2c22;border:1px solid rgba(255,255,255,.06);border-radius:28px;padding:26px 28px;flex:1;">
+              <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:24px;color:#f1ede0;margin-bottom:18px;">Top Rivalries</div>
+              <div style="display:flex;flex-direction:column;gap:22px;">
+                <div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;">
+                    <div style="display:flex;align-items:center;gap:9px;"><div style="width:34px;height:34px;border-radius:50%;background:#e8728f;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:12px;color:#fff;">MO</div><span style="font-family:'Manrope';font-weight:700;font-size:17px;color:#f1ede0;">Mom</span></div>
+                    <span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:19px;color:#f1ede0;">23&ndash;19</span>
+                    <div style="display:flex;align-items:center;gap:9px;"><span style="font-family:'Manrope';font-weight:700;font-size:17px;color:#f1ede0;">Dad</span><div style="width:34px;height:34px;border-radius:50%;background:#4fb0c2;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:12px;color:#fff;">DA</div></div>
+                  </div>
+                  <div style="display:flex;height:10px;border-radius:999px;overflow:hidden;"><div style="width:55%;background:#e8728f;"></div><div style="flex:1;background:#4fb0c2;"></div></div>
+                </div>
+                <div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;">
+                    <div style="display:flex;align-items:center;gap:9px;"><div style="width:34px;height:34px;border-radius:50%;background:#b07be0;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:12px;color:#fff;">EL</div><span style="font-family:'Manrope';font-weight:700;font-size:17px;color:#f1ede0;">Ellie</span></div>
+                    <span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:19px;color:#f1ede0;">18&ndash;11</span>
+                    <div style="display:flex;align-items:center;gap:9px;"><span style="font-family:'Manrope';font-weight:700;font-size:17px;color:#f1ede0;">Ollie</span><div style="width:34px;height:34px;border-radius:50%;background:#e0a84e;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:12px;color:#fff;">OL</div></div>
+                  </div>
+                  <div style="display:flex;height:10px;border-radius:999px;overflow:hidden;"><div style="width:62%;background:#b07be0;"></div><div style="flex:1;background:#e0a84e;"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ============================ DIRECTION 3 — MIDNIGHT & AMBER ============================ -->
+    <div style="flex:none;width:1080px;">
+      <div style="font-family:'Manrope';font-weight:700;font-size:15px;letter-spacing:.05em;color:#5d4a45;margin-bottom:16px;">DIRECTION 3 &middot; MIDNIGHT &amp; AMBER <span style="font-weight:500;color:#9a8b84;">&mdash; sleek, data-forward</span></div>
+      <div style="width:1080px;height:1920px;border-radius:6px;overflow:hidden;box-shadow:0 30px 80px -24px rgba(0,0,0,.4);background:linear-gradient(168deg,#171533 0%,#100e26 60%,#0c0a1e 100%);display:flex;flex-direction:column;gap:24px;padding:44px;">
+
+        <!-- header -->
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div style="display:flex;align-items:center;gap:18px;">
+            <div style="width:60px;height:60px;border-radius:17px;background:#f5b352;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px -6px rgba(245,179,82,.5);">
+              <div style="width:22px;height:22px;background:#171533;transform:rotate(45deg);border-radius:5px;"></div>
+            </div>
+            <div>
+              <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:33px;color:#efeefb;line-height:1;white-space:nowrap;">THE HOUSE CUP</div>
+              <div style="font-family:'Manrope';font-weight:500;font-size:16px;color:#a3a1cc;margin-top:5px;">Family Game Night &middot; Standings</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;">
+            <div style="font-family:'Manrope';font-weight:600;font-size:17px;color:#a3a1cc;">Sat &middot; Jun 20</div>
+            <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(245,179,82,.16);padding:9px 15px;border-radius:999px;">
+              <div style="width:9px;height:9px;border-radius:50%;background:#f5b352;"></div>
+              <span style="font-family:'Manrope';font-weight:800;font-size:13px;letter-spacing:.12em;color:#f7c47a;">SEASON 3</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- hero: conic ring left -->
+        <div style="position:relative;height:380px;border-radius:30px;overflow:hidden;background:linear-gradient(135deg,#3a2f6b 0%,#221c4a 58%,#14122e 100%);box-shadow:0 24px 60px -22px rgba(0,0,0,.6);border:1px solid rgba(245,179,82,.2);">
+          <div style="position:absolute;top:-70px;right:-50px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(141,139,240,.45),transparent 70%);"></div>
+          <div style="position:absolute;bottom:-110px;left:120px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(245,179,82,.35),transparent 70%);"></div>
+          <div style="position:relative;height:100%;padding:38px 46px;display:flex;align-items:center;gap:44px;color:#efeefb;">
+            <div style="flex:none;width:216px;height:216px;border-radius:50%;background:conic-gradient(#f5b352 0% 72%, rgba(255,255,255,.12) 72% 100%);display:flex;align-items:center;justify-content:center;box-shadow:0 16px 40px -14px rgba(0,0,0,.55);">
+              <div style="width:172px;height:172px;border-radius:50%;background:#1b1740;display:flex;align-items:center;justify-content:center;">
+                <div style="width:140px;height:140px;border-radius:50%;background:#b07be0;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:50px;color:#fff;">EL</div>
+              </div>
+            </div>
+            <div style="flex:1;min-width:0;">
+              <div style="display:inline-flex;align-items:center;gap:10px;background:rgba(245,179,82,.18);padding:9px 16px;border-radius:999px;">
+                <div style="width:12px;height:12px;background:#f5b352;transform:rotate(45deg);border-radius:2px;"></div>
+                <span style="font-family:'Manrope';font-weight:800;font-size:14px;letter-spacing:.16em;color:#f7c47a;">REIGNING CHAMPION</span>
+              </div>
+              <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:84px;line-height:.92;margin:16px 0 8px;">Ellie</div>
+              <div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:32px;color:#f7c47a;">72% win rate <span style="font-family:'Manrope';font-weight:500;font-size:23px;color:rgba(239,238,251,.55);">&middot; 39&ndash;15</span></div>
+              <div style="font-family:'Manrope';font-weight:500;font-size:19px;color:rgba(239,238,251,.7);margin-top:14px;">Holds the crown since April &middot; 5-night win streak</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- overall standings -->
+        <div style="background:#201d40;border:1px solid rgba(255,255,255,.06);border-radius:28px;padding:28px 34px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+            <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:30px;color:#efeefb;">Overall Standings</div>
+            <div style="font-family:'Manrope';font-weight:700;font-size:14px;letter-spacing:.12em;color:#a3a1cc;">WIN RATE</div>
+          </div>
+          <sc-for list="{{ overall }}" as="row" hint-placeholder-count="4">
+            <div style="display:flex;align-items:center;gap:18px;padding:15px 2px;border-bottom:1px solid rgba(255,255,255,.07);">
+              <div style="width:30px;font-family:'Bricolage Grotesque';font-weight:800;font-size:28px;color:#f5b352;text-align:center;">{{ row.rank }}</div>
+              <div style="width:56px;height:56px;border-radius:50%;background:{{ row.color }};display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:19px;color:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.1);flex:none;">{{ row.initials }}</div>
+              <div style="min-width:0;">
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <span style="font-family:'Bricolage Grotesque';font-weight:700;font-size:26px;color:#efeefb;">{{ row.name }}</span>
+                  <sc-if value="{{ row.champ }}" hint-placeholder-val="{{ true }}"><span style="font-family:'Manrope';font-weight:800;font-size:11px;letter-spacing:.12em;color:#f7c47a;background:rgba(245,179,82,.16);padding:4px 9px;border-radius:999px;">CHAMPION</span></sc-if>
+                </div>
+                <div style="font-family:'Manrope';font-weight:500;font-size:15px;color:#a3a1cc;margin-top:3px;">{{ row.record }} &middot; {{ row.playedLabel }}</div>
+              </div>
+              <div style="flex:1;"></div>
+              <div style="width:250px;display:flex;align-items:center;gap:16px;">
+                <div style="flex:1;height:12px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden;"><div style="{{ row.fillStyle }}"></div></div>
+                <div style="width:74px;text-align:right;font-family:'Bricolage Grotesque';font-weight:800;font-size:28px;color:#efeefb;">{{ row.rateLabel }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <!-- per-game leaders -->
+        <div style="display:flex;gap:22px;">
+          <div style="flex:1;background:#201d40;border:1px solid rgba(255,255,255,.06);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:13px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div style="width:58px;height:58px;border-radius:16px;background:rgba(245,179,82,.14);display:flex;align-items:center;justify-content:center;"><div style="width:30px;height:30px;background:#f5b352;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);"></div></div>
+              <span style="font-family:'Manrope';font-weight:600;font-size:14px;color:#a3a1cc;">84 nights</span>
+            </div>
+            <div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:23px;color:#efeefb;line-height:1.1;">Settlers of Catan</div>
+            <div style="flex:1;"></div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:38px;height:38px;border-radius:50%;background:#b07be0;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:14px;color:#fff;">EL</div>
+              <span style="font-family:'Manrope';font-weight:700;font-size:19px;color:#efeefb;">Ellie</span>
+              <div style="flex:1;"></div>
+              <span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:28px;color:#f5b352;">70%</span>
+            </div>
+            <div style="height:9px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden;"><div style="width:70%;height:100%;background:#b07be0;border-radius:999px;"></div></div>
+            <div style="font-family:'Manrope';font-weight:500;font-size:14px;color:#a3a1cc;">Dad 58 &middot; Ollie 50 &middot; Mom 45</div>
+          </div>
+          <div style="flex:1;background:#201d40;border:1px solid rgba(255,255,255,.06);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:13px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div style="width:58px;height:58px;border-radius:16px;background:rgba(245,179,82,.14);display:flex;align-items:center;justify-content:center;"><div style="position:relative;width:38px;height:18px;"><div style="position:absolute;top:7px;left:2px;right:2px;height:4px;border-radius:2px;background:#f5b352;"></div><div style="position:absolute;top:4px;left:0;width:11px;height:11px;border-radius:50%;background:#f7c47a;"></div><div style="position:absolute;top:4px;right:0;width:11px;height:11px;border-radius:50%;background:#f7c47a;"></div></div></div>
+              <span style="font-family:'Manrope';font-weight:600;font-size:14px;color:#a3a1cc;">71 nights</span>
+            </div>
+            <div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:23px;color:#efeefb;line-height:1.1;">Ticket to Ride</div>
+            <div style="flex:1;"></div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:38px;height:38px;border-radius:50%;background:#4fb0c2;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:14px;color:#fff;">DA</div>
+              <span style="font-family:'Manrope';font-weight:700;font-size:19px;color:#efeefb;">Dad</span>
+              <div style="flex:1;"></div>
+              <span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:28px;color:#f5b352;">66%</span>
+            </div>
+            <div style="height:9px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden;"><div style="width:66%;height:100%;background:#4fb0c2;border-radius:999px;"></div></div>
+            <div style="font-family:'Manrope';font-weight:500;font-size:14px;color:#a3a1cc;">Ellie 60 &middot; Mom 52 &middot; Ollie 38</div>
+          </div>
+          <div style="flex:1;background:#201d40;border:1px solid rgba(255,255,255,.06);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:13px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div style="width:58px;height:58px;border-radius:16px;background:rgba(245,179,82,.14);display:flex;align-items:center;justify-content:center;"><div style="position:relative;width:34px;height:30px;"><div style="position:absolute;left:1px;top:2px;width:19px;height:26px;border-radius:4px;background:#f7c47a;transform:rotate(-13deg);"></div><div style="position:absolute;right:1px;top:2px;width:19px;height:26px;border-radius:4px;background:#f5b352;transform:rotate(13deg);"></div></div></div>
+              <span style="font-family:'Manrope';font-weight:600;font-size:14px;color:#a3a1cc;">63 nights</span>
+            </div>
+            <div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:23px;color:#efeefb;line-height:1.1;">Hand &amp; Foot</div>
+            <div style="flex:1;"></div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:38px;height:38px;border-radius:50%;background:#e8728f;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:14px;color:#fff;">MO</div>
+              <span style="font-family:'Manrope';font-weight:700;font-size:19px;color:#efeefb;">Mom</span>
+              <div style="flex:1;"></div>
+              <span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:28px;color:#f5b352;">74%</span>
+            </div>
+            <div style="height:9px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden;"><div style="width:74%;height:100%;background:#e8728f;border-radius:999px;"></div></div>
+            <div style="font-family:'Manrope';font-weight:500;font-size:14px;color:#a3a1cc;">Dad 62 &middot; Ellie 55 &middot; Ollie 48</div>
+          </div>
+        </div>
+
+        <!-- bottom -->
+        <div style="display:flex;gap:24px;flex:1;min-height:0;">
+          <div style="flex:1;background:#201d40;border:1px solid rgba(255,255,255,.06);border-radius:28px;padding:28px 34px;display:flex;flex-direction:column;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:28px;color:#efeefb;">Recent Game Nights</div>
+              <div style="font-family:'Manrope';font-weight:700;font-size:14px;letter-spacing:.08em;color:#a3a1cc;">LAST 5</div>
+            </div>
+            <sc-for list="{{ results }}" as="row" hint-placeholder-count="5">
+              <div style="display:flex;align-items:center;gap:16px;padding:14px 2px;border-bottom:1px solid rgba(255,255,255,.07);">
+                <div style="width:108px;font-family:'Manrope';font-weight:600;font-size:15px;color:#a3a1cc;flex:none;">{{ row.when }}</div>
+                <div style="flex:1;min-width:0;font-family:'Bricolage Grotesque';font-weight:700;font-size:21px;color:#efeefb;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ row.game }}</div>
+                <div style="display:flex;align-items:center;gap:10px;flex:none;">
+                  <div style="width:36px;height:36px;border-radius:50%;background:{{ row.wColor }};display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:13px;color:#fff;">{{ row.wInit }}</div>
+                  <span style="font-family:'Manrope';font-weight:700;font-size:18px;color:#efeefb;">{{ row.winner }}</span>
+                  <span style="font-family:'Manrope';font-weight:800;font-size:11px;letter-spacing:.1em;color:#f5b352;">WON</span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="width:374px;flex:none;display:flex;flex-direction:column;gap:24px;">
+            <div style="background:#201d40;border:1px solid rgba(255,255,255,.06);border-radius:28px;padding:26px 28px;">
+              <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:24px;color:#efeefb;margin-bottom:18px;">Most Played</div>
+              <div style="display:flex;flex-direction:column;gap:16px;">
+                <div><div style="display:flex;justify-content:space-between;margin-bottom:7px;"><span style="font-family:'Manrope';font-weight:700;font-size:18px;color:#efeefb;">Catan</span><span style="font-family:'Manrope';font-weight:600;font-size:15px;color:#a3a1cc;">84</span></div><div style="height:10px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden;"><div style="width:100%;height:100%;background:#f5b352;border-radius:999px;"></div></div></div>
+                <div><div style="display:flex;justify-content:space-between;margin-bottom:7px;"><span style="font-family:'Manrope';font-weight:700;font-size:18px;color:#efeefb;">Ticket to Ride</span><span style="font-family:'Manrope';font-weight:600;font-size:15px;color:#a3a1cc;">71</span></div><div style="height:10px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden;"><div style="width:85%;height:100%;background:#f5b352;border-radius:999px;"></div></div></div>
+                <div><div style="display:flex;justify-content:space-between;margin-bottom:7px;"><span style="font-family:'Manrope';font-weight:700;font-size:18px;color:#efeefb;">Hand &amp; Foot</span><span style="font-family:'Manrope';font-weight:600;font-size:15px;color:#a3a1cc;">63</span></div><div style="height:10px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden;"><div style="width:75%;height:100%;background:#f5b352;border-radius:999px;"></div></div></div>
+              </div>
+            </div>
+            <div style="background:#201d40;border:1px solid rgba(255,255,255,.06);border-radius:28px;padding:26px 28px;flex:1;">
+              <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:24px;color:#efeefb;margin-bottom:18px;">Top Rivalries</div>
+              <div style="display:flex;flex-direction:column;gap:22px;">
+                <div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;">
+                    <div style="display:flex;align-items:center;gap:9px;"><div style="width:34px;height:34px;border-radius:50%;background:#e8728f;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:12px;color:#fff;">MO</div><span style="font-family:'Manrope';font-weight:700;font-size:17px;color:#efeefb;">Mom</span></div>
+                    <span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:19px;color:#efeefb;">23&ndash;19</span>
+                    <div style="display:flex;align-items:center;gap:9px;"><span style="font-family:'Manrope';font-weight:700;font-size:17px;color:#efeefb;">Dad</span><div style="width:34px;height:34px;border-radius:50%;background:#4fb0c2;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:12px;color:#fff;">DA</div></div>
+                  </div>
+                  <div style="display:flex;height:10px;border-radius:999px;overflow:hidden;"><div style="width:55%;background:#e8728f;"></div><div style="flex:1;background:#4fb0c2;"></div></div>
+                </div>
+                <div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;">
+                    <div style="display:flex;align-items:center;gap:9px;"><div style="width:34px;height:34px;border-radius:50%;background:#b07be0;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:12px;color:#fff;">EL</div><span style="font-family:'Manrope';font-weight:700;font-size:17px;color:#efeefb;">Ellie</span></div>
+                    <span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:19px;color:#efeefb;">18&ndash;11</span>
+                    <div style="display:flex;align-items:center;gap:9px;"><span style="font-family:'Manrope';font-weight:700;font-size:17px;color:#efeefb;">Ollie</span><div style="width:34px;height:34px;border-radius:50%;background:#e0a84e;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:12px;color:#fff;">OL</div></div>
+                  </div>
+                  <div style="display:flex;height:10px;border-radius:999px;overflow:hidden;"><div style="width:62%;background:#b07be0;"></div><div style="flex:1;background:#e0a84e;"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <template id="__bundler_thumbnail">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#3b141a"/><circle cx="50" cy="38" r="16" fill="#e8615a"/><rect x="28" y="62" width="44" height="7" rx="3.5" fill="#f0c869"/><rect x="28" y="74" width="32" height="6" rx="3" fill="#b07be0"/></svg>
+  </template>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const fill = (pct, color) => ({ width: pct + '%', height: '100%', borderRadius: '999px', background: color });
+    const overall = [
+      { rank: '1', name: 'Ellie', initials: 'EL', color: '#b07be0', champ: true,  record: '39\u201315', playedLabel: '54 nights', rateLabel: '72%', fillStyle: fill(72, '#b07be0') },
+      { rank: '2', name: 'Mom',   initials: 'MO', color: '#e8728f', champ: false, record: '48\u201322', playedLabel: '70 nights', rateLabel: '68%', fillStyle: fill(68, '#e8728f') },
+      { rank: '3', name: 'Dad',   initials: 'DA', color: '#4fb0c2', champ: false, record: '38\u201329', playedLabel: '67 nights', rateLabel: '57%', fillStyle: fill(57, '#4fb0c2') },
+      { rank: '4', name: 'Ollie', initials: 'OL', color: '#e0a84e', champ: false, record: '21\u201330', playedLabel: '51 nights', rateLabel: '41%', fillStyle: fill(41, '#e0a84e') },
+    ];
+    const results = [
+      { when: 'Tonight',      game: 'Settlers of Catan', winner: 'Ellie', wInit: 'EL', wColor: '#b07be0' },
+      { when: 'Thu \u00b7 Jun 18', game: 'Ticket to Ride', winner: 'Dad',   wInit: 'DA', wColor: '#4fb0c2' },
+      { when: 'Mon \u00b7 Jun 15', game: 'Hand & Foot',    winner: 'Mom',   wInit: 'MO', wColor: '#e8728f' },
+      { when: 'Sat \u00b7 Jun 13', game: 'Settlers of Catan', winner: 'Ellie', wInit: 'EL', wColor: '#b07be0' },
+      { when: 'Thu \u00b7 Jun 11', game: 'Hand & Foot',    winner: 'Mom',   wInit: 'MO', wColor: '#e8728f' },
+    ];
+    return { overall, results };
+  }
+}
+</script>
+</body>
+</html>

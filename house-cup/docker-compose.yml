@@ -1,0 +1,11 @@
+services:
+  house-cup:
+    build: .
+    image: house-cup:latest
+    container_name: house-cup
+    restart: unless-stopped
+    ports:
+      # host:container — change the host port if 3000 is taken on your box
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production

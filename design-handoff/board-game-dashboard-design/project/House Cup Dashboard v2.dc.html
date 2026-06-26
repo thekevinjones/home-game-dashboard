@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>*{box-sizing:border-box;}html,body{margin:0;}image-slot{display:block!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;}</style>
+</helmet>
+
+<div style="min-height:100vh;display:flex;justify-content:center;background:#e7e5df;padding:48px;font-family:'Manrope',system-ui,sans-serif;">
+  <div style="flex:none;width:1080px;">
+    <div style="font-family:'Manrope';font-weight:700;font-size:15px;letter-spacing:.05em;color:#5d4a45;margin-bottom:16px;">DIRECTION 3 &middot; MIDNIGHT &amp; AMBER <span style="font-weight:500;color:#9a8b84;">&mdash; imagery build &middot; drop photos &amp; box-art into the dashed slots</span></div>
+
+    <div style="width:1080px;height:1920px;border-radius:6px;overflow:hidden;box-shadow:0 30px 80px -24px rgba(0,0,0,.4);background:linear-gradient(168deg,#171533 0%,#100e26 60%,#0c0a1e 100%);display:flex;flex-direction:column;gap:24px;padding:44px;">
+
+      <!-- header -->
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:18px;">
+          <div style="width:60px;height:60px;border-radius:17px;background:#f5b352;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px -6px rgba(245,179,82,.5);">
+            <div style="width:22px;height:22px;background:#171533;transform:rotate(45deg);border-radius:5px;"></div>
+          </div>
+          <div>
+            <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:33px;color:#efeefb;line-height:1;white-space:nowrap;">THE HOUSE CUP</div>
+            <div style="font-family:'Manrope';font-weight:500;font-size:16px;color:#a3a1cc;margin-top:5px;">Family Game Night &middot; Standings</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div style="font-family:'Manrope';font-weight:600;font-size:17px;color:#a3a1cc;">Sat &middot; Jun 20</div>
+          <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(245,179,82,.16);padding:9px 15px;border-radius:999px;">
+            <div style="width:9px;height:9px;border-radius:50%;background:#f5b352;"></div>
+            <span style="font-family:'Manrope';font-weight:800;font-size:13px;letter-spacing:.12em;color:#f7c47a;">SEASON 3</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- hero: 50/50 photo + text, win-rate ring centered over the seam -->
+      <div style="position:relative;height:420px;border-radius:30px;overflow:hidden;background:linear-gradient(135deg,#3a2f6b 0%,#221c4a 58%,#14122e 100%);box-shadow:0 24px 60px -22px rgba(0,0,0,.6);border:1px solid rgba(245,179,82,.2);">
+        <!-- right: champion photo -->
+        <div style="position:absolute;top:0;right:0;bottom:0;width:50%;overflow:hidden;">
+          <img src="assets/ellie.png" alt="Ellie" style="width:100%;height:100%;object-fit:cover;object-position:50% 32%;" />
+          <div style="position:absolute;left:0;top:0;bottom:0;width:4px;background:#f5b352;"></div>
+          <div style="position:absolute;left:0;top:0;bottom:0;width:90px;background:linear-gradient(90deg,rgba(20,16,44,.55),transparent);"></div>
+        </div>
+        <!-- left: text -->
+        <div style="position:absolute;left:0;top:0;bottom:0;width:50%;padding:42px 46px;display:flex;flex-direction:column;justify-content:center;color:#efeefb;">
+          <div style="display:inline-flex;align-items:center;gap:10px;background:rgba(245,179,82,.18);padding:9px 16px;border-radius:999px;align-self:flex-start;">
+            <div style="width:12px;height:12px;background:#f5b352;transform:rotate(45deg);border-radius:2px;"></div>
+            <span style="font-family:'Manrope';font-weight:800;font-size:14px;letter-spacing:.16em;color:#f7c47a;">REIGNING CHAMPION</span>
+          </div>
+          <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:88px;line-height:.9;margin:18px 0 10px;">Ellie</div>
+          <div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:27px;color:#f7c47a;">39&ndash;15 record</div>
+          <div style="font-family:'Manrope';font-weight:500;font-size:18px;color:rgba(239,238,251,.7);margin-top:10px;">Holds the crown since April</div>
+          <div style="display:flex;gap:12px;margin-top:22px;">
+            <span style="background:rgba(255,255,255,.08);padding:9px 16px;border-radius:999px;font-family:'Manrope';font-weight:600;font-size:15px;color:#c9c8ea;">54 nights played</span>
+            <span style="background:rgba(255,255,255,.08);padding:9px 16px;border-radius:999px;font-family:'Manrope';font-weight:600;font-size:15px;color:#c9c8ea;">5-night streak</span>
+          </div>
+        </div>
+        <!-- win-rate ring centered over the seam -->
+        <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:170px;height:170px;border-radius:50%;background:conic-gradient(#f5b352 0% 72%,rgba(255,255,255,.2) 72% 100%);display:flex;align-items:center;justify-content:center;box-shadow:0 18px 46px -8px rgba(0,0,0,.78);">
+          <div style="width:134px;height:134px;border-radius:50%;background:#191538;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:inset 0 0 0 1px rgba(255,255,255,.07);">
+            <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:44px;color:#efeefb;line-height:1;">72%</div>
+            <div style="font-family:'Manrope';font-weight:700;font-size:11px;letter-spacing:.2em;color:#f7c47a;margin-top:4px;">WIN RATE</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- on the table: game-art cards -->
+      <div>
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:16px;">
+          <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:30px;color:#efeefb;">On The Table</div>
+          <div style="font-family:'Manrope';font-weight:600;font-size:15px;color:#a3a1cc;">3 games in rotation &middot; leader shown</div>
+        </div>
+        <div style="display:flex;gap:22px;">
+          <!-- Catan -->
+          <div style="flex:1;position:relative;height:268px;border-radius:24px;overflow:hidden;box-shadow:0 16px 36px -16px rgba(0,0,0,.55);">
+            <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="art-catan" src="assets/catan.png" placeholder="Drop Catan art" style="position:absolute;inset:0;width:100%;height:100%;" hint-size="100%,100%"></x-import>
+            <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,18,46,0) 32%,rgba(16,14,38,.5) 60%,rgba(11,9,26,.95) 100%);pointer-events:none;"></div>
+            <div style="position:absolute;top:13px;right:13px;background:rgba(13,11,30,.5);padding:6px 12px;border-radius:999px;font-family:'Manrope';font-weight:700;font-size:13px;color:#efeefb;pointer-events:none;">84 nights</div>
+            <div style="position:absolute;left:0;right:0;bottom:0;padding:20px;pointer-events:none;">
+              <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:23px;color:#fff;line-height:1.05;margin-bottom:11px;">Settlers of Catan</div>
+              <div style="display:flex;align-items:center;gap:9px;">
+                <img src="assets/ellie.png" alt="" style="width:34px;height:34px;border-radius:50%;object-fit:cover;object-position:50% 20%;background:#b07be0;box-shadow:0 0 0 2px rgba(255,255,255,.25);flex:none;" />
+                <span style="font-family:'Manrope';font-weight:700;font-size:16px;color:#fff;">Ellie</span>
+                <div style="flex:1;"></div>
+                <span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:23px;color:#f5b352;">70%</span>
+              </div>
+            </div>
+          </div>
+          <!-- Ticket to Ride -->
+          <div style="flex:1;position:relative;height:268px;border-radius:24px;overflow:hidden;box-shadow:0 16px 36px -16px rgba(0,0,0,.55);">
+            <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="art-ttr" src="assets/ticket.jpeg" placeholder="Drop Ticket to Ride art" style="position:absolute;inset:0;width:100%;height:100%;" hint-size="100%,100%"></x-import>
+            <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,18,46,0) 32%,rgba(16,14,38,.5) 60%,rgba(11,9,26,.95) 100%);pointer-events:none;"></div>
+            <div style="position:absolute;top:13px;right:13px;background:rgba(13,11,30,.5);padding:6px 12px;border-radius:999px;font-family:'Manrope';font-weight:700;font-size:13px;color:#efeefb;pointer-events:none;">71 nights</div>
+            <div style="position:absolute;left:0;right:0;bottom:0;padding:20px;pointer-events:none;">
+              <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:23px;color:#fff;line-height:1.05;margin-bottom:11px;">Ticket to Ride</div>
+              <div style="display:flex;align-items:center;gap:9px;">
+                <img src="assets/dad.png" alt="" style="width:34px;height:34px;border-radius:50%;object-fit:cover;object-position:50% 28%;background:#4fb0c2;box-shadow:0 0 0 2px rgba(255,255,255,.25);flex:none;" />
+                <span style="font-family:'Manrope';font-weight:700;font-size:16px;color:#fff;">Dad</span>
+                <div style="flex:1;"></div>
+                <span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:23px;color:#f5b352;">66%</span>
+              </div>
+            </div>
+          </div>
+          <!-- Hand & Foot -->
+          <div style="flex:1;position:relative;height:268px;border-radius:24px;overflow:hidden;box-shadow:0 16px 36px -16px rgba(0,0,0,.55);">
+            <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="art-hf" src="assets/handfoot.png" placeholder="Drop Hand & Foot art" style="position:absolute;inset:0;width:100%;height:100%;" hint-size="100%,100%"></x-import>
+            <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,18,46,0) 32%,rgba(16,14,38,.5) 60%,rgba(11,9,26,.95) 100%);pointer-events:none;"></div>
+            <div style="position:absolute;top:13px;right:13px;background:rgba(13,11,30,.5);padding:6px 12px;border-radius:999px;font-family:'Manrope';font-weight:700;font-size:13px;color:#efeefb;pointer-events:none;">63 nights</div>
+            <div style="position:absolute;left:0;right:0;bottom:0;padding:20px;pointer-events:none;">
+              <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:23px;color:#fff;line-height:1.05;margin-bottom:11px;">Hand &amp; Foot</div>
+              <div style="display:flex;align-items:center;gap:9px;">
+                <img src="assets/mom.png" alt="" style="width:34px;height:34px;border-radius:50%;object-fit:cover;object-position:62% 38%;background:#e8728f;box-shadow:0 0 0 2px rgba(255,255,255,.25);flex:none;" />
+                <span style="font-family:'Manrope';font-weight:700;font-size:16px;color:#fff;">Mom</span>
+                <div style="flex:1;"></div>
+                <span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:23px;color:#f5b352;">74%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- overall standings -->
+      <div style="background:#201d40;border:1px solid rgba(255,255,255,.06);border-radius:28px;padding:26px 34px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+          <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:30px;color:#efeefb;">Overall Standings</div>
+          <div style="font-family:'Manrope';font-weight:700;font-size:14px;letter-spacing:.12em;color:#a3a1cc;">WIN RATE</div>
+        </div>
+        <sc-for list="{{ overall }}" as="row" hint-placeholder-count="4">
+          <div style="display:flex;align-items:center;gap:18px;padding:13px 2px;border-bottom:1px solid rgba(255,255,255,.07);">
+            <div style="width:30px;font-family:'Bricolage Grotesque';font-weight:800;font-size:28px;color:#f5b352;text-align:center;">{{ row.rank }}</div>
+            <img src="{{ row.avatar }}" alt="" style="{{ row.avatarStyle }}" />
+            <div style="min-width:0;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span style="font-family:'Bricolage Grotesque';font-weight:700;font-size:26px;color:#efeefb;">{{ row.name }}</span>
+                <sc-if value="{{ row.champ }}" hint-placeholder-val="{{ true }}"><span style="font-family:'Manrope';font-weight:800;font-size:11px;letter-spacing:.12em;color:#f7c47a;background:rgba(245,179,82,.16);padding:4px 9px;border-radius:999px;">CHAMPION</span></sc-if>
+              </div>
+              <div style="font-family:'Manrope';font-weight:500;font-size:15px;color:#a3a1cc;margin-top:3px;">{{ row.record }} &middot; {{ row.playedLabel }}</div>
+            </div>
+            <div style="flex:1;"></div>
+            <div style="width:250px;display:flex;align-items:center;gap:16px;">
+              <div style="flex:1;height:12px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden;"><div style="{{ row.fillStyle }}"></div></div>
+              <div style="width:74px;text-align:right;font-family:'Bricolage Grotesque';font-weight:800;font-size:28px;color:#efeefb;">{{ row.rateLabel }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <!-- bottom: recent + most played + rivalries -->
+      <div style="display:flex;gap:24px;flex:1;min-height:0;">
+        <div style="flex:1;background:#201d40;border:1px solid rgba(255,255,255,.06);border-radius:28px;padding:24px 34px;display:flex;flex-direction:column;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+            <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:28px;color:#efeefb;">Recent Game Nights</div>
+            <div style="font-family:'Manrope';font-weight:700;font-size:14px;letter-spacing:.08em;color:#a3a1cc;">LAST 5</div>
+          </div>
+          <sc-for list="{{ results }}" as="row" hint-placeholder-count="5">
+            <div style="display:flex;align-items:center;gap:16px;padding:13px 2px;border-bottom:1px solid rgba(255,255,255,.07);">
+              <div style="width:104px;font-family:'Manrope';font-weight:600;font-size:15px;color:#a3a1cc;flex:none;">{{ row.when }}</div>
+              <div style="flex:1;min-width:0;font-family:'Bricolage Grotesque';font-weight:700;font-size:20px;color:#efeefb;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ row.game }}</div>
+              <div style="display:flex;align-items:center;gap:10px;flex:none;">
+                <img src="{{ row.wAvatar }}" alt="" style="{{ row.wAvatarStyle }}" />
+                <span style="font-family:'Manrope';font-weight:700;font-size:18px;color:#efeefb;">{{ row.winner }}</span>
+                <span style="font-family:'Manrope';font-weight:800;font-size:11px;letter-spacing:.1em;color:#f5b352;">WON</span>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="width:374px;flex:none;display:flex;flex-direction:column;gap:24px;">
+          <div style="background:#201d40;border:1px solid rgba(255,255,255,.06);border-radius:28px;padding:24px 28px;">
+            <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:24px;color:#efeefb;margin-bottom:18px;">Most Played</div>
+            <div style="display:flex;flex-direction:column;gap:15px;">
+              <div><div style="display:flex;justify-content:space-between;margin-bottom:7px;"><span style="font-family:'Manrope';font-weight:700;font-size:18px;color:#efeefb;">Catan</span><span style="font-family:'Manrope';font-weight:600;font-size:15px;color:#a3a1cc;">84</span></div><div style="height:10px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden;"><div style="width:100%;height:100%;background:#f5b352;border-radius:999px;"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;margin-bottom:7px;"><span style="font-family:'Manrope';font-weight:700;font-size:18px;color:#efeefb;">Ticket to Ride</span><span style="font-family:'Manrope';font-weight:600;font-size:15px;color:#a3a1cc;">71</span></div><div style="height:10px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden;"><div style="width:85%;height:100%;background:#f5b352;border-radius:999px;"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;margin-bottom:7px;"><span style="font-family:'Manrope';font-weight:700;font-size:18px;color:#efeefb;">Hand &amp; Foot</span><span style="font-family:'Manrope';font-weight:600;font-size:15px;color:#a3a1cc;">63</span></div><div style="height:10px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden;"><div style="width:75%;height:100%;background:#f5b352;border-radius:999px;"></div></div></div>
+            </div>
+          </div>
+          <div style="background:#201d40;border:1px solid rgba(255,255,255,.06);border-radius:28px;padding:24px 28px;flex:1;">
+            <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:24px;color:#efeefb;margin-bottom:18px;">Top Rivalries</div>
+            <div style="display:flex;flex-direction:column;gap:22px;">
+              <div>
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;">
+                  <div style="display:flex;align-items:center;gap:9px;"><img src="assets/mom.png" alt="" style="width:34px;height:34px;border-radius:50%;object-fit:cover;object-position:62% 38%;background:#e8728f;box-shadow:0 0 0 2px rgba(255,255,255,.2);flex:none;" /><span style="font-family:'Manrope';font-weight:700;font-size:17px;color:#efeefb;">Mom</span></div>
+                  <span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:19px;color:#efeefb;">23&ndash;19</span>
+                  <div style="display:flex;align-items:center;gap:9px;"><span style="font-family:'Manrope';font-weight:700;font-size:17px;color:#efeefb;">Dad</span><img src="assets/dad.png" alt="" style="width:34px;height:34px;border-radius:50%;object-fit:cover;object-position:50% 28%;background:#4fb0c2;box-shadow:0 0 0 2px rgba(255,255,255,.2);flex:none;" /></div>
+                </div>
+                <div style="display:flex;height:10px;border-radius:999px;overflow:hidden;"><div style="width:55%;background:#e8728f;"></div><div style="flex:1;background:#4fb0c2;"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;">
+                  <div style="display:flex;align-items:center;gap:9px;"><img src="assets/ellie.png" alt="" style="width:34px;height:34px;border-radius:50%;object-fit:cover;object-position:50% 20%;background:#b07be0;box-shadow:0 0 0 2px rgba(255,255,255,.2);flex:none;" /><span style="font-family:'Manrope';font-weight:700;font-size:17px;color:#efeefb;">Ellie</span></div>
+                  <span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:19px;color:#efeefb;">18&ndash;11</span>
+                  <div style="display:flex;align-items:center;gap:9px;"><span style="font-family:'Manrope';font-weight:700;font-size:17px;color:#efeefb;">Ollie</span><img src="assets/ollie.png" alt="" style="width:34px;height:34px;border-radius:50%;object-fit:cover;object-position:52% 26%;background:#e0a84e;box-shadow:0 0 0 2px rgba(255,255,255,.2);flex:none;" /></div>
+                </div>
+                <div style="display:flex;height:10px;border-radius:999px;overflow:hidden;"><div style="width:62%;background:#b07be0;"></div><div style="flex:1;background:#e0a84e;"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <template id="__bundler_thumbnail">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#171533"/><circle cx="50" cy="38" r="16" fill="#f5b352"/><rect x="28" y="62" width="44" height="7" rx="3.5" fill="#b07be0"/><rect x="28" y="74" width="32" height="6" rx="3" fill="#8d8bf0"/></svg>
+  </template>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    const map = { 'art-catan': 'assets/catan.png', 'art-ttr': 'assets/ticket.jpeg', 'art-hf': 'assets/handfoot.png' };
+    let tries = 0;
+    const apply = () => {
+      let allset = true;
+      Object.keys(map).forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) { if (el.getAttribute('src') !== map[id]) el.setAttribute('src', map[id]); }
+        else { allset = false; }
+      });
+      if (!allset && tries++ < 30) setTimeout(apply, 100);
+    };
+    apply();
+  }
+  renderVals() {
+    const fill = (pct, color) => ({ width: pct + '%', height: '100%', borderRadius: '999px', background: color });
+    const av = (src, pos, size, ring) => ({ width: size + 'px', height: size + 'px', borderRadius: '50%', objectFit: 'cover', objectPosition: pos, boxShadow: '0 0 0 3px ' + ring, background: ring, flex: 'none' });
+    const P = {
+      Ellie: { src: 'assets/ellie.png', pos: '50% 20%', color: '#b07be0' },
+      Mom:   { src: 'assets/mom.png',   pos: '62% 38%', color: '#e8728f' },
+      Dad:   { src: 'assets/dad.png',   pos: '50% 28%', color: '#4fb0c2' },
+      Ollie: { src: 'assets/ollie.png', pos: '52% 26%', color: '#e0a84e' },
+    };
+    const overall = [
+      { rank: '1', name: 'Ellie', champ: true,  record: '39\u201315', playedLabel: '54 nights', rateLabel: '72%', fillStyle: fill(72, P.Ellie.color), avatar: P.Ellie.src, avatarStyle: av(P.Ellie.src, P.Ellie.pos, 54, P.Ellie.color) },
+      { rank: '2', name: 'Mom',   champ: false, record: '48\u201322', playedLabel: '70 nights', rateLabel: '68%', fillStyle: fill(68, P.Mom.color),   avatar: P.Mom.src,   avatarStyle: av(P.Mom.src, P.Mom.pos, 54, P.Mom.color) },
+      { rank: '3', name: 'Dad',   champ: false, record: '38\u201329', playedLabel: '67 nights', rateLabel: '57%', fillStyle: fill(57, P.Dad.color),   avatar: P.Dad.src,   avatarStyle: av(P.Dad.src, P.Dad.pos, 54, P.Dad.color) },
+      { rank: '4', name: 'Ollie', champ: false, record: '21\u201330', playedLabel: '51 nights', rateLabel: '41%', fillStyle: fill(41, P.Ollie.color), avatar: P.Ollie.src, avatarStyle: av(P.Ollie.src, P.Ollie.pos, 54, P.Ollie.color) },
+    ];
+    const res = (when, game, who) => ({ when, game, winner: who, wAvatar: P[who].src, wAvatarStyle: av(P[who].src, P[who].pos, 36, P[who].color) });
+    const results = [
+      res('Tonight', 'Settlers of Catan', 'Ellie'),
+      res('Thu \u00b7 Jun 18', 'Ticket to Ride', 'Dad'),
+      res('Mon \u00b7 Jun 15', 'Hand & Foot', 'Mom'),
+      res('Sat \u00b7 Jun 13', 'Settlers of Catan', 'Ellie'),
+      res('Thu \u00b7 Jun 11', 'Hand & Foot', 'Mom'),
+    ];
+    return { overall, results };
+  }
+}
+</script>
+</body>
+</html>

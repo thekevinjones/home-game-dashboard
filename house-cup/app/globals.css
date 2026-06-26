@@ -1,0 +1,44 @@
+:root {
+  /* Direction 3 · Midnight & Amber */
+  --amber: #f5b352;
+  --amber-soft: #f7c47a;
+  --ink: #efeefb;
+  --ink-dim: #a3a1cc;
+  --panel: #201d40;
+  --panel-border: rgba(255, 255, 255, 0.06);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  /* dark fallback so no light canvas ever shows through */
+  background: #0c0a1e;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(168deg, #171533 0%, #100e26 55%, #0c0a1e 100%);
+  background-repeat: no-repeat;
+  font-family: var(--font-body), system-ui, sans-serif;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.font-display {
+  font-family: var(--font-display), var(--font-body), system-ui, sans-serif;
+}

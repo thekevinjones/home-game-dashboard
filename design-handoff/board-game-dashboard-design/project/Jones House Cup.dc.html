@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Cinzel+Decorative:wght@700;900&family=EB+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>*{box-sizing:border-box;}html,body{margin:0;}</style>
+</helmet>
+
+<div style="min-height:100vh;display:flex;justify-content:center;background:#1b1714;padding:48px;font-family:'EB Garamond',Georgia,serif;">
+  <div style="flex:none;width:1080px;">
+    <div style="font-family:'Cinzel';font-weight:700;font-size:14px;letter-spacing:.18em;color:#8a6f3e;margin-bottom:16px;">THE JONES HOUSE CUP &middot; WIZARDING THEME</div>
+
+    <div style="position:relative;width:1080px;height:1920px;border-radius:8px;overflow:hidden;box-shadow:0 30px 80px -24px rgba(0,0,0,.55);background:radial-gradient(circle at 7% 40%,rgba(240,150,60,.16),transparent 22%),radial-gradient(circle at 93% 40%,rgba(240,150,60,.16),transparent 22%),radial-gradient(ellipse at 50% 34%,rgba(74,58,40,.55),transparent 60%),repeating-linear-gradient(0deg,#2c2622 0 76px,#211c19 76px 80px),repeating-linear-gradient(90deg,rgba(255,255,255,.015) 0 118px,rgba(0,0,0,.30) 118px 120px),linear-gradient(#2a2420,#16120e);">
+      <!-- vignette + torch glow -->
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 46%,transparent 52%,rgba(0,0,0,.55));pointer-events:none;z-index:5;"></div>
+      <div style="position:absolute;left:-40px;top:300px;width:200px;height:340px;background:radial-gradient(ellipse,rgba(255,150,50,.28),transparent 70%);filter:blur(8px);pointer-events:none;"></div>
+      <div style="position:absolute;right:-40px;top:300px;width:200px;height:340px;background:radial-gradient(ellipse,rgba(255,150,50,.28),transparent 70%);filter:blur(8px);pointer-events:none;"></div>
+
+      <div style="position:relative;z-index:6;padding:42px 44px;display:flex;flex-direction:column;gap:17px;height:100%;">
+
+        <!-- ===== HEADER ===== -->
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div style="display:flex;align-items:center;gap:20px;">
+            <div style="width:88px;height:88px;border-radius:50%;background:radial-gradient(circle at 40% 32%,#3a3026,#171310);box-shadow:0 0 0 3px #c8a24a,0 0 0 7px #4a3a22,0 6px 18px rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;flex:none;">
+              <div style="font-family:'Cinzel Decorative';font-weight:900;font-size:26px;background:linear-gradient(180deg,#f7e7a8,#c8923a);-webkit-background-clip:text;background-clip:text;color:transparent;">JHC</div>
+            </div>
+            <div>
+              <div style="font-family:'Cinzel Decorative';font-weight:900;font-size:40px;line-height:1;letter-spacing:.01em;background:linear-gradient(180deg,#f9ecb6 0%,#e3b85c 50%,#a9772a 100%);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 1px 0 rgba(0,0,0,.25);">THE JONES HOUSE CUP</div>
+              <div style="margin-top:8px;display:inline-block;background:linear-gradient(160deg,#f4e8c8,#e3cf9e);padding:6px 16px;border-radius:4px;box-shadow:0 0 0 1px #c8a24a,0 2px 6px rgba(0,0,0,.4);font-family:'Cinzel';font-weight:700;font-size:14px;letter-spacing:.18em;color:#5a3c1c;">FAMILY GAME NIGHT &middot; STANDINGS</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;">
+            <div style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(160deg,#f4e8c8,#e3cf9e);padding:10px 18px;border-radius:6px;box-shadow:0 0 0 1px #c8a24a,0 0 0 4px #4a3a22,0 4px 10px rgba(0,0,0,.5);">
+              <div style="width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 38% 32%,#3a4a72,#0f1830);box-shadow:0 0 0 2px #c8a24a;"></div>
+              <span style="font-family:'Cinzel';font-weight:700;font-size:18px;color:#3a2a14;">Sat &middot; Jun 20</span>
+            </div>
+            <div style="width:78px;height:78px;border-radius:50%;background:radial-gradient(circle at 40% 34%,#8a2330,#4e131b);box-shadow:0 0 0 3px #c8a24a,0 5px 12px rgba(0,0,0,.55);display:flex;flex-direction:column;align-items:center;justify-content:center;flex:none;">
+              <div style="font-family:'Cinzel';font-weight:700;font-size:11px;letter-spacing:.14em;color:#e9c87a;">YEAR</div>
+              <div style="font-family:'Cinzel Decorative';font-weight:900;font-size:30px;color:#f3dca0;line-height:.9;">3</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- house banners -->
+        <div style="display:flex;justify-content:center;gap:18px;margin-top:-4px;">
+          <div style="width:52px;height:56px;background:linear-gradient(180deg,#8a2030,#5c1420);clip-path:polygon(0 0,100% 0,100% 100%,50% 80%,0 100%);box-shadow:0 0 0 2px #c8a24a inset,0 6px 12px -4px rgba(0,0,0,.6);display:flex;align-items:flex-start;justify-content:center;padding-top:10px;"><div style="width:20px;height:24px;background:#c8a24a;clip-path:polygon(0 0,100% 0,100% 70%,50% 100%,0 70%);"></div></div>
+          <div style="width:52px;height:56px;background:linear-gradient(180deg,#c79a2c,#8a6a18);clip-path:polygon(0 0,100% 0,100% 100%,50% 80%,0 100%);box-shadow:0 0 0 2px #4a3a22 inset,0 6px 12px -4px rgba(0,0,0,.6);display:flex;align-items:flex-start;justify-content:center;padding-top:10px;"><div style="width:20px;height:24px;background:#2a2218;clip-path:polygon(0 0,100% 0,100% 70%,50% 100%,0 70%);"></div></div>
+          <div style="width:52px;height:56px;background:linear-gradient(180deg,#244a86,#13294f);clip-path:polygon(0 0,100% 0,100% 100%,50% 80%,0 100%);box-shadow:0 0 0 2px #b08d5a inset,0 6px 12px -4px rgba(0,0,0,.6);display:flex;align-items:flex-start;justify-content:center;padding-top:10px;"><div style="width:20px;height:24px;background:#b08d5a;clip-path:polygon(0 0,100% 0,100% 70%,50% 100%,0 70%);"></div></div>
+          <div style="width:52px;height:56px;background:linear-gradient(180deg,#1f5236,#10311f);clip-path:polygon(0 0,100% 0,100% 100%,50% 80%,0 100%);box-shadow:0 0 0 2px #cfd3d6 inset,0 6px 12px -4px rgba(0,0,0,.6);display:flex;align-items:flex-start;justify-content:center;padding-top:10px;"><div style="width:20px;height:24px;background:#cfd3d6;clip-path:polygon(0 0,100% 0,100% 70%,50% 100%,0 70%);"></div></div>
+        </div>
+
+        <!-- ===== HERO SPELLBOOK ===== -->
+        <div style="position:relative;border-radius:18px;padding:12px;background:linear-gradient(160deg,#4a2f18,#33200f);box-shadow:0 0 0 2px #1c1208,0 26px 60px -22px rgba(0,0,0,.8);">
+          <div style="position:relative;display:flex;height:450px;border-radius:8px;overflow:hidden;background:#e7d3a2;">
+            <!-- left page -->
+            <div style="flex:1;background:linear-gradient(120deg,#f4ead0 0%,#ecdcb4 70%,#dcc594 100%);padding:46px 44px;display:flex;flex-direction:column;justify-content:center;box-shadow:inset -28px 0 40px -24px rgba(90,60,28,.55);">
+              <div style="display:inline-flex;align-items:center;gap:12px;align-self:flex-start;background:linear-gradient(180deg,#7a2230,#4e151d);padding:11px 24px;border-radius:5px;box-shadow:0 0 0 2px #c8a24a,0 6px 14px -6px rgba(0,0,0,.6);">
+                <div style="width:13px;height:13px;background:#e9c87a;transform:rotate(45deg);border-radius:2px;"></div>
+                <span style="font-family:'Cinzel';font-weight:700;font-size:18px;letter-spacing:.14em;color:#f3dca0;">REIGNING CHAMPION</span>
+              </div>
+              <div style="font-family:'Cinzel Decorative';font-weight:900;font-size:104px;line-height:.9;margin:20px 0 6px;background:linear-gradient(180deg,#f3d98c 0%,#d6a544 44%,#9c6e26 100%);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 2px 1px rgba(120,80,20,.25);">Ellie</div>
+              <div style="font-family:'Cinzel';font-weight:700;font-size:34px;color:#4a3318;">39&ndash;15 record</div>
+              <div style="font-family:'EB Garamond';font-style:italic;font-weight:500;font-size:24px;color:#6f5630;margin-top:10px;">Holds the crown since April</div>
+              <div style="display:flex;gap:16px;margin-top:30px;">
+                <div style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(180deg,#f6edd6,#e6d2a4);padding:10px 18px;border-radius:6px;box-shadow:0 0 0 1px #c8a24a,0 4px 10px -4px rgba(0,0,0,.4);">
+                  <div style="width:16px;height:20px;background:linear-gradient(180deg,#9a2230,#5c1420);clip-path:polygon(0 0,100% 0,100% 70%,50% 100%,0 70%);"></div>
+                  <span style="font-family:'EB Garamond';font-weight:600;font-size:19px;color:#4a3318;">54 nights played</span>
+                </div>
+                <div style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(180deg,#f6edd6,#e6d2a4);padding:10px 18px;border-radius:6px;box-shadow:0 0 0 1px #c8a24a,0 4px 10px -4px rgba(0,0,0,.4);">
+                  <div style="width:16px;height:20px;background:linear-gradient(180deg,#244a86,#13294f);clip-path:polygon(0 0,100% 0,100% 70%,50% 100%,0 70%);"></div>
+                  <span style="font-family:'EB Garamond';font-weight:600;font-size:19px;color:#4a3318;">5-night streak</span>
+                </div>
+              </div>
+            </div>
+            <!-- right page: portrait -->
+            <div style="flex:1;background:linear-gradient(240deg,#f4ead0 0%,#ecdcb4 70%,#dcc594 100%);padding:30px;display:flex;align-items:center;justify-content:center;box-shadow:inset 28px 0 40px -24px rgba(90,60,28,.55);">
+              <div style="position:relative;width:100%;height:100%;border-radius:6px;overflow:hidden;box-shadow:0 0 0 4px #c8a24a,0 0 0 10px #6b4a22,0 0 0 12px #c8a24a,0 14px 30px -10px rgba(0,0,0,.6);background:#2a1d0f;">
+                <img src="assets/ellie.png" alt="Ellie" style="width:100%;height:100%;object-fit:cover;object-position:50% 30%;" />
+                <div style="position:absolute;inset:0;box-shadow:inset 0 0 60px rgba(60,30,0,.35);pointer-events:none;"></div>
+              </div>
+            </div>
+            <!-- center gutter shadow -->
+            <div style="position:absolute;left:50%;top:0;bottom:0;width:44px;transform:translateX(-50%);background:linear-gradient(90deg,transparent,rgba(90,60,28,.32) 38%,rgba(60,40,16,.5) 50%,rgba(90,60,28,.32) 62%,transparent);pointer-events:none;"></div>
+
+            <!-- orrery + crystal win-rate, centered over the gutter -->
+            <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:264px;height:264px;display:flex;align-items:center;justify-content:center;">
+              <div style="position:absolute;width:264px;height:264px;border-radius:50%;border:2px solid rgba(120,84,30,.5);transform:rotate(-18deg) scaleY(.46);"></div>
+              <div style="position:absolute;width:212px;height:212px;border-radius:50%;border:2px solid rgba(150,110,46,.6);transform:rotate(24deg) scaleY(.5);"></div>
+              <div style="position:absolute;width:158px;height:158px;border-radius:50%;border:2px solid rgba(120,84,30,.55);transform:rotate(-8deg) scaleY(.55);"></div>
+              <div style="position:absolute;top:6px;left:128px;width:13px;height:13px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#caa,#7a2230);box-shadow:0 0 8px rgba(200,120,80,.6);"></div>
+              <div style="position:absolute;bottom:24px;right:30px;width:11px;height:11px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#bcd,#244a86);box-shadow:0 0 8px rgba(80,120,200,.6);"></div>
+              <div style="position:absolute;top:60px;left:14px;width:10px;height:10px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#dca,#9c6e26);"></div>
+              <!-- crystal orb -->
+              <div style="position:relative;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle at 36% 30%,#ffffff 0%,#dfe9f4 22%,#aebfd6 55%,#6f86a8 100%);box-shadow:0 0 0 4px rgba(200,162,74,.9),0 0 26px rgba(180,210,255,.55),inset -8px -10px 22px rgba(40,60,90,.45),inset 8px 8px 20px rgba(255,255,255,.7);display:flex;align-items:center;justify-content:center;">
+                <span style="font-family:'Cinzel';font-weight:800;font-size:40px;color:#2a3550;text-shadow:0 1px 1px rgba(255,255,255,.6);">72%</span>
+              </div>
+              <div style="position:absolute;bottom:-30px;left:50%;transform:translateX(-50%);background:linear-gradient(180deg,#f4e8c8,#e0caa0);padding:6px 22px;border-radius:4px;box-shadow:0 0 0 1px #c8a24a,0 4px 10px -4px rgba(0,0,0,.5);font-family:'Cinzel';font-weight:700;font-size:15px;letter-spacing:.16em;color:#5a3c1c;white-space:nowrap;">WIN RATE</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== ON THE TABLE ===== -->
+        <div>
+          <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:14px;">
+            <div style="font-family:'Cinzel Decorative';font-weight:900;font-size:36px;background:linear-gradient(180deg,#f9ecb6,#cc9636);-webkit-background-clip:text;background-clip:text;color:transparent;">On The Table</div>
+            <div style="font-family:'EB Garamond';font-style:italic;font-weight:500;font-size:18px;color:#b79a5e;">3 games in rotation &middot; leader shown</div>
+          </div>
+          <div style="display:flex;gap:22px;">
+            <!-- Catan -->
+            <div style="flex:1;border-radius:10px;overflow:hidden;background:#2a1d0f;box-shadow:0 0 0 2px #c8a24a,0 0 0 6px #3a2414,0 16px 30px -12px rgba(0,0,0,.7);">
+              <div style="position:relative;height:150px;">
+                <img src="assets/catan.png" alt="" style="width:100%;height:100%;object-fit:cover;" />
+                <div style="position:absolute;inset:0;box-shadow:inset 0 -40px 50px -20px rgba(20,12,4,.7);"></div>
+                <div style="position:absolute;top:12px;right:12px;background:linear-gradient(180deg,#f4e8c8,#e0caa0);padding:4px 11px;border-radius:4px;box-shadow:0 0 0 1px #c8a24a;font-family:'Cinzel';font-weight:700;font-size:12px;color:#5a3c1c;">84 nights</div>
+              </div>
+              <div style="background:linear-gradient(160deg,#f4ead0,#e6d2a4);padding:14px 16px;">
+                <div style="font-family:'Cinzel';font-weight:700;font-size:21px;color:#4a3318;">Settlers of Catan</div>
+                <div style="display:flex;align-items:center;gap:9px;margin-top:9px;">
+                  <img src="assets/ellie.png" alt="" style="width:32px;height:32px;border-radius:50%;object-fit:cover;object-position:50% 30%;box-shadow:0 0 0 2px #c8a24a;flex:none;" />
+                  <span style="font-family:'EB Garamond';font-weight:600;font-size:17px;color:#4a3318;">Ellie leads</span>
+                  <div style="flex:1;"></div>
+                  <span style="font-family:'Cinzel';font-weight:800;font-size:22px;color:#9c6e26;">70%</span>
+                </div>
+              </div>
+            </div>
+            <!-- Ticket to Ride -->
+            <div style="flex:1;border-radius:10px;overflow:hidden;background:#2a1d0f;box-shadow:0 0 0 2px #c8a24a,0 0 0 6px #3a2414,0 16px 30px -12px rgba(0,0,0,.7);">
+              <div style="position:relative;height:150px;">
+                <img src="assets/ticket.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;" />
+                <div style="position:absolute;inset:0;box-shadow:inset 0 -40px 50px -20px rgba(20,12,4,.7);"></div>
+                <div style="position:absolute;top:12px;right:12px;background:linear-gradient(180deg,#f4e8c8,#e0caa0);padding:4px 11px;border-radius:4px;box-shadow:0 0 0 1px #c8a24a;font-family:'Cinzel';font-weight:700;font-size:12px;color:#5a3c1c;">71 nights</div>
+              </div>
+              <div style="background:linear-gradient(160deg,#f4ead0,#e6d2a4);padding:14px 16px;">
+                <div style="font-family:'Cinzel';font-weight:700;font-size:21px;color:#4a3318;">Ticket to Ride</div>
+                <div style="display:flex;align-items:center;gap:9px;margin-top:9px;">
+                  <img src="assets/dad.png" alt="" style="width:32px;height:32px;border-radius:50%;object-fit:cover;object-position:50% 28%;box-shadow:0 0 0 2px #c8a24a;flex:none;" />
+                  <span style="font-family:'EB Garamond';font-weight:600;font-size:17px;color:#4a3318;">Dad leads</span>
+                  <div style="flex:1;"></div>
+                  <span style="font-family:'Cinzel';font-weight:800;font-size:22px;color:#9c6e26;">66%</span>
+                </div>
+              </div>
+            </div>
+            <!-- Hand & Foot -->
+            <div style="flex:1;border-radius:10px;overflow:hidden;background:#2a1d0f;box-shadow:0 0 0 2px #c8a24a,0 0 0 6px #3a2414,0 16px 30px -12px rgba(0,0,0,.7);">
+              <div style="position:relative;height:150px;">
+                <img src="assets/handfoot.png" alt="" style="width:100%;height:100%;object-fit:cover;" />
+                <div style="position:absolute;inset:0;box-shadow:inset 0 -40px 50px -20px rgba(20,12,4,.7);"></div>
+                <div style="position:absolute;top:12px;right:12px;background:linear-gradient(180deg,#f4e8c8,#e0caa0);padding:4px 11px;border-radius:4px;box-shadow:0 0 0 1px #c8a24a;font-family:'Cinzel';font-weight:700;font-size:12px;color:#5a3c1c;">63 nights</div>
+              </div>
+              <div style="background:linear-gradient(160deg,#f4ead0,#e6d2a4);padding:14px 16px;">
+                <div style="font-family:'Cinzel';font-weight:700;font-size:21px;color:#4a3318;">Hand &amp; Foot</div>
+                <div style="display:flex;align-items:center;gap:9px;margin-top:9px;">
+                  <img src="assets/mom.png" alt="" style="width:32px;height:32px;border-radius:50%;object-fit:cover;object-position:62% 38%;box-shadow:0 0 0 2px #c8a24a;flex:none;" />
+                  <span style="font-family:'EB Garamond';font-weight:600;font-size:17px;color:#4a3318;">Mom leads</span>
+                  <div style="flex:1;"></div>
+                  <span style="font-family:'Cinzel';font-weight:800;font-size:22px;color:#9c6e26;">74%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- wooden shelf -->
+          <div style="height:20px;border-radius:0 0 6px 6px;margin:0 -6px;background:linear-gradient(180deg,#6b4521,#3d2613);box-shadow:0 8px 16px -6px rgba(0,0,0,.7),inset 0 2px 0 rgba(255,210,150,.25);"></div>
+        </div>
+
+        <!-- ===== STANDINGS ===== -->
+        <div style="background:linear-gradient(160deg,#f4ead0,#e6d2a4);border-radius:12px;padding:22px 30px;box-shadow:0 0 0 2px #c8a24a,0 0 0 6px #3a2414,0 16px 34px -16px rgba(0,0,0,.6);">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+            <div style="font-family:'Cinzel Decorative';font-weight:900;font-size:28px;color:#4a3318;">Overall Standings</div>
+            <div style="font-family:'Cinzel';font-weight:700;font-size:13px;letter-spacing:.16em;color:#9c7c44;">WIN RATE</div>
+          </div>
+          <sc-for list="{{ overall }}" as="row" hint-placeholder-count="4">
+            <div style="display:flex;align-items:center;gap:18px;padding:8px 2px;border-bottom:1px solid rgba(120,84,30,.22);">
+              <div style="width:30px;font-family:'Cinzel';font-weight:800;font-size:28px;color:#b3852f;text-align:center;">{{ row.rank }}</div>
+              <div style="{{ row.avatarStyle }}"></div>
+              <div style="min-width:0;">
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <span style="font-family:'Cinzel';font-weight:700;font-size:24px;color:#3a2a14;">{{ row.name }}</span>
+                  <sc-if value="{{ row.champ }}" hint-placeholder-val="{{ true }}"><span style="font-family:'Cinzel';font-weight:700;font-size:11px;letter-spacing:.1em;color:#f3dca0;background:linear-gradient(180deg,#7a2230,#4e151d);padding:3px 10px;border-radius:3px;box-shadow:0 0 0 1px #c8a24a;">CHAMPION</span></sc-if>
+                </div>
+                <div style="font-family:'EB Garamond';font-weight:500;font-size:15px;color:#7a6336;margin-top:2px;">{{ row.record }} &middot; {{ row.playedLabel }}</div>
+              </div>
+              <div style="flex:1;"></div>
+              <div style="width:250px;display:flex;align-items:center;gap:16px;">
+                <div style="flex:1;height:12px;border-radius:999px;background:rgba(120,84,30,.18);box-shadow:inset 0 1px 2px rgba(80,50,16,.4);overflow:hidden;"><div style="{{ row.fillStyle }}"></div></div>
+                <div style="width:74px;text-align:right;font-family:'Cinzel';font-weight:800;font-size:27px;color:#4a3318;">{{ row.rateLabel }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <!-- ===== BOTTOM ===== -->
+        <div style="display:flex;gap:22px;flex:1;min-height:0;">
+          <div style="flex:1;background:linear-gradient(160deg,#f4ead0,#e6d2a4);border-radius:12px;padding:20px 30px;box-shadow:0 0 0 2px #c8a24a,0 0 0 6px #3a2414,0 16px 34px -16px rgba(0,0,0,.6);display:flex;flex-direction:column;">
+            <div style="font-family:'Cinzel Decorative';font-weight:900;font-size:26px;color:#4a3318;margin-bottom:6px;">Recent Game Nights</div>
+            <sc-for list="{{ results }}" as="row" hint-placeholder-count="5">
+              <div style="display:flex;align-items:center;gap:14px;padding:8px 2px;border-bottom:1px solid rgba(120,84,30,.22);">
+                <div style="width:100px;font-family:'EB Garamond';font-weight:600;font-size:15px;color:#8a6f3e;flex:none;">{{ row.when }}</div>
+                <div style="flex:1;min-width:0;font-family:'Cinzel';font-weight:700;font-size:19px;color:#3a2a14;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ row.game }}</div>
+                <div style="display:flex;align-items:center;gap:9px;flex:none;">
+                  <div style="{{ row.wAvatarStyle }}"></div>
+                  <span style="font-family:'EB Garamond';font-weight:600;font-size:17px;color:#4a3318;">{{ row.winner }}</span>
+                  <span style="font-family:'Cinzel';font-weight:700;font-size:11px;letter-spacing:.1em;color:#9c6e26;">WON</span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="width:368px;flex:none;display:flex;flex-direction:column;gap:22px;">
+            <div style="background:linear-gradient(160deg,#f4ead0,#e6d2a4);border-radius:12px;padding:20px 26px;box-shadow:0 0 0 2px #c8a24a,0 0 0 6px #3a2414,0 16px 34px -16px rgba(0,0,0,.6);">
+              <div style="font-family:'Cinzel Decorative';font-weight:900;font-size:23px;color:#4a3318;margin-bottom:16px;">Most Played</div>
+              <div style="display:flex;flex-direction:column;gap:14px;">
+                <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-family:'Cinzel';font-weight:700;font-size:17px;color:#3a2a14;">Catan</span><span style="font-family:'EB Garamond';font-weight:600;font-size:15px;color:#8a6f3e;">84</span></div><div style="height:10px;border-radius:999px;background:rgba(120,84,30,.18);overflow:hidden;"><div style="width:100%;height:100%;background:linear-gradient(90deg,#9c6b22,#f0cf7a);border-radius:999px;"></div></div></div>
+                <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-family:'Cinzel';font-weight:700;font-size:17px;color:#3a2a14;">Ticket to Ride</span><span style="font-family:'EB Garamond';font-weight:600;font-size:15px;color:#8a6f3e;">71</span></div><div style="height:10px;border-radius:999px;background:rgba(120,84,30,.18);overflow:hidden;"><div style="width:85%;height:100%;background:linear-gradient(90deg,#9c6b22,#f0cf7a);border-radius:999px;"></div></div></div>
+                <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-family:'Cinzel';font-weight:700;font-size:17px;color:#3a2a14;">Hand &amp; Foot</span><span style="font-family:'EB Garamond';font-weight:600;font-size:15px;color:#8a6f3e;">63</span></div><div style="height:10px;border-radius:999px;background:rgba(120,84,30,.18);overflow:hidden;"><div style="width:75%;height:100%;background:linear-gradient(90deg,#9c6b22,#f0cf7a);border-radius:999px;"></div></div></div>
+              </div>
+            </div>
+            <div style="background:linear-gradient(160deg,#f4ead0,#e6d2a4);border-radius:12px;padding:20px 26px;flex:1;box-shadow:0 0 0 2px #c8a24a,0 0 0 6px #3a2414,0 16px 34px -16px rgba(0,0,0,.6);">
+              <div style="font-family:'Cinzel Decorative';font-weight:900;font-size:23px;color:#4a3318;margin-bottom:16px;">Rivalries</div>
+              <div style="display:flex;flex-direction:column;gap:20px;">
+                <div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                    <div style="display:flex;align-items:center;gap:8px;"><img src="assets/mom.png" alt="" style="width:32px;height:32px;border-radius:50%;object-fit:cover;object-position:62% 38%;box-shadow:0 0 0 2px #c8a24a;flex:none;" /><span style="font-family:'EB Garamond';font-weight:600;font-size:16px;color:#3a2a14;">Mom</span></div>
+                    <span style="font-family:'Cinzel';font-weight:800;font-size:18px;color:#4a3318;">23&ndash;19</span>
+                    <div style="display:flex;align-items:center;gap:8px;"><span style="font-family:'EB Garamond';font-weight:600;font-size:16px;color:#3a2a14;">Dad</span><img src="assets/dad.png" alt="" style="width:32px;height:32px;border-radius:50%;object-fit:cover;object-position:50% 28%;box-shadow:0 0 0 2px #c8a24a;flex:none;" /></div>
+                  </div>
+                  <div style="display:flex;height:10px;border-radius:999px;overflow:hidden;box-shadow:inset 0 1px 2px rgba(80,50,16,.4);"><div style="width:55%;background:linear-gradient(90deg,#c79a2c,#f0cf7a);"></div><div style="flex:1;background:#6f4a22;"></div></div>
+                </div>
+                <div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                    <div style="display:flex;align-items:center;gap:8px;"><img src="assets/ellie.png" alt="" style="width:32px;height:32px;border-radius:50%;object-fit:cover;object-position:50% 30%;box-shadow:0 0 0 2px #c8a24a;flex:none;" /><span style="font-family:'EB Garamond';font-weight:600;font-size:16px;color:#3a2a14;">Ellie</span></div>
+                    <span style="font-family:'Cinzel';font-weight:800;font-size:18px;color:#4a3318;">18&ndash;11</span>
+                    <div style="display:flex;align-items:center;gap:8px;"><span style="font-family:'EB Garamond';font-weight:600;font-size:16px;color:#3a2a14;">Ollie</span><img src="assets/ollie.png" alt="" style="width:32px;height:32px;border-radius:50%;object-fit:cover;object-position:52% 26%;box-shadow:0 0 0 2px #c8a24a;flex:none;" /></div>
+                  </div>
+                  <div style="display:flex;height:10px;border-radius:999px;overflow:hidden;box-shadow:inset 0 1px 2px rgba(80,50,16,.4);"><div style="width:62%;background:linear-gradient(90deg,#c79a2c,#f0cf7a);"></div><div style="flex:1;background:#6f4a22;"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <template id="__bundler_thumbnail">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#2a2420"/><circle cx="50" cy="42" r="17" fill="#c8a24a"/><circle cx="50" cy="42" r="10" fill="#aebfd6"/><rect x="30" y="66" width="40" height="6" rx="3" fill="#8a2230"/><rect x="34" y="78" width="32" height="5" rx="2.5" fill="#9c6e26"/></svg>
+  </template>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const fill = (pct) => ({ width: pct + '%', height: '100%', borderRadius: '999px', background: 'linear-gradient(90deg,#9c6b22,#f0cf7a)' });
+    const av = (src, pos, size) => ({ width: size + 'px', height: size + 'px', borderRadius: '50%', backgroundImage: 'url("' + src + '")', backgroundSize: 'cover', backgroundPosition: pos, backgroundColor: '#2a1d0f', boxShadow: '0 0 0 2px #f0cf7a, 0 0 0 4px #5a3c1c', flex: 'none' });
+    const P = {
+      Ellie: { src: 'assets/ellie.png', pos: '50% 30%' },
+      Mom:   { src: 'assets/mom.png',   pos: '62% 38%' },
+      Dad:   { src: 'assets/dad.png',   pos: '50% 28%' },
+      Ollie: { src: 'assets/ollie.png', pos: '52% 26%' },
+    };
+    const overall = [
+      { rank: '1', name: 'Ellie', champ: true,  record: '39\u201315', playedLabel: '54 nights', rateLabel: '72%', fillStyle: fill(72), avatar: P.Ellie.src, avatarStyle: av(P.Ellie.src, P.Ellie.pos, 48) },
+      { rank: '2', name: 'Mom',   champ: false, record: '48\u201322', playedLabel: '70 nights', rateLabel: '68%', fillStyle: fill(68), avatar: P.Mom.src,   avatarStyle: av(P.Mom.src, P.Mom.pos, 48) },
+      { rank: '3', name: 'Dad',   champ: false, record: '38\u201329', playedLabel: '67 nights', rateLabel: '57%', fillStyle: fill(57), avatar: P.Dad.src,   avatarStyle: av(P.Dad.src, P.Dad.pos, 48) },
+      { rank: '4', name: 'Ollie', champ: false, record: '21\u201330', playedLabel: '51 nights', rateLabel: '41%', fillStyle: fill(41), avatar: P.Ollie.src, avatarStyle: av(P.Ollie.src, P.Ollie.pos, 48) },
+    ];
+    const res = (when, game, who) => ({ when, game, winner: who, wAvatar: P[who].src, wAvatarStyle: av(P[who].src, P[who].pos, 34) });
+    const results = [
+      res('Tonight', 'Settlers of Catan', 'Ellie'),
+      res('Thu \u00b7 Jun 18', 'Ticket to Ride', 'Dad'),
+      res('Mon \u00b7 Jun 15', 'Hand & Foot', 'Mom'),
+      res('Sat \u00b7 Jun 13', 'Settlers of Catan', 'Ellie'),
+      res('Thu \u00b7 Jun 11', 'Hand & Foot', 'Mom'),
+    ];
+    return { overall, results };
+  }
+}
+</script>
+</body>
+</html>
