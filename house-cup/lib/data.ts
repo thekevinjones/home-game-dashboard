@@ -133,6 +133,15 @@ export const rivalries: Rivalry[] = [
 
 // --- Helpers ----------------------------------------------------------------
 
+/**
+ * Prefix a /public asset path with the deploy sub-path (NEXT_PUBLIC_BASE_PATH).
+ * Needed because plain <img src> — unlike next/link or next/image — does not get
+ * basePath applied automatically. Empty in dev and for the standalone/Docker
+ * build; set to e.g. "/home-game-dashboard" for the GitHub Pages export.
+ */
+export const asset = (path: string): string =>
+  `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${path}`;
+
 export const gameById = (id: string): Game | undefined => games.find((g) => g.id === id);
 
 /** Most-played list, sorted desc, with bar widths relative to the top game. */

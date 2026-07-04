@@ -12,6 +12,7 @@ import {
   mostPlayed,
   gameById,
   formatRecord,
+  asset,
   type PlayerId,
 } from "@/lib/data";
 
@@ -29,7 +30,7 @@ function Avatar({
     // eslint-disable-next-line @next/next/no-img-element
     <img
       className={styles.avatar}
-      src={p.avatar}
+      src={asset(p.avatar)}
       alt={p.name}
       style={{
         width: size,
@@ -75,7 +76,7 @@ export default function Dashboard() {
         <section className={styles.hero}>
           <div className={styles.heroPhoto}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={champ.avatar} alt={champ.name} />
+            <img src={asset(champ.avatar)} alt={champ.name} />
             <div className={styles.heroSeam} />
             <div className={styles.heroFade} />
           </div>
@@ -124,7 +125,7 @@ export default function Dashboard() {
               return (
                 <div key={gl.gameId} className={styles.gameCard}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img className={styles.gameArt} src={game.art} alt={game.name} />
+                  <img className={styles.gameArt} src={asset(game.art)} alt={game.name} />
                   <div className={styles.gameScrim} />
                   <div className={styles.gameNights}>{game.nights} nights</div>
                   <div className={styles.gameFooter}>
