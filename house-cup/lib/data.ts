@@ -99,7 +99,7 @@ export const champion: ChampionStat = {
   playerId: "ellie",
   wins: 39,
   losses: 15,
-  winRate: 72,
+  winRate: 70,
   nightsPlayed: 54,
   streak: 5,
   heldSince: "April",
