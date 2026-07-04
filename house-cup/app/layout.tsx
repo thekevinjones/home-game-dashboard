@@ -16,7 +16,7 @@ const manrope = Manrope({
 
 export const metadata: Metadata = {
   title: "The House Cup — Family Game Night Standings",
-  description: "Season standings, recent results, and rivalries for family game night.",
+  description: "Standings, recent results, and rivalries for family game night.",
 };
 
 export default function RootLayout({
