@@ -1,8 +1,10 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import styles from "./dashboard.module.css";
 import { CountUp } from "@/components/CountUp";
 import {
-  games,
   standings,
   leader,
   gameStats,
@@ -13,7 +15,9 @@ import {
   playerById,
   formatRecord,
   formatMatchDate,
+  loadData,
   asset,
+  type DashboardData,
   type Player,
 } from "@/lib/data";
 
@@ -72,39 +76,85 @@ function Avatar({
   );
 }
 
+function Header({ subtitle }: { subtitle: React.ReactNode }) {
+  return (
+    <header className={styles.siteHeader}>
+      <div className={styles.headerInner}>
+        <div className={styles.brand}>
+          <div className={styles.logo}>
+            <div className={styles.logoDiamond} />
+          </div>
+          <div>
+            <div className={`${styles.brandTitle} font-display`}>THE HOUSE CUP</div>
+            <div className={styles.brandSub}>Family Game Night · Standings</div>
+          </div>
+        </div>
+        <div className={styles.headerRight}>
+          <div className={styles.headerDate}>{subtitle}</div>
+          <Link href="/add-match" className={styles.addResult}>
+            ＋ Add result
+          </Link>
+        </div>
+      </div>
+    </header>
+  );
+}
+
 export default function Dashboard() {
-  const table = standings();
-  const lead = leader();
-  const gstats = gameStats();
-  const recent = recentMatches();
-  const played = mostPlayed().filter((m) => m.nights > 0);
-  const rivals = rivalries();
+  const [data, setData] = useState<DashboardData | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let active = true;
+    loadData()
+      .then((d) => active && setData(d))
+      .catch((e) => active && setError(e?.message ?? String(e)));
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  if (error) {
+    return (
+      <div className={styles.page}>
+        <Header subtitle="Offline" />
+        <main className={styles.main}>
+          <section className={`${styles.panel} ${styles.standingsPanel}`}>
+            <div className={styles.empty}>Couldn&apos;t load data.</div>
+            <div className={styles.emptyHint} style={{ margin: "0 auto", textAlign: "center" }}>
+              {error}
+            </div>
+          </section>
+        </main>
+      </div>
+    );
+  }
+
+  if (!data) {
+    return (
+      <div className={styles.page}>
+        <Header subtitle="Loading…" />
+        <main className={styles.main}>
+          <section className={`${styles.panel} ${styles.standingsPanel}`}>
+            <div className={styles.empty}>Loading standings…</div>
+          </section>
+        </main>
+      </div>
+    );
+  }
+
+  const { players, games, matches } = data;
+  const table = standings(players, matches);
+  const lead = leader(players, matches);
+  const gstats = gameStats(games, matches, players);
+  const recent = recentMatches(matches);
+  const played = mostPlayed(games, matches).filter((m) => m.nights > 0);
+  const rivals = rivalries(matches, players);
   const latest = recent[0];
 
   return (
     <div className={styles.page}>
-      {/* site header */}
-      <header className={styles.siteHeader}>
-        <div className={styles.headerInner}>
-          <div className={styles.brand}>
-            <div className={styles.logo}>
-              <div className={styles.logoDiamond} />
-            </div>
-            <div>
-              <div className={`${styles.brandTitle} font-display`}>THE HOUSE CUP</div>
-              <div className={styles.brandSub}>Family Game Night · Standings</div>
-            </div>
-          </div>
-          <div className={styles.headerRight}>
-            <div className={styles.headerDate}>
-              {latest ? `Last played ${formatMatchDate(latest.date)}` : "No games yet"}
-            </div>
-            <Link href="/add-match" className={styles.addResult}>
-              ＋ Add result
-            </Link>
-          </div>
-        </div>
-      </header>
+      <Header subtitle={latest ? `Last played ${formatMatchDate(latest.date)}` : "No games yet"} />
 
       <main className={styles.main}>
         {/* hero — current leader */}
@@ -158,8 +208,11 @@ export default function Dashboard() {
               </div>
               <div className={`${styles.heroEmptyTitle} font-display`}>No results yet</div>
               <div className={styles.emptyHint}>
-                Add players, games, and match results in <code>lib/data.ts</code> and the
-                standings will appear here.
+                Add players and games in Supabase, then record a game night with{" "}
+                <Link href="/add-match" style={{ color: "var(--amber-soft)" }}>
+                  ＋ Add result
+                </Link>
+                .
               </div>
             </div>
           </section>
@@ -276,12 +329,12 @@ export default function Dashboard() {
             </div>
             {recent.length ? (
               recent.map((r) => {
-                const winner = playerById(r.winnerId);
+                const winner = playerById(players, r.winnerId);
                 return (
                   <div key={r.id} className={styles.recentRow}>
                     <div className={styles.recentWhen}>{formatMatchDate(r.date)}</div>
                     <div className={`${styles.recentGame} font-display`}>
-                      {gameById(r.gameId)?.name ?? r.gameId}
+                      {gameById(games, r.gameId)?.name ?? r.gameId}
                     </div>
                     {winner && (
                       <div className={styles.recentWinner}>

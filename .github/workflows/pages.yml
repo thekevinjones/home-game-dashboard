@@ -48,6 +48,10 @@ jobs:
           BUILD_TARGET: pages
           # Serve under the project sub-path (https://<user>.github.io/<repo>/).
           NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          # Supabase backend — anon key is public by design (RLS enforces access).
+          # Stored as repo variables, inlined into the client bundle at build.
+          NEXT_PUBLIC_SUPABASE_URL: ${{ vars.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ vars.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
         run: npm run build
 
       - name: Disable Jekyll processing of _next assets

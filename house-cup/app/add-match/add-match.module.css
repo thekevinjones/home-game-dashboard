@@ -49,6 +49,11 @@
   line-height: 1.5;
   color: var(--amber-soft);
 }
+.noticeError {
+  background: rgba(255, 90, 90, 0.1);
+  border-color: rgba(255, 90, 90, 0.32);
+  color: #ff9d9d;
+}
 .notice code,
 .tradeoff code,
 .steps code {
@@ -154,88 +159,44 @@
   flex: none;
 }
 
-/* ---- output ---- */
-.outputHead {
+/* ---- submit ---- */
+.submitRow {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 14px;
+  gap: 16px;
   flex-wrap: wrap;
 }
-.actions {
-  display: flex;
-  gap: 10px;
-}
-.btn,
-.btnGhost {
+.btn {
   font-family: inherit;
   font-weight: 700;
-  font-size: 14px;
-  padding: 10px 18px;
+  font-size: 15px;
+  padding: 12px 24px;
   border-radius: 999px;
   cursor: pointer;
-  transition: transform 0.15s ease, opacity 0.2s ease, background 0.2s ease;
-}
-.btn {
   background: var(--amber);
   color: #1a1533;
   border: none;
+  transition: transform 0.15s ease, opacity 0.2s ease;
 }
 .btn:hover:not(:disabled) {
   transform: translateY(-1px);
 }
-.btnGhost {
-  background: transparent;
-  color: var(--ink);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-}
-.btnGhost:hover:not(:disabled) {
-  border-color: var(--amber);
-}
-.btn:disabled,
-.btnGhost:disabled {
+.btn:disabled {
   opacity: 0.4;
   cursor: not-allowed;
-}
-.code {
-  margin: 0;
-  background: rgba(12, 10, 30, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 16px;
-  overflow-x: auto;
-}
-.code code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 14px;
-  line-height: 1.5;
-  color: var(--amber-soft);
-  white-space: pre;
 }
 .hint {
   font-weight: 500;
   font-size: 15px;
   color: var(--ink-dim);
 }
-
-/* ---- steps + tradeoff ---- */
-.steps {
-  margin: 4px 0 0;
-  padding-left: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  font-weight: 500;
+.saveError {
+  font-weight: 600;
   font-size: 15px;
-  line-height: 1.5;
-  color: var(--ink);
-}
-.tradeoff {
-  margin: 0;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 1.55;
-  color: var(--ink-dim);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding-top: 16px;
+  color: #ff9d9d;
+  background: rgba(255, 90, 90, 0.1);
+  border: 1px solid rgba(255, 90, 90, 0.3);
+  border-radius: 12px;
+  padding: 12px 16px;
 }

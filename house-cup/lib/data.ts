@@ -1,15 +1,13 @@
-// Single source of truth for the House Cup dashboard.
+// Data layer for the House Cup dashboard, backed by Supabase.
 //
-// There are only THREE things to hand-edit — `players`, `games`, and `matches`.
-// Everything the dashboard shows (standings, current leader, per-game leaders,
-// recent nights, most played, head-to-head rivalries) is DERIVED from those by
-// the selectors near the bottom, so adding a single match row updates every
-// view automatically. No seasons — a match just records the date, who played,
-// and who won.
-//
-// Static for now; the shapes deliberately mirror a relational schema (players,
-// games, matches) so swapping this module for a DB + admin CRUD later is a
-// refactor, not a rewrite.
+// Three tables — players, games, matches — hold the data (a match records the
+// date played, who took part, and who won; no seasons). `loadData()` fetches
+// all three; `insertMatch()` records a new result. Everything the dashboard
+// shows is DERIVED from those rows by the pure selector functions below, which
+// take the fetched arrays as arguments (no module-level state), so the same
+// logic runs on the client after every fetch.
+
+import { getSupabase } from "./supabase";
 
 export type PlayerId = string;
 export type GameId = string;
@@ -19,7 +17,7 @@ export interface Player {
   name: string;
   /** Accent color — used for the ring, bars, and initials fallback. */
   color: string;
-  /** Optional /public path to a photo; falls back to colored initials. */
+  /** Optional photo path/URL; falls back to colored initials. */
   avatar?: string;
   /** CSS object-position for the avatar crop, e.g. "50% 20%". */
   avatarPosition?: string;
@@ -28,52 +26,118 @@ export interface Player {
 export interface Game {
   id: GameId;
   name: string;
-  /** Optional /public path to cover art; falls back to a gradient tile. */
+  /** Optional cover-art path/URL; falls back to a gradient tile. */
   art?: string;
 }
 
 export interface Match {
-  /** Unique id for this result row. */
   id: string;
   /** ISO date the night was played, e.g. "2026-07-04". */
   date: string;
   gameId: GameId;
-  /** Everyone who played (must include the winner). */
+  /** Everyone who played (includes the winner). */
   participantIds: PlayerId[];
-  /** Who won — must be one of participantIds. */
   winnerId: PlayerId;
 }
 
-// --- Data --------------------------------------------------------------------
-// Starting from a clean slate. To seed the dashboard, add rows like:
-//
-//   players: [{ id: "ellie", name: "Ellie", color: "#b07be0", avatar: "/players/ellie.png" }]
-//   games:   [{ id: "catan", name: "Settlers of Catan", art: "/games/catan.png" }]
-//   matches: [{ id: "m1", date: "2026-07-04", gameId: "catan",
-//               participantIds: ["ellie", "dad"], winnerId: "ellie" }]
-//
-// `id`s are the glue: a match references players/games by their `id`.
+// --- DB row shapes + mapping (snake_case in Postgres -> camelCase app types) --
 
-export const players: Player[] = [];
-export const games: Game[] = [];
-export const matches: Match[] = [];
+interface PlayerRow {
+  id: string;
+  name: string;
+  color: string;
+  avatar: string | null;
+  avatar_position: string | null;
+}
+interface GameRow {
+  id: string;
+  name: string;
+  art: string | null;
+}
+interface MatchRow {
+  id: string;
+  played_on: string;
+  game_id: string;
+  participant_ids: string[];
+  winner_id: string;
+}
+
+const mapPlayer = (r: PlayerRow): Player => ({
+  id: r.id,
+  name: r.name,
+  color: r.color,
+  avatar: r.avatar ?? undefined,
+  avatarPosition: r.avatar_position ?? undefined,
+});
+const mapGame = (r: GameRow): Game => ({ id: r.id, name: r.name, art: r.art ?? undefined });
+const mapMatch = (r: MatchRow): Match => ({
+  id: r.id,
+  date: r.played_on,
+  gameId: r.game_id,
+  participantIds: r.participant_ids,
+  winnerId: r.winner_id,
+});
+
+// --- Fetch & insert ----------------------------------------------------------
+
+export interface DashboardData {
+  players: Player[];
+  games: Game[];
+  matches: Match[];
+}
+
+export async function loadData(): Promise<DashboardData> {
+  const sb = getSupabase();
+  const [players, games, matches] = await Promise.all([
+    sb.from("players").select("id,name,color,avatar,avatar_position").order("name"),
+    sb.from("games").select("id,name,art").order("name"),
+    sb
+      .from("matches")
+      .select("id,played_on,game_id,participant_ids,winner_id")
+      .order("played_on", { ascending: false }),
+  ]);
+  if (players.error) throw players.error;
+  if (games.error) throw games.error;
+  if (matches.error) throw matches.error;
+  return {
+    players: (players.data as PlayerRow[]).map(mapPlayer),
+    games: (games.data as GameRow[]).map(mapGame),
+    matches: (matches.data as MatchRow[]).map(mapMatch),
+  };
+}
+
+export interface NewMatch {
+  date: string;
+  gameId: string;
+  participantIds: string[];
+  winnerId: string;
+}
+
+export async function insertMatch(m: NewMatch): Promise<void> {
+  const sb = getSupabase();
+  const { error } = await sb.from("matches").insert({
+    played_on: m.date,
+    game_id: m.gameId,
+    participant_ids: m.participantIds,
+    winner_id: m.winnerId,
+  });
+  if (error) throw error;
+}
 
 // --- Lookups & formatting ----------------------------------------------------
 
-export const playerById = (id: PlayerId): Player | undefined =>
+export const playerById = (players: Player[], id: PlayerId): Player | undefined =>
   players.find((p) => p.id === id);
 
-export const gameById = (id: GameId): Game | undefined =>
+export const gameById = (games: Game[], id: GameId): Game | undefined =>
   games.find((g) => g.id === id);
 
 /**
  * Prefix a /public asset path with the deploy sub-path (NEXT_PUBLIC_BASE_PATH).
- * Needed because plain <img src> — unlike next/link or next/image — does not
- * get basePath applied automatically. Empty in dev and for the standalone/
- * Docker build; set to e.g. "/home-game-dashboard" for the GitHub Pages export.
+ * Absolute http(s) URLs (e.g. Supabase Storage) are returned unchanged.
  */
 export const asset = (path: string): string =>
-  `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${path}`;
+  /^https?:\/\//.test(path) ? path : `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${path}`;
 
 export const formatRecord = (wins: number, losses: number): string =>
   `${wins}–${losses}`; // en dash
@@ -88,10 +152,10 @@ export function formatMatchDate(iso: string): string {
   return `${wd[day]} · ${mo[m - 1]} ${d}`;
 }
 
-// --- Derived views -----------------------------------------------------------
+// --- Derived views (pure; operate on the fetched arrays) ---------------------
 
 /** Matches a player took part in, most recent first. */
-function playedBy(id: PlayerId): Match[] {
+function playedBy(matches: Match[], id: PlayerId): Match[] {
   return matches
     .filter((m) => m.participantIds.includes(id))
     .sort((a, b) => b.date.localeCompare(a.date));
@@ -108,9 +172,9 @@ export interface StandingRow {
   streak: number;
 }
 
-export function standings(): StandingRow[] {
+export function standings(players: Player[], matches: Match[]): StandingRow[] {
   const rows = players.map((player) => {
-    const played = playedBy(player.id);
+    const played = playedBy(matches, player.id);
     const wins = played.filter((m) => m.winnerId === player.id).length;
     let streak = 0;
     for (const m of played) {
@@ -136,20 +200,18 @@ export function standings(): StandingRow[] {
 }
 
 /** Current overall leader = top of the standings among players with ≥1 night. */
-export function leader(): StandingRow | null {
-  return standings().find((r) => r.played > 0) ?? null;
+export function leader(players: Player[], matches: Match[]): StandingRow | null {
+  return standings(players, matches).find((r) => r.played > 0) ?? null;
 }
 
 export interface GameStat {
   game: Game;
-  /** Number of nights this game has been played. */
   nights: number;
-  /** Best win rate among its players (null until it has been played). */
   leader: Player | null;
   leaderWinRate: number; // 0–100
 }
 
-export function gameStats(): GameStat[] {
+export function gameStats(games: Game[], matches: Match[], players: Player[]): GameStat[] {
   return games.map((game) => {
     const gm = matches.filter((m) => m.gameId === game.id);
     const tally = new Map<PlayerId, { played: number; wins: number }>();
@@ -173,27 +235,24 @@ export function gameStats(): GameStat[] {
     return {
       game,
       nights: gm.length,
-      leader: leaderId ? playerById(leaderId) ?? null : null,
+      leader: leaderId ? playerById(players, leaderId) ?? null : null,
       leaderWinRate: best >= 0 ? Math.round(best * 100) : 0,
     };
   });
 }
 
 /** Most recent matches first. */
-export function recentMatches(limit = 5): Match[] {
-  return [...matches]
-    .sort((a, b) => b.date.localeCompare(a.date))
-    .slice(0, limit);
+export function recentMatches(matches: Match[], limit = 5): Match[] {
+  return [...matches].sort((a, b) => b.date.localeCompare(a.date)).slice(0, limit);
 }
 
 export interface MostPlayed {
   game: Game;
   nights: number;
-  /** Bar width relative to the most-played game, 0–100. */
-  pct: number;
+  pct: number; // bar width relative to the most-played game, 0–100
 }
 
-export function mostPlayed(): MostPlayed[] {
+export function mostPlayed(games: Game[], matches: Match[]): MostPlayed[] {
   const counts = games.map((game) => ({
     game,
     nights: matches.filter((m) => m.gameId === game.id).length,
@@ -209,12 +268,11 @@ export interface Rivalry {
   b: Player;
   aWins: number;
   bWins: number;
-  /** Nights both players took part in. */
   nights: number;
 }
 
 /** Head-to-head records for every pair that has played together, top N first. */
-export function rivalries(limit = 2): Rivalry[] {
+export function rivalries(matches: Match[], players: Player[], limit = 2): Rivalry[] {
   const pairs = new Map<
     string,
     { a: PlayerId; b: PlayerId; aWins: number; bWins: number; nights: number }
@@ -237,8 +295,8 @@ export function rivalries(limit = 2): Rivalry[] {
     .sort((x, y) => y.nights - x.nights || y.aWins + y.bWins - (x.aWins + x.bWins))
     .slice(0, limit)
     .map((r) => ({
-      a: playerById(r.a)!,
-      b: playerById(r.b)!,
+      a: playerById(players, r.a)!,
+      b: playerById(players, r.b)!,
       aWins: r.aWins,
       bWins: r.bWins,
       nights: r.nights,
