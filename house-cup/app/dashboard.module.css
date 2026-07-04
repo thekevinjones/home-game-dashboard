@@ -81,6 +81,21 @@
   font-size: 17px;
   color: var(--ink-dim);
 }
+.addResult {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 700;
+  font-size: 15px;
+  color: #1a1533;
+  background: var(--amber);
+  padding: 9px 17px;
+  border-radius: 999px;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+  box-shadow: 0 8px 20px -8px rgba(245, 179, 82, 0.5);
+}
+.addResult:hover {
+  transform: translateY(-1px);
+}
 /* ---- empty states ---- */
 .empty {
   text-align: center;

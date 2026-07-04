@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "./dashboard.module.css";
 import { CountUp } from "@/components/CountUp";
 import {
@@ -98,6 +99,9 @@ export default function Dashboard() {
             <div className={styles.headerDate}>
               {latest ? `Last played ${formatMatchDate(latest.date)}` : "No games yet"}
             </div>
+            <Link href="/add-match" className={styles.addResult}>
+              ＋ Add result
+            </Link>
           </div>
         </div>
       </header>

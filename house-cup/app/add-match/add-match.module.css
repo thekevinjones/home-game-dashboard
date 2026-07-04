@@ -1,0 +1,241 @@
+.page {
+  max-width: 720px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 40px 24px 72px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* ---- header ---- */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.back {
+  align-self: flex-start;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--ink-dim);
+  padding: 6px 0;
+  transition: color 0.2s ease;
+}
+.back:hover {
+  color: var(--amber-soft);
+}
+.title {
+  font-weight: 800;
+  font-size: 40px;
+  line-height: 1.05;
+  color: var(--ink);
+  margin-top: 4px;
+}
+.sub {
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--ink-dim);
+}
+
+/* ---- notice ---- */
+.notice {
+  background: rgba(245, 179, 82, 0.12);
+  border: 1px solid rgba(245, 179, 82, 0.28);
+  border-radius: 14px;
+  padding: 14px 18px;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--amber-soft);
+}
+.notice code,
+.tradeoff code,
+.steps code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.92em;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 1px 6px;
+  border-radius: 5px;
+  color: var(--ink);
+}
+
+/* ---- card ---- */
+.card {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 22px;
+  padding: 26px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ---- fields ---- */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.label {
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+.labelDim {
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  color: rgba(163, 161, 204, 0.7);
+}
+.input {
+  width: 100%;
+  background: rgba(12, 10, 30, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.input:focus {
+  outline: none;
+  border-color: var(--amber);
+  box-shadow: 0 0 0 3px rgba(245, 179, 82, 0.18);
+}
+.input:disabled {
+  opacity: 0.5;
+}
+/* Make the native date/select controls legible on the dark canvas. */
+.input option {
+  background: #201d40;
+  color: var(--ink);
+}
+.input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.8);
+  cursor: pointer;
+}
+
+/* ---- participant chips ---- */
+.checkGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: rgba(12, 10, 30, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  padding: 9px 16px;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+}
+.chip:hover {
+  transform: translateY(-1px);
+}
+.chipOn {
+  border-color: var(--amber);
+}
+.dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  flex: none;
+}
+
+/* ---- output ---- */
+.outputHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.actions {
+  display: flex;
+  gap: 10px;
+}
+.btn,
+.btnGhost {
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.2s ease, background 0.2s ease;
+}
+.btn {
+  background: var(--amber);
+  color: #1a1533;
+  border: none;
+}
+.btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+.btnGhost {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+.btnGhost:hover:not(:disabled) {
+  border-color: var(--amber);
+}
+.btn:disabled,
+.btnGhost:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.code {
+  margin: 0;
+  background: rgba(12, 10, 30, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 16px;
+  overflow-x: auto;
+}
+.code code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--amber-soft);
+  white-space: pre;
+}
+.hint {
+  font-weight: 500;
+  font-size: 15px;
+  color: var(--ink-dim);
+}
+
+/* ---- steps + tradeoff ---- */
+.steps {
+  margin: 4px 0 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+.tradeoff {
+  margin: 0;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink-dim);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 16px;
+}
