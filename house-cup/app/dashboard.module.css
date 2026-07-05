@@ -16,9 +16,9 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  background: linear-gradient(rgba(18, 9, 3, 0.6), rgba(18, 9, 3, 0.6)),
-    url("./theme/wood-bg.svg") repeat;
-  background-size: auto, 480px 480px;
+  background: linear-gradient(180deg, rgba(26, 13, 5, 0.92), rgba(20, 10, 4, 0.86));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(212, 169, 78, 0.45);
   box-shadow: 0 12px 32px -14px rgba(0, 0, 0, 0.8);
 }
