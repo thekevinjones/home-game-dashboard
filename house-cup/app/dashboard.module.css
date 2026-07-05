@@ -287,6 +287,108 @@
   margin-top: 4px;
 }
 
+/* ---- recent-game hero ---- */
+.recentHeroName {
+  font-weight: 800;
+  font-size: 52px;
+  line-height: 1;
+  color: var(--ink);
+  margin: 18px 0 8px;
+}
+.recentHeroDate {
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--amber-soft);
+}
+.recentWinnerBig {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 24px;
+}
+.recentWinnerBigName {
+  font-weight: 800;
+  font-size: 26px;
+  line-height: 1.05;
+  color: var(--ink);
+}
+.recentWonLabel {
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  color: var(--amber);
+  margin-top: 2px;
+}
+.recentParticipants {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+.recentPartLabel {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--ink-dim);
+  margin-right: 4px;
+}
+
+/* ---- standings: featured #1 ---- */
+.standTop {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 22px;
+  margin-bottom: 14px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(245, 179, 82, 0.18), rgba(245, 179, 82, 0.05));
+  border: 1px solid rgba(245, 179, 82, 0.35);
+}
+.standTopRank {
+  width: 34px;
+  flex: none;
+  text-align: center;
+  font-weight: 800;
+  font-size: 40px;
+  color: var(--amber);
+}
+.standTopBadgeRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.standTopStreak {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--ink-dim);
+}
+.standTopName {
+  font-weight: 800;
+  font-size: 40px;
+  line-height: 1;
+  color: var(--ink);
+}
+.standTopWins {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex: none;
+}
+.standTopWinsNum {
+  font-weight: 800;
+  font-size: 54px;
+  line-height: 1;
+  color: var(--ink);
+}
+.standTopWinsLabel {
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  color: var(--amber-soft);
+  margin-top: 3px;
+}
+
 /* ---- section heading ---- */
 .sectionHead {
   display: flex;
@@ -306,9 +408,63 @@
 }
 
 /* ---- on the table ---- */
-.gameRow {
-  display: flex;
+.gameGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 22px;
+}
+/* Collapsed: clip to the first row plus the tops of the next row poking out. */
+.gameCollapser {
+  position: relative;
+  max-height: 360px;
+  overflow: hidden;
+  transition: max-height 0.45s ease;
+}
+.gameCollapser.expanded {
+  max-height: 2400px;
+}
+.gameFade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 180px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 16px;
+  background: linear-gradient(
+    180deg,
+    rgba(16, 14, 38, 0) 0%,
+    rgba(16, 14, 38, 0.78) 52%,
+    rgba(12, 10, 30, 0.97) 100%
+  );
+}
+.gameFadeBtn,
+.showLess {
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 15px;
+  color: #1a1533;
+  background: var(--amber);
+  padding: 10px 20px;
+  border-radius: 999px;
+  box-shadow: 0 10px 24px -8px rgba(245, 179, 82, 0.6);
+  transition: transform 0.15s ease, filter 0.2s ease;
+}
+.showLess {
+  display: block;
+  margin: 16px auto 0;
+  border: none;
+  cursor: pointer;
+}
+.gameFade:hover .gameFadeBtn,
+.showLess:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
 }
 .gameCard {
   flex: 1;
@@ -785,8 +941,12 @@
   .sideCol {
     width: 100%;
   }
-  .champName {
-    font-size: 64px;
+  .champName,
+  .recentHeroName {
+    font-size: 44px;
+  }
+  .gameGrid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -810,16 +970,27 @@
   .ring {
     display: none;
   }
-  .gameRow {
-    flex-direction: column;
+  .gameGrid {
+    grid-template-columns: 1fr;
   }
-  .champName {
-    font-size: 56px;
+  .champName,
+  .recentHeroName {
+    font-size: 40px;
   }
   .standBarWrap {
-    width: 160px;
+    width: 140px;
   }
   .brandTitle {
     font-size: 26px;
+  }
+  .standTop {
+    gap: 14px;
+    padding: 18px;
+  }
+  .standTopName {
+    font-size: 30px;
+  }
+  .standTopWinsNum {
+    font-size: 42px;
   }
 }

@@ -6,7 +6,6 @@ import styles from "./dashboard.module.css";
 import { CountUp } from "@/components/CountUp";
 import {
   standings,
-  leader,
   gameStats,
   recentMatches,
   mostPlayed,
@@ -103,6 +102,7 @@ function Header({ subtitle }: { subtitle: React.ReactNode }) {
 export default function Dashboard() {
   const [data, setData] = useState<DashboardData | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [gamesExpanded, setGamesExpanded] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -157,63 +157,110 @@ export default function Dashboard() {
 
   const { players, games, matches } = data;
   const table = standings(players, matches);
-  const lead = leader(players, matches);
   const gstats = gameStats(games, matches, players);
   const recent = recentMatches(matches);
   const played = mostPlayed(games, matches).filter((m) => m.nights > 0);
   const rivals = rivalries(matches, players);
   const latest = recent[0];
   const topWins = Math.max(1, ...table.map((r) => r.wins)); // bar scale
-  const totalWins = matches.length; // every match has exactly one winner
+  // #1 is featured only once someone has actually won.
+  const champ = table[0]?.wins > 0 ? table[0] : null;
+  const restRows = champ ? table.slice(1) : table;
+
+  const gameCards = gstats.map((gs) => (
+    <div key={gs.game.id} className={styles.gameCard}>
+      {gs.game.art ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img className={styles.gameArt} src={asset(gs.game.art)} alt={gs.game.name} />
+      ) : (
+        <div className={styles.gameArtFallback} />
+      )}
+      <div className={styles.gameScrim} />
+      <div className={styles.gameNights}>
+        {gs.nights} night{gs.nights === 1 ? "" : "s"}
+      </div>
+      <div className={styles.gameFooter}>
+        <div className={`${styles.gameName} font-display`}>{gs.game.name}</div>
+        <div className={styles.gameLeaderRow}>
+          {gs.leader ? (
+            <>
+              <Avatar player={gs.leader} size={34} />
+              <span className={styles.gameLeaderName}>{gs.leader.name}</span>
+              <div className={styles.grow} />
+              <CountUp
+                className={`${styles.gameLeaderRate} font-display`}
+                value={gs.leaderWins}
+                suffix={gs.leaderWins === 1 ? " win" : " wins"}
+              />
+            </>
+          ) : (
+            <span className={styles.gameLeaderName}>Not played yet</span>
+          )}
+        </div>
+      </div>
+    </div>
+  ));
+  const collapseGames = gameCards.length > 3;
 
   return (
     <div className={styles.page}>
       <Header subtitle={latest ? `Last played ${formatMatchDate(latest.date)}` : "No games yet"} />
 
       <main className={styles.main}>
-        {/* hero — current leader */}
-        {lead ? (
-          <section className={styles.hero}>
-            {lead.player.avatar && (
-              <div className={styles.heroPhoto}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={asset(lead.player.avatar)} alt={lead.player.name} />
-                <div className={styles.heroSeam} />
-                <div className={styles.heroFade} />
-              </div>
-            )}
-            <div className={styles.heroText}>
-              <div className={styles.champPill}>
-                <div className={styles.champPillDiamond} />
-                <span className={styles.champPillLabel}>CURRENT LEADER</span>
-              </div>
-              <div className={`${styles.champName} font-display`}>{lead.player.name}</div>
-              <div className={`${styles.champRecord} font-display`}>
-                {lead.wins} win{lead.wins === 1 ? "" : "s"}
-              </div>
-              <div className={styles.champTags}>
-                <span className={styles.champTag}>{lead.played} nights played</span>
-                {lead.streak > 1 && (
-                  <span className={styles.champTag}>{lead.streak}-night streak</span>
-                )}
-              </div>
-            </div>
-            <div
-              className={styles.ring}
-              style={
-                { "--ring": Math.round((lead.wins / totalWins) * 100) } as React.CSSProperties
-              }
-            >
-              <div className={styles.ringInner}>
-                <CountUp
-                  className={`${styles.ringPct} font-display`}
-                  value={lead.wins}
-                  duration={1300}
-                />
-                <div className={styles.ringLabel}>WINS</div>
-              </div>
-            </div>
-          </section>
+        {/* hero — most recent game played */}
+        {latest ? (
+          (() => {
+            const g = gameById(games, latest.gameId);
+            const winner = playerById(players, latest.winnerId);
+            const parts = latest.participantIds
+              .map((id) => playerById(players, id))
+              .filter((p): p is Player => Boolean(p));
+            return (
+              <section className={styles.hero}>
+                <div className={styles.heroPhoto}>
+                  {g?.art ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={asset(g.art)} alt={g.name} />
+                  ) : (
+                    <div className={styles.gameArtFallback} />
+                  )}
+                  <div className={styles.heroSeam} />
+                  <div className={styles.heroFade} />
+                </div>
+                <div className={styles.heroText}>
+                  <div className={styles.champPill}>
+                    <div className={styles.champPillDiamond} />
+                    <span className={styles.champPillLabel}>RECENT GAME PLAYED</span>
+                  </div>
+                  <div className={`${styles.recentHeroName} font-display`}>
+                    {g?.name ?? latest.gameId}
+                  </div>
+                  <div className={styles.recentHeroDate}>{formatMatchDate(latest.date)}</div>
+                  {winner && (
+                    <div className={styles.recentWinnerBig}>
+                      <Avatar player={winner} size={54} ring={3} />
+                      <div className={styles.minw0}>
+                        <div className={`${styles.recentWinnerBigName} font-display`}>
+                          {winner.name}
+                        </div>
+                        <div className={styles.recentWonLabel}>WON</div>
+                      </div>
+                    </div>
+                  )}
+                  {parts.length > 0 && (
+                    <div className={styles.recentParticipants}>
+                      <span className={styles.recentPartLabel}>Played by</span>
+                      {parts.map((p) => (
+                        <div key={p.id} title={p.name}>
+                          <Avatar player={p} size={30} />
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </section>
+            );
+          })()
         ) : (
           <section className={`${styles.hero} ${styles.heroEmpty}`}>
             <div>
@@ -221,7 +268,7 @@ export default function Dashboard() {
                 <div className={styles.champPillDiamond} />
                 <span className={styles.champPillLabel}>GET STARTED</span>
               </div>
-              <div className={`${styles.heroEmptyTitle} font-display`}>No results yet</div>
+              <div className={`${styles.heroEmptyTitle} font-display`}>No games played yet</div>
               <div className={styles.emptyHint}>
                 Add players and games in Supabase, then record a game night with{" "}
                 <Link href="/add-match" style={{ color: "var(--amber-soft)" }}>
@@ -243,46 +290,41 @@ export default function Dashboard() {
                 : "No games yet"}
             </div>
           </div>
-          {gstats.length ? (
-            <div className={styles.gameRow}>
-              {gstats.map((gs) => (
-                <div key={gs.game.id} className={styles.gameCard}>
-                  {gs.game.art ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img className={styles.gameArt} src={asset(gs.game.art)} alt={gs.game.name} />
-                  ) : (
-                    <div className={styles.gameArtFallback} />
-                  )}
-                  <div className={styles.gameScrim} />
-                  <div className={styles.gameNights}>
-                    {gs.nights} night{gs.nights === 1 ? "" : "s"}
-                  </div>
-                  <div className={styles.gameFooter}>
-                    <div className={`${styles.gameName} font-display`}>{gs.game.name}</div>
-                    <div className={styles.gameLeaderRow}>
-                      {gs.leader ? (
-                        <>
-                          <Avatar player={gs.leader} size={34} />
-                          <span className={styles.gameLeaderName}>{gs.leader.name}</span>
-                          <div className={styles.grow} />
-                          <CountUp
-                            className={`${styles.gameLeaderRate} font-display`}
-                            value={gs.leaderWins}
-                            suffix={gs.leaderWins === 1 ? " win" : " wins"}
-                          />
-                        </>
-                      ) : (
-                        <span className={styles.gameLeaderName}>Not played yet</span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
+          {gameCards.length === 0 ? (
             <div className={`${styles.panel} ${styles.standingsPanel}`}>
               <div className={styles.empty}>No games added yet.</div>
             </div>
+          ) : collapseGames ? (
+            <>
+              <div
+                className={`${styles.gameCollapser} ${gamesExpanded ? styles.expanded : ""}`}
+              >
+                <div className={styles.gameGrid}>{gameCards}</div>
+                {!gamesExpanded && (
+                  <button
+                    type="button"
+                    className={styles.gameFade}
+                    onClick={() => setGamesExpanded(true)}
+                    aria-label={`Show all ${gameCards.length} games`}
+                  >
+                    <span className={styles.gameFadeBtn}>
+                      Show all {gameCards.length} games ▾
+                    </span>
+                  </button>
+                )}
+              </div>
+              {gamesExpanded && (
+                <button
+                  type="button"
+                  className={styles.showLess}
+                  onClick={() => setGamesExpanded(false)}
+                >
+                  Show less ▴
+                </button>
+              )}
+            </>
+          ) : (
+            <div className={styles.gameGrid}>{gameCards}</div>
           )}
         </section>
 
@@ -292,41 +334,69 @@ export default function Dashboard() {
             <div className={`${styles.sectionTitle} font-display`}>Overall Standings</div>
             <div className={styles.panelKicker}>WINS</div>
           </div>
-          {table.length ? (
-            table.map((row) => (
-              <div key={row.player.id} className={styles.standRow}>
-                <div className={`${styles.standRank} font-display`}>{row.rank}</div>
-                <Avatar player={row.player} size={54} ring={3} />
-                <div className={styles.minw0}>
-                  <div className={styles.standNameRow}>
-                    <span className={`${styles.standName} font-display`}>{row.player.name}</span>
-                    {row.rank === 1 && row.wins > 0 && (
-                      <span className={styles.championBadge}>LEADER</span>
-                    )}
-                  </div>
-                  <div className={styles.standMeta}>
-                    {row.played} night{row.played === 1 ? "" : "s"} played
-                  </div>
-                </div>
-                <div className={styles.grow} />
-                <div className={styles.standBarWrap}>
-                  <div className={styles.standBarTrack}>
-                    <div
-                      className={styles.barFill}
-                      style={{
-                        width: `${Math.round((row.wins / topWins) * 100)}%`,
-                        height: "100%",
-                        borderRadius: 999,
-                        background: row.player.color,
-                      }}
-                    />
-                  </div>
-                  <CountUp className={`${styles.standRate} font-display`} value={row.wins} />
-                </div>
-              </div>
-            ))
-          ) : (
+          {table.length === 0 ? (
             <div className={styles.empty}>No players added yet.</div>
+          ) : (
+            <>
+              {champ && (
+                <div className={styles.standTop}>
+                  <div className={`${styles.standTopRank} font-display`}>1</div>
+                  <Avatar player={champ.player} size={92} ring={4} />
+                  <div className={styles.minw0}>
+                    <div className={styles.standTopBadgeRow}>
+                      <span className={styles.championBadge}>LEADER</span>
+                      {champ.streak > 1 && (
+                        <span className={styles.standTopStreak}>{champ.streak}-night streak</span>
+                      )}
+                    </div>
+                    <div className={`${styles.standTopName} font-display`}>{champ.player.name}</div>
+                    <div className={styles.standMeta}>
+                      {champ.played} night{champ.played === 1 ? "" : "s"} played
+                    </div>
+                  </div>
+                  <div className={styles.grow} />
+                  <div className={styles.standTopWins}>
+                    <CountUp
+                      className={`${styles.standTopWinsNum} font-display`}
+                      value={champ.wins}
+                      duration={1300}
+                    />
+                    <div className={styles.standTopWinsLabel}>
+                      {champ.wins === 1 ? "WIN" : "WINS"}
+                    </div>
+                  </div>
+                </div>
+              )}
+              {restRows.map((row) => (
+                <div key={row.player.id} className={styles.standRow}>
+                  <div className={`${styles.standRank} font-display`}>{row.rank}</div>
+                  <Avatar player={row.player} size={54} ring={3} />
+                  <div className={styles.minw0}>
+                    <div className={styles.standNameRow}>
+                      <span className={`${styles.standName} font-display`}>{row.player.name}</span>
+                    </div>
+                    <div className={styles.standMeta}>
+                      {row.played} night{row.played === 1 ? "" : "s"} played
+                    </div>
+                  </div>
+                  <div className={styles.grow} />
+                  <div className={styles.standBarWrap}>
+                    <div className={styles.standBarTrack}>
+                      <div
+                        className={styles.barFill}
+                        style={{
+                          width: `${Math.round((row.wins / topWins) * 100)}%`,
+                          height: "100%",
+                          borderRadius: 999,
+                          background: row.player.color,
+                        }}
+                      />
+                    </div>
+                    <CountUp className={`${styles.standRate} font-display`} value={row.wins} />
+                  </div>
+                </div>
+              ))}
+            </>
           )}
         </section>
 
