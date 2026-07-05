@@ -181,10 +181,18 @@ function playedBy(matches: Match[], id: PlayerId): Match[] {
 export interface StandingRow {
   rank: number;
   player: Player;
-  /** Nights this player took part in (participation, not a win/loss record). */
+  /** Nights this player took part in. */
   played: number;
-  /** Total matches won — the ranking metric. */
+  /** Total matches won — the ranking metric and the only stat shown in the UI. */
   wins: number;
+  /**
+   * Kept in the data model but NOT shown in the UI (per product decision to
+   * display wins only). Fully derived from matches (losses = played - wins),
+   * so it's here and ready to surface later without a schema change.
+   */
+  losses: number;
+  /** Win rate 0–100, also derived — kept available, not displayed. */
+  winRate: number;
   /** Current run of consecutive wins across their most recent nights. */
   streak: number;
 }
@@ -198,7 +206,15 @@ export function standings(players: Player[], matches: Match[]): StandingRow[] {
       if (m.winnerId === player.id) streak++;
       else break;
     }
-    return { player, played: played.length, wins, streak };
+    return {
+      player,
+      played: played.length,
+      wins,
+      // Derived and retained (not rendered) so wins/losses/win-rate stay queryable.
+      losses: played.length - wins,
+      winRate: played.length ? Math.round((wins / played.length) * 100) : 0,
+      streak,
+    };
   });
   // Rank by total wins (desc); ties broken by name for a stable order.
   rows.sort((a, b) => b.wins - a.wins || a.player.name.localeCompare(b.player.name));
@@ -215,28 +231,43 @@ export interface GameStat {
   nights: number;
   /** Player with the most wins at this game. */
   leader: Player | null;
+  /** The leader's wins at this game — the stat shown in the UI. */
   leaderWins: number;
+  /** The leader's win rate at this game (0–100). Derived; kept, not displayed. */
+  leaderWinRate: number;
 }
 
 export function gameStats(games: Game[], matches: Match[], players: Player[]): GameStat[] {
   return games.map((game) => {
     const gm = matches.filter((m) => m.gameId === game.id);
-    const wins = new Map<PlayerId, number>();
-    for (const m of gm) wins.set(m.winnerId, (wins.get(m.winnerId) ?? 0) + 1);
+    const tally = new Map<PlayerId, { played: number; wins: number }>();
+    for (const m of gm) {
+      for (const pid of m.participantIds) {
+        const t = tally.get(pid) ?? { played: 0, wins: 0 };
+        t.played++;
+        if (m.winnerId === pid) t.wins++;
+        tally.set(pid, t);
+      }
+    }
 
     let leaderId: PlayerId | null = null;
     let best = 0;
-    for (const [pid, w] of wins) {
-      if (w > best) {
-        best = w;
+    for (const [pid, t] of tally) {
+      if (t.wins > best) {
+        best = t.wins;
         leaderId = pid;
       }
     }
+    const leaderTally = leaderId ? tally.get(leaderId) : undefined;
     return {
       game,
       nights: gm.length,
       leader: leaderId ? playerById(players, leaderId) ?? null : null,
       leaderWins: best,
+      leaderWinRate:
+        leaderTally && leaderTally.played
+          ? Math.round((leaderTally.wins / leaderTally.played) * 100)
+          : 0,
     };
   });
 }
