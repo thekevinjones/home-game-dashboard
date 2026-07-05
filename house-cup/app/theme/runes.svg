@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="440" height="440" viewBox="0 0 440 440">
+  <!-- Sparse overlay tile: faint gold runes + tiny star sparkles.
+       Tiled over the wood background at low opacity. -->
+  <defs>
+    <path id="spark" d="M0,-6 L1.4,-1.4 L6,0 L1.4,1.4 L0,6 L-1.4,1.4 L-6,0 L-1.4,-1.4 Z" fill="#f0d488"/>
+  </defs>
+  <g stroke="#e8c878" stroke-width="2.4" fill="none" stroke-linecap="round">
+    <g opacity="0.06" transform="translate(52,60) rotate(-8)">
+      <path d="M0,0 V34 M0,8 L13,1 M0,20 L13,13"/>
+    </g>
+    <g opacity="0.05" transform="translate(300,130) rotate(6)">
+      <path d="M9,34 V0 M0,9 L9,0 L18,9"/>
+    </g>
+    <g opacity="0.06" transform="translate(160,290) rotate(-5)">
+      <path d="M0,34 V0 M16,34 V0 M0,0 L8,12 L16,0"/>
+    </g>
+    <g opacity="0.05" transform="translate(390,330) rotate(9)">
+      <path d="M0,34 V0 L12,9 L0,18 L12,34"/>
+    </g>
+    <g opacity="0.05" transform="translate(240,410) rotate(-7)">
+      <path d="M0,0 V34 M14,0 V34 M0,0 L14,34 M14,0 L0,34"/>
+    </g>
+    <g opacity="0.06" transform="translate(80,400) rotate(4)">
+      <path d="M0,34 V6 L11,0 M11,34 V6"/>
+    </g>
+  </g>
+  <use href="#spark" transform="translate(120,44) scale(0.7)" opacity="0.30"/>
+  <use href="#spark" transform="translate(356,66) scale(0.45)" opacity="0.22"/>
+  <use href="#spark" transform="translate(30,210) scale(0.55)" opacity="0.26"/>
+  <use href="#spark" transform="translate(224,180) scale(0.9)" opacity="0.18"/>
+  <use href="#spark" transform="translate(410,240) scale(0.6)" opacity="0.28"/>
+  <use href="#spark" transform="translate(300,340) scale(0.5)" opacity="0.24"/>
+  <use href="#spark" transform="translate(60,330) scale(0.8)" opacity="0.16"/>
+  <use href="#spark" transform="translate(180,120) scale(0.4)" opacity="0.30"/>
+  <use href="#spark" transform="translate(150,420) scale(0.55)" opacity="0.2"/>
+  <use href="#spark" transform="translate(420,140) scale(0.4)" opacity="0.26"/>
+</svg>

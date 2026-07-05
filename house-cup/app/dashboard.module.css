@@ -1,10 +1,14 @@
-/* The House Cup — Direction 3 · Midnight & Amber.
-   Fixed 1080×1920 canvas, faithfully ported from the design handoff. */
+/* The Jones House Cup — Wizard Hall redesign.
+   Wood-panel hall, parchment scrolls, ornate gold frames, potion-vial bars.
+   Frames/textures are scalable SVG assets in app/theme, applied as repeating
+   backgrounds and 9-slice border-images so they survive any panel size. */
 
 .page {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative;
+  z-index: 1; /* above the fixed rune/vignette layer on body::before */
 }
 
 /* ---- site header ---- */
@@ -12,16 +16,17 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  background: rgba(16, 14, 38, 0.82);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  background: linear-gradient(rgba(18, 9, 3, 0.6), rgba(18, 9, 3, 0.6)),
+    url("./theme/wood-bg.svg") repeat;
+  background-size: auto, 480px 480px;
+  border-bottom: 1px solid rgba(212, 169, 78, 0.45);
+  box-shadow: 0 12px 32px -14px rgba(0, 0, 0, 0.8);
 }
 .headerInner {
   max-width: 1120px;
   margin: 0 auto;
   width: 100%;
-  padding: 18px 44px;
+  padding: 14px 44px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -34,68 +39,73 @@
   padding: 32px 44px 72px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 26px;
 }
 .brand {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 16px;
 }
-.logo {
-  width: 60px;
-  height: 60px;
-  border-radius: 17px;
-  background: var(--amber);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 8px 22px -6px rgba(245, 179, 82, 0.5);
+.crest {
+  width: 54px;
+  height: auto;
+  flex: none;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.55));
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-.logoDiamond {
-  width: 22px;
-  height: 22px;
-  background: #171533;
-  transform: rotate(45deg);
-  border-radius: 5px;
+.brand:hover .crest {
+  transform: rotate(-6deg) scale(1.06);
 }
 .brandTitle {
-  font-weight: 800;
-  font-size: 33px;
-  color: var(--ink);
+  font-weight: 700;
+  font-size: 37px;
+  color: #e9bd5a;
   line-height: 1;
   white-space: nowrap;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
 }
 .brandSub {
-  font-weight: 500;
+  font-weight: 600;
   font-size: 16px;
-  color: var(--ink-dim);
-  margin-top: 5px;
+  color: #d8c49a;
+  margin-top: 4px;
 }
 .headerRight {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
 }
 .headerDate {
   font-weight: 600;
-  font-size: 17px;
-  color: var(--ink-dim);
+  font-size: 18px;
+  color: #d8c49a;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 .addResult {
   display: inline-flex;
   align-items: center;
+  gap: 10px;
   font-weight: 700;
-  font-size: 15px;
-  color: #1a1533;
-  background: var(--amber);
-  padding: 9px 17px;
-  border-radius: 999px;
-  transition: transform 0.15s ease, box-shadow 0.2s ease;
-  box-shadow: 0 8px 20px -8px rgba(245, 179, 82, 0.5);
+  font-size: 17px;
+  color: var(--parchment);
+  background: linear-gradient(180deg, #3d2c52, #261a36);
+  border: 1.5px solid #c9a25c;
+  padding: 9px 18px;
+  border-radius: 12px;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  box-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(240, 212, 136, 0.18);
 }
 .addResult:hover {
   transform: translateY(-1px);
+  border-color: var(--gold-bright);
+  box-shadow: 0 10px 24px -8px rgba(240, 201, 108, 0.35), inset 0 1px 0 rgba(240, 212, 136, 0.25);
 }
+.quill {
+  width: 21px;
+  height: 21px;
+  flex: none;
+}
+
 /* ---- empty states ---- */
 .empty {
   text-align: center;
@@ -139,24 +149,38 @@
 .gameArtFallback {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, #3a2f6b 0%, #221c4a 60%, #14122e 100%);
+  background: radial-gradient(120% 90% at 30% 20%, rgba(120, 96, 210, 0.25), transparent 55%),
+    url("./theme/panel-texture.svg") repeat;
+  background-size: auto, 320px 320px;
 }
 .hero {
   position: relative;
   height: 420px;
-  border-radius: 30px;
+  border-radius: 26px;
   overflow: hidden;
-  background: linear-gradient(135deg, #3a2f6b 0%, #221c4a 58%, #14122e 100%);
-  box-shadow: 0 24px 60px -22px rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(245, 179, 82, 0.2);
+  background: linear-gradient(135deg, rgba(96, 74, 168, 0.22), rgba(18, 12, 38, 0.5) 62%),
+    url("./theme/panel-texture.svg") repeat;
+  background-size: auto, 320px 320px;
+  box-shadow: 0 26px 60px -22px rgba(0, 0, 0, 0.75), inset 0 0 80px rgba(0, 0, 0, 0.3);
+}
+/* ornate gold frame overlay */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  border: 33px solid transparent;
+  border-image: url("./theme/panel-frame.svg") 33;
 }
 .heroPhoto {
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 50%;
+  top: 20px;
+  right: 20px;
+  bottom: 20px;
+  width: calc(50% - 20px);
   overflow: hidden;
+  border-radius: 14px;
 }
 .heroPhoto img {
   width: 100%;
@@ -164,21 +188,20 @@
   object-fit: cover;
   object-position: 50% 32%;
 }
-.heroSeam {
+/* picture frame around the hero photo */
+.heroPhoto::after {
+  content: "";
   position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background: var(--amber);
+  inset: 0;
+  pointer-events: none;
+  border: 27px solid transparent;
+  border-image: url("./theme/photo-frame.svg") 27;
+}
+.heroSeam {
+  display: none;
 }
 .heroFade {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 90px;
-  background: linear-gradient(90deg, rgba(20, 16, 44, 0.55), transparent);
+  display: none;
 }
 .heroText {
   position: absolute;
@@ -191,28 +214,65 @@
   flex-direction: column;
   justify-content: center;
   color: var(--ink);
+  z-index: 2;
 }
+/* floating decorations */
+.heroSnitch {
+  position: absolute;
+  left: 36%;
+  top: 40%;
+  width: 92px;
+  height: auto;
+  z-index: 2;
+  pointer-events: none;
+  filter: drop-shadow(0 0 12px rgba(240, 201, 108, 0.35));
+  animation: floaty 4.5s ease-in-out infinite alternate;
+}
+.heroPotion {
+  position: absolute;
+  left: 42%;
+  bottom: 26px;
+  width: 34px;
+  height: auto;
+  z-index: 2;
+  pointer-events: none;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.5));
+}
+@keyframes floaty {
+  from {
+    transform: translateY(0) rotate(-3deg);
+  }
+  to {
+    transform: translateY(-12px) rotate(3deg);
+  }
+}
+
+/* parchment scroll label (RECENT GAME PLAYED) */
 .champPill {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: rgba(245, 179, 82, 0.18);
-  padding: 9px 16px;
-  border-radius: 999px;
   align-self: flex-start;
+  border: solid transparent;
+  border-width: 14px 34px;
+  border-image: url("./theme/scroll-banner.svg") 16 40 fill;
+  padding: 0 2px;
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.45));
 }
 .champPillDiamond {
-  width: 12px;
-  height: 12px;
-  background: var(--amber);
+  width: 11px;
+  height: 11px;
+  background: #a8813f;
   transform: rotate(45deg);
   border-radius: 2px;
+  flex: none;
 }
 .champPillLabel {
   font-weight: 800;
-  font-size: 14px;
-  letter-spacing: 0.16em;
-  color: var(--amber-soft);
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  color: #6d4a1c;
+  white-space: nowrap;
 }
 .champName {
   font-weight: 800;
@@ -294,11 +354,13 @@
   line-height: 1;
   color: var(--ink);
   margin: 18px 0 8px;
+  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.45);
 }
 .recentHeroDate {
+  font-family: var(--font-serif), Georgia, serif;
   font-weight: 700;
-  font-size: 20px;
-  color: var(--amber-soft);
+  font-size: 21px;
+  color: var(--gold-bright);
 }
 .recentWinnerBig {
   display: flex;
@@ -333,19 +395,45 @@
   margin-right: 4px;
 }
 
+/* ---- gilded avatar porthole ---- */
+.portrait {
+  position: relative;
+  display: flex;
+  flex: none;
+  padding: 3px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 220deg,
+    #8a6220,
+    #f0d488 20%,
+    #a87c2e 45%,
+    #ecd189 70%,
+    #8a6220 100%
+  );
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+}
+
 /* ---- standings: featured #1 ----
    Same column geometry as .standRow (rank 30 · gap 18 · barWrap 250 · number 74)
    and the same horizontal padding, so the wins numbers stay vertically aligned
-   with the rows below — just emphasized (tinted card, bigger type, badge). */
+   with the rows below — just emphasized (gilded plaque, bigger type, badge). */
 .standTop {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 18px;
   padding: 20px;
   margin-bottom: 14px;
-  border-radius: 22px;
-  background: linear-gradient(135deg, rgba(245, 179, 82, 0.16), rgba(245, 179, 82, 0.04));
-  border: 1px solid rgba(245, 179, 82, 0.4);
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(212, 169, 78, 0.16), rgba(212, 169, 78, 0.04));
+}
+.standTop::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border: 18px solid transparent;
+  border-image: url("./theme/row-frame-gold.svg") 18;
 }
 
 /* champion avatar + star medallion */
@@ -358,6 +446,7 @@
   position: absolute;
   right: -5px;
   bottom: -5px;
+  z-index: 2;
   width: 26px;
   height: 26px;
   border-radius: 50%;
@@ -367,8 +456,8 @@
   font-size: 14px;
   line-height: 1;
   color: #3a2405;
-  background: linear-gradient(135deg, var(--amber-soft), var(--amber));
-  border: 2px solid var(--panel);
+  background: linear-gradient(135deg, var(--gold-bright), var(--gold));
+  border: 2px solid #4e3a17;
   box-shadow: 0 2px 7px rgba(0, 0, 0, 0.45);
 }
 .standTopRank {
@@ -377,7 +466,8 @@
   text-align: center;
   font-weight: 800;
   font-size: 40px;
-  color: var(--amber);
+  color: var(--gold-bright);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
 }
 .standTopName {
   font-weight: 800;
@@ -398,8 +488,8 @@
   font-weight: 700;
   font-size: 12px;
   color: var(--amber-soft);
-  background: rgba(245, 179, 82, 0.16);
-  border: 1px solid rgba(245, 179, 82, 0.28);
+  background: rgba(212, 169, 78, 0.14);
+  border: 1px solid rgba(212, 169, 78, 0.4);
   padding: 2px 10px;
   border-radius: 999px;
   white-space: nowrap;
@@ -409,12 +499,24 @@
   font-size: 13px;
 }
 
-/* ---- section heading ---- */
+/* ---- section heading (outside panels → parchment scroll) ---- */
 .sectionHead {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
+}
+.sectionHead .sectionTitle {
+  display: inline-flex;
+  align-items: center;
+  border: solid transparent;
+  border-width: 16px 42px;
+  border-image: url("./theme/scroll-banner.svg") 16 40 fill;
+  padding: 0 2px;
+  font-weight: 800;
+  font-size: 25px;
+  color: var(--parchment-ink);
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.5));
 }
 .sectionTitle {
   font-weight: 800;
@@ -422,9 +524,11 @@
   color: var(--ink);
 }
 .sectionMeta {
+  font-family: var(--font-serif), Georgia, serif;
   font-weight: 600;
-  font-size: 15px;
-  color: var(--ink-dim);
+  font-size: 16px;
+  color: #d8c49a;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 /* ---- on the table ---- */
@@ -455,45 +559,57 @@
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  padding-bottom: 16px;
+  padding-bottom: 12px;
   background: linear-gradient(
     180deg,
-    rgba(16, 14, 38, 0) 0%,
-    rgba(16, 14, 38, 0.32) 42%,
-    rgba(16, 14, 38, 0.82) 78%,
-    rgba(12, 10, 30, 0.97) 100%
+    rgba(26, 15, 7, 0) 0%,
+    rgba(26, 15, 7, 0.35) 42%,
+    rgba(24, 13, 6, 0.85) 78%,
+    rgba(20, 11, 5, 0.98) 100%
   );
 }
 .gameFadeBtn,
 .showLess {
+  display: inline-flex;
+  align-items: center;
   font-family: inherit;
-  font-weight: 700;
+  font-weight: 800;
   font-size: 15px;
-  color: #1a1533;
-  background: var(--amber);
-  padding: 10px 20px;
-  border-radius: 999px;
-  box-shadow: 0 10px 24px -8px rgba(245, 179, 82, 0.6);
+  color: var(--parchment-ink);
+  background: none;
+  border: solid transparent;
+  border-width: 12px 32px;
+  border-image: url("./theme/scroll-banner.svg") 16 40 fill;
+  padding: 0 2px;
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.5));
   transition: transform 0.15s ease, filter 0.2s ease;
 }
 .showLess {
-  display: block;
-  margin: 16px auto 0;
-  border: none;
+  margin: 14px auto 0;
   cursor: pointer;
 }
 .gameFade:hover .gameFadeBtn,
 .showLess:hover {
   transform: translateY(-1px);
-  filter: brightness(1.05);
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.5)) brightness(1.05);
 }
 .gameCard {
   flex: 1;
   position: relative;
   height: 268px;
-  border-radius: 24px;
+  border-radius: 18px;
   overflow: hidden;
-  box-shadow: 0 16px 36px -16px rgba(0, 0, 0, 0.55);
+  box-shadow: 0 18px 38px -16px rgba(0, 0, 0, 0.75);
+}
+/* gold hairline + inner vignette over the art */
+.gameCard::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: 18px;
+  border: 1px solid rgba(212, 169, 78, 0.4);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3), inset 0 0 40px rgba(0, 0, 0, 0.2);
 }
 .gameCard img.gameArt {
   position: absolute;
@@ -517,12 +633,15 @@
   position: absolute;
   top: 13px;
   right: 13px;
-  background: rgba(13, 11, 30, 0.5);
-  padding: 6px 12px;
-  border-radius: 999px;
+  background: linear-gradient(180deg, #f0e0b4, #dcc189);
+  border: 1px solid rgba(122, 92, 46, 0.55);
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-family: var(--font-serif), Georgia, serif;
   font-weight: 700;
   font-size: 13px;
-  color: var(--ink);
+  color: var(--parchment-ink);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
 }
 .gameFooter {
   position: absolute;
@@ -554,14 +673,25 @@
   color: var(--amber);
 }
 
-/* ---- panels ---- */
+/* ---- panels: textured parchment-purple + ornate frame ---- */
 .panel {
-  background: var(--panel);
-  border: 1px solid var(--panel-border);
-  border-radius: 28px;
+  position: relative;
+  background: url("./theme/panel-texture.svg") repeat;
+  background-size: 320px 320px;
+  border-radius: 22px;
+  box-shadow: 0 20px 48px -18px rgba(0, 0, 0, 0.7), inset 0 0 70px rgba(0, 0, 0, 0.28);
+}
+.panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  border: 33px solid transparent;
+  border-image: url("./theme/panel-frame.svg") 33;
 }
 .standingsPanel {
-  padding: 26px 34px;
+  padding: 28px 34px;
 }
 .panelHeadRow {
   display: flex;
@@ -570,26 +700,40 @@
   margin-bottom: 18px;
 }
 .panelKicker {
+  font-family: var(--font-serif), Georgia, serif;
   font-weight: 700;
   font-size: 14px;
-  letter-spacing: 0.12em;
-  color: var(--ink-dim);
+  letter-spacing: 0.14em;
+  color: #cbb27e;
 }
 
-/* ---- standings rows ---- */
+/* ---- standings rows: framed plaques ---- */
 .standRow {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 18px;
   padding: 13px 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  margin-bottom: 10px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(0, 0, 0, 0.06));
+}
+.standRow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border: 18px solid transparent;
+  border-image: url("./theme/row-frame.svg") 18;
 }
 .standRank {
   width: 30px;
+  flex: none;
   font-weight: 800;
   font-size: 28px;
-  color: var(--amber);
+  color: var(--gold-bright);
   text-align: center;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
 .standName {
   font-weight: 700;
@@ -606,8 +750,9 @@
   font-weight: 800;
   font-size: 11px;
   letter-spacing: 0.12em;
-  color: var(--amber-soft);
-  background: rgba(245, 179, 82, 0.16);
+  color: var(--gold-bright);
+  background: rgba(60, 40, 12, 0.55);
+  border: 1px solid rgba(212, 169, 78, 0.55);
   padding: 4px 9px;
   border-radius: 999px;
 }
@@ -623,12 +768,29 @@
   align-items: center;
   gap: 16px;
 }
+
+/* potion-vial win bar: glass track + brass caps overlay */
 .standBarTrack {
+  position: relative;
   flex: 1;
-  height: 12px;
+  height: 16px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.1);
-  overflow: hidden;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.14),
+    rgba(255, 255, 255, 0.04) 45%,
+    rgba(0, 0, 0, 0.22)
+  );
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.45), 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+.standBarTrack::after {
+  content: "";
+  position: absolute;
+  inset: -8px -10px;
+  pointer-events: none;
+  border: solid transparent;
+  border-width: 15px 18px;
+  border-image: url("./theme/vial-caps.svg") 15 18 fill;
 }
 .standRate {
   width: 74px;
@@ -648,35 +810,36 @@
 /* ---- bottom row ---- */
 .bottomRow {
   display: flex;
-  gap: 24px;
+  gap: 26px;
   align-items: stretch;
 }
 .recentPanel {
   flex: 1;
   min-width: 0;
-  padding: 24px 34px;
+  padding: 26px 34px;
   display: flex;
   flex-direction: column;
 }
 .recentRow {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   padding: 13px 2px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  border-bottom: 1px solid rgba(212, 169, 78, 0.16);
 }
 .recentWhen {
-  width: 104px;
+  width: 82px;
+  font-family: var(--font-serif), Georgia, serif;
   font-weight: 600;
-  font-size: 15px;
-  color: var(--ink-dim);
+  font-size: 14px;
+  color: #cbb27e;
   flex: none;
 }
 .recentGame {
   flex: 1;
-  min-width: 0;
+  min-width: 84px;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 19px;
   color: var(--ink);
   white-space: nowrap;
   overflow: hidden;
@@ -685,13 +848,19 @@
 .recentParts {
   display: flex;
   flex: none;
-  margin-right: 16px;
+  margin-right: 6px;
+}
+.recentWinner .recentWinnerName {
+  max-width: 130px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .recentPartAvatar {
   display: inline-flex;
   border-radius: 50%;
   margin-left: -8px;
-  box-shadow: 0 0 0 2px var(--panel);
+  box-shadow: 0 0 0 2px #2c2452;
 }
 .recentPartAvatar:first-child {
   margin-left: 0;
@@ -711,12 +880,12 @@
   font-weight: 800;
   font-size: 11px;
   letter-spacing: 0.1em;
-  color: var(--amber);
+  color: var(--gold-bright);
 }
 
 .mostPlayedPanel {
   flex: 1;
-  padding: 24px 28px;
+  padding: 26px 30px;
 }
 .sideTitle {
   font-weight: 800;
@@ -725,11 +894,11 @@
   margin-bottom: 18px;
 }
 
-/* ---- most played ---- */
+/* ---- most played (small vials) ---- */
 .mostList {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 17px;
 }
 .mostHead {
   display: flex;
@@ -742,25 +911,41 @@
   color: var(--ink);
 }
 .mostCount {
+  font-family: var(--font-serif), Georgia, serif;
   font-weight: 600;
   font-size: 15px;
-  color: var(--ink-dim);
+  color: #cbb27e;
 }
 .mostTrack {
-  height: 10px;
+  position: relative;
+  height: 14px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.1);
-  overflow: hidden;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.14),
+    rgba(255, 255, 255, 0.04) 45%,
+    rgba(0, 0, 0, 0.22)
+  );
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.45), 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+.mostTrack::after {
+  content: "";
+  position: absolute;
+  inset: -7px -9px;
+  pointer-events: none;
+  border: solid transparent;
+  border-width: 13px 16px;
+  border-image: url("./theme/vial-caps.svg") 15 18 fill;
 }
 .mostFill {
   height: 100%;
-  background: var(--amber);
+  background: linear-gradient(180deg, #f7d98c, #d4a94e 55%, #a87c2e);
   border-radius: 999px;
 }
 
 /* ---- rivalries (full-width panel) ---- */
 .rivalriesPanel {
-  padding: 24px 34px;
+  padding: 26px 34px;
 }
 .rivList {
   display: grid;
@@ -786,13 +971,27 @@
 .rivScore {
   font-weight: 800;
   font-size: 19px;
-  color: var(--ink);
+  color: var(--gold-bright);
 }
 .rivBar {
+  position: relative;
   display: flex;
-  height: 10px;
+  height: 12px;
   border-radius: 999px;
   overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.4);
+}
+.rivBar::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  top: 2px;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.28);
+  pointer-events: none;
 }
 
 /* avatars */
@@ -895,7 +1094,7 @@
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255, 255, 255, 0.12),
+    rgba(255, 235, 190, 0.1),
     transparent
   );
   animation: sheen 5.5s ease-in-out 1s infinite;
@@ -911,25 +1110,25 @@
 }
 .gameCard:hover {
   transform: translateY(-6px);
-  box-shadow: 0 26px 50px -18px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 28px 52px -18px rgba(0, 0, 0, 0.85);
 }
 .gameCard:hover .gameArt {
   transform: scale(1.07);
 }
 
 .panel {
-  transition: border-color 0.3s ease, transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: box-shadow 0.3s ease;
 }
 .panel:hover {
-  border-color: rgba(245, 179, 82, 0.28);
+  box-shadow: 0 22px 52px -18px rgba(0, 0, 0, 0.8), inset 0 0 70px rgba(0, 0, 0, 0.28),
+    0 0 0 1px rgba(212, 169, 78, 0.12);
 }
 
 .standRow {
-  border-radius: 12px;
   transition: background 0.25s ease;
 }
 .standRow:hover {
-  background: rgba(255, 255, 255, 0.04);
+  background: linear-gradient(180deg, rgba(240, 212, 136, 0.07), rgba(0, 0, 0, 0.05));
 }
 .standRow:hover .avatar {
   transform: scale(1.06);
@@ -939,14 +1138,7 @@
   transition: background 0.25s ease;
 }
 .recentRow:hover {
-  background: rgba(255, 255, 255, 0.03);
-}
-
-.logo {
-  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.brand:hover .logo {
-  transform: rotate(-8deg) scale(1.05);
+  background: rgba(240, 212, 136, 0.04);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -961,7 +1153,7 @@
 /* ---- responsive ---- */
 @media (max-width: 900px) {
   .headerInner {
-    padding: 16px 24px;
+    padding: 12px 24px;
   }
   .main {
     padding: 24px 24px 56px;
@@ -991,12 +1183,18 @@
   }
   .heroPhoto {
     position: relative;
-    width: 100%;
+    inset: auto;
+    width: auto;
     height: 240px;
+    margin: 16px 16px 0;
   }
   .heroText {
     position: relative;
     width: 100%;
+  }
+  .heroSnitch,
+  .heroPotion {
+    display: none;
   }
   .ring {
     display: none;
@@ -1008,11 +1206,27 @@
   .recentHeroName {
     font-size: 40px;
   }
+  /* not enough room for the potion vials — keep just the win totals */
   .standBarWrap {
-    width: 140px;
+    width: auto;
+  }
+  .standBarTrack {
+    display: none;
+  }
+  .standRate,
+  .standTopRate {
+    width: auto;
+    font-size: 26px;
+    margin-left: 8px;
+  }
+  .standName {
+    font-size: 21px;
+  }
+  .winRatePill {
+    font-size: 10px;
   }
   .brandTitle {
-    font-size: 26px;
+    font-size: 28px;
   }
   .standTop {
     gap: 14px;

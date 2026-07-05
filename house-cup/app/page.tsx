@@ -26,18 +26,19 @@ function Header({ subtitle }: { subtitle: React.ReactNode }) {
     <header className={styles.siteHeader}>
       <div className={styles.headerInner}>
         <div className={styles.brand}>
-          <div className={styles.logo}>
-            <div className={styles.logoDiamond} />
-          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className={styles.crest} src={asset("/theme/crest.svg")} alt="House crest" />
           <div>
-            <div className={`${styles.brandTitle} font-display`}>THE HOUSE CUP</div>
-            <div className={styles.brandSub}>Family Game Night · Standings</div>
+            <div className={`${styles.brandTitle} font-brand`}>The Jones House Cup</div>
+            <div className={`${styles.brandSub} font-serif`}>Family Tournament · Standings</div>
           </div>
         </div>
         <div className={styles.headerRight}>
-          <div className={styles.headerDate}>{subtitle}</div>
-          <Link href="/add-match" className={styles.addResult}>
-            ＋ Add result
+          <div className={`${styles.headerDate} font-serif`}>{subtitle}</div>
+          <Link href="/add-match" className={`${styles.addResult} font-serif`}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className={styles.quill} src={asset("/theme/quill.svg")} alt="" />
+            Summon a Result
           </Link>
         </div>
       </div>
@@ -170,9 +171,12 @@ export default function Dashboard() {
                   ) : (
                     <div className={styles.gameArtFallback} />
                   )}
-                  <div className={styles.heroSeam} />
-                  <div className={styles.heroFade} />
                 </div>
+                {/* floating wizard-hall decorations */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img className={styles.heroSnitch} src={asset("/theme/snitch.svg")} alt="" />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img className={styles.heroPotion} src={asset("/theme/potion.svg")} alt="" />
                 <div className={styles.heroText}>
                   <div className={styles.champPill}>
                     <div className={styles.champPillDiamond} />
@@ -184,7 +188,9 @@ export default function Dashboard() {
                   <div className={styles.recentHeroDate}>{formatMatchDate(latest.date)}</div>
                   {winner && (
                     <div className={styles.recentWinnerBig}>
-                      <Avatar player={winner} size={54} ring={3} />
+                      <span className={styles.portrait}>
+                        <Avatar player={winner} size={54} ring={0} />
+                      </span>
                       <div className={styles.minw0}>
                         <div className={`${styles.recentWinnerBigName} font-display`}>
                           {winner.name}
@@ -287,8 +293,8 @@ export default function Dashboard() {
               {champ && (
                 <Link href={`/player?id=${champ.player.id}`} className={styles.standTop}>
                   <div className={`${styles.standTopRank} font-display`}>1</div>
-                  <div className={styles.champAvatarWrap}>
-                    <Avatar player={champ.player} size={54} ring={4} />
+                  <div className={`${styles.champAvatarWrap} ${styles.portrait}`}>
+                    <Avatar player={champ.player} size={54} ring={0} />
                     <span className={styles.champStar} aria-label="1st place">★</span>
                   </div>
                   <div className={styles.minw0}>
@@ -332,7 +338,9 @@ export default function Dashboard() {
               {restRows.map((row) => (
                 <Link key={row.player.id} href={`/player?id=${row.player.id}`} className={styles.standRow}>
                   <div className={`${styles.standRank} font-display`}>{row.rank}</div>
-                  <Avatar player={row.player} size={54} ring={3} />
+                  <span className={styles.portrait}>
+                    <Avatar player={row.player} size={54} ring={0} />
+                  </span>
                   <div className={styles.minw0}>
                     <div className={styles.standNameRow}>
                       <span className={`${styles.standName} font-display`}>{row.player.name}</span>

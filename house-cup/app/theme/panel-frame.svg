@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="132" height="132" viewBox="0 0 132 132">
+  <!-- Ornate gold frame for 9-slice border-image (slice 33, width 33px = 1:1).
+       All corner detail stays inside the 33px corner regions; edges are
+       straight lines so they stretch cleanly. -->
+  <defs>
+    <g id="pc">
+      <path d="M30 4.2 H20 Q4.2 4.2 4.2 20 V30" fill="none" stroke="#d9b264" stroke-width="3.4" stroke-linecap="round"/>
+      <path d="M30 9 H20.5 Q9 9 9 20.5 V30" fill="none" stroke="rgba(240,212,136,0.5)" stroke-width="1.1"/>
+      <circle cx="30" cy="4.2" r="2.3" fill="#ecd189"/>
+      <circle cx="4.2" cy="30" r="2.3" fill="#ecd189"/>
+      <rect x="14.4" y="14.4" width="6.2" height="6.2" transform="rotate(45 17.5 17.5)" fill="#d9b264"/>
+    </g>
+  </defs>
+  <rect x="3" y="3" width="126" height="126" rx="16" fill="none" stroke="rgba(168,129,63,0.75)" stroke-width="1.6"/>
+  <rect x="7.5" y="7.5" width="117" height="117" rx="12" fill="none" stroke="rgba(212,169,78,0.22)" stroke-width="1"/>
+  <use href="#pc"/>
+  <use href="#pc" transform="rotate(90 66 66)"/>
+  <use href="#pc" transform="rotate(180 66 66)"/>
+  <use href="#pc" transform="rotate(270 66 66)"/>
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72">
+  <!-- Brighter plaque frame for the 1st-place standings row (9-slice, slice 18). -->
+  <rect x="1.6" y="1.6" width="68.8" height="68.8" rx="13" fill="none" stroke="rgba(240,201,108,0.28)" stroke-width="2.6"/>
+  <rect x="2.4" y="2.4" width="67.2" height="67.2" rx="12" fill="none" stroke="rgba(224,189,110,0.9)" stroke-width="1.8"/>
+  <rect x="5.8" y="5.8" width="60.4" height="60.4" rx="9" fill="none" stroke="rgba(240,212,136,0.28)" stroke-width="1"/>
+  <rect x="8.4" y="8.4" width="5.2" height="5.2" transform="rotate(45 11 11)" fill="#f0d488"/>
+  <rect x="58.4" y="8.4" width="5.2" height="5.2" transform="rotate(45 61 11)" fill="#f0d488"/>
+  <rect x="8.4" y="58.4" width="5.2" height="5.2" transform="rotate(45 11 61)" fill="#f0d488"/>
+  <rect x="58.4" y="58.4" width="5.2" height="5.2" transform="rotate(45 61 61)" fill="#f0d488"/>
+</svg>

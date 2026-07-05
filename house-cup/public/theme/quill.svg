@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44">
+  <!-- Quill icon for the "Summon a Result" button. -->
+  <defs>
+    <linearGradient id="feather" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4e5ba"/>
+      <stop offset="1" stop-color="#d9bd85"/>
+    </linearGradient>
+  </defs>
+  <!-- feather body -->
+  <path d="M39 4 C29 4 20 9 14.5 17.5 C11 23 9.5 28.5 9 32.5 C13 32 18.5 30.5 24 27 C32.5 21.5 39 13 39 4 Z"
+        fill="url(#feather)" stroke="#a8813f" stroke-width="1.6" stroke-linejoin="round"/>
+  <!-- rachis -->
+  <path d="M37 6 C28 13 18 23 10.5 31.5" fill="none" stroke="#a8813f" stroke-width="1.4" stroke-linecap="round"/>
+  <!-- barb notches -->
+  <path d="M28 10.5 C26.5 14 26.5 16 27 18 M21.5 16.5 C20.5 20 20.5 22 21 24" fill="none" stroke="rgba(168,129,63,0.6)" stroke-width="1.1" stroke-linecap="round"/>
+  <!-- nib + ink stroke -->
+  <path d="M10.5 31.5 L6 38.5" stroke="#6d5122" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M5 40.5 C7.5 41.5 11 41.5 14 40.5" fill="none" stroke="rgba(109,81,34,0.55)" stroke-width="1.6" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="108" viewBox="0 0 96 108">
+  <!-- Quartered house crest for the site header. -->
+  <defs>
+    <clipPath id="shield">
+      <path d="M48 6 L86 18 V56 C86 82 68 98 48 103 C28 98 10 82 10 56 V18 Z"/>
+    </clipPath>
+    <linearGradient id="goldEdge" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f0d488"/>
+      <stop offset="0.5" stop-color="#c9a25c"/>
+      <stop offset="1" stop-color="#8a6220"/>
+    </linearGradient>
+  </defs>
+  <g clip-path="url(#shield)">
+    <rect x="10" y="6" width="38" height="50" fill="#7a2f2f"/>
+    <rect x="48" y="6" width="38" height="50" fill="#24523b"/>
+    <rect x="10" y="56" width="38" height="52" fill="#24406e"/>
+    <rect x="48" y="56" width="38" height="52" fill="#8a6a2f"/>
+    <!-- subtle inner shading -->
+    <path d="M48 6 L86 18 V56 C86 82 68 98 48 103 Z" fill="rgba(0,0,0,0.16)"/>
+  </g>
+  <!-- divider cross -->
+  <path d="M48 6 V103 M10 56 H86" stroke="url(#goldEdge)" stroke-width="3.4" fill="none"/>
+  <!-- outline -->
+  <path d="M48 6 L86 18 V56 C86 82 68 98 48 103 C28 98 10 82 10 56 V18 Z" fill="none" stroke="url(#goldEdge)" stroke-width="4.6" stroke-linejoin="round"/>
+  <path d="M48 10.5 L82 21.5 V55.5 C82 78.5 66 93.5 48 98.5 C30 93.5 14 78.5 14 55.5 V21.5 Z" fill="none" stroke="rgba(240,212,136,0.35)" stroke-width="1.4" stroke-linejoin="round"/>
+  <!-- center boss -->
+  <circle cx="48" cy="56" r="8.5" fill="url(#goldEdge)" stroke="#5c451e" stroke-width="1.6"/>
+  <circle cx="45.6" cy="53.4" r="2.4" fill="#f7e3a8"/>
+</svg>

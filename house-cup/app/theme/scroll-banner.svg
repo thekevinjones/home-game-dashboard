@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="260" height="64" viewBox="0 0 260 64">
+  <!-- Parchment scroll banner for 9-slice border-image with fill.
+       Slices: 16px top/bottom, 40px left/right. Rolled ends live entirely
+       inside the side slices; the flat band stretches. -->
+  <defs>
+    <linearGradient id="band" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f4e5ba"/>
+      <stop offset="0.5" stop-color="#e9d3a0"/>
+      <stop offset="1" stop-color="#d6b87e"/>
+    </linearGradient>
+    <linearGradient id="rollL" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#e9d3a0"/>
+      <stop offset="0.55" stop-color="#d9bd85"/>
+      <stop offset="1" stop-color="#a98a52"/>
+    </linearGradient>
+    <linearGradient id="rollR" x1="1" y1="0" x2="0" y2="0">
+      <stop offset="0" stop-color="#e9d3a0"/>
+      <stop offset="0.55" stop-color="#d9bd85"/>
+      <stop offset="1" stop-color="#a98a52"/>
+    </linearGradient>
+  </defs>
+  <rect x="30" y="7" width="200" height="50" fill="url(#band)"/>
+  <rect x="30" y="7" width="200" height="2" fill="rgba(122,92,46,0.30)"/>
+  <rect x="30" y="55" width="200" height="2" fill="rgba(90,66,30,0.35)"/>
+  <rect x="30" y="7" width="8" height="50" fill="rgba(90,66,30,0.30)"/>
+  <rect x="222" y="7" width="8" height="50" fill="rgba(90,66,30,0.30)"/>
+  <rect x="3" y="2" width="30" height="60" rx="9" fill="url(#rollL)" stroke="rgba(74,52,22,0.45)" stroke-width="1.2"/>
+  <rect x="10" y="2" width="3" height="60" fill="rgba(122,92,46,0.35)"/>
+  <rect x="227" y="2" width="30" height="60" rx="9" fill="url(#rollR)" stroke="rgba(74,52,22,0.45)" stroke-width="1.2"/>
+  <rect x="247" y="2" width="3" height="60" fill="rgba(122,92,46,0.35)"/>
+</svg>
