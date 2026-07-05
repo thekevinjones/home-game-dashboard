@@ -13,7 +13,6 @@ import {
   rivalries,
   gameById,
   playerById,
-  formatRecord,
   formatMatchDate,
   loadData,
   subscribeToData,
@@ -164,6 +163,8 @@ export default function Dashboard() {
   const played = mostPlayed(games, matches).filter((m) => m.nights > 0);
   const rivals = rivalries(matches, players);
   const latest = recent[0];
+  const topWins = Math.max(1, ...table.map((r) => r.wins)); // bar scale
+  const totalWins = matches.length; // every match has exactly one winner
 
   return (
     <div className={styles.page}>
@@ -188,7 +189,7 @@ export default function Dashboard() {
               </div>
               <div className={`${styles.champName} font-display`}>{lead.player.name}</div>
               <div className={`${styles.champRecord} font-display`}>
-                {formatRecord(lead.wins, lead.losses)} record
+                {lead.wins} win{lead.wins === 1 ? "" : "s"}
               </div>
               <div className={styles.champTags}>
                 <span className={styles.champTag}>{lead.played} nights played</span>
@@ -199,16 +200,17 @@ export default function Dashboard() {
             </div>
             <div
               className={styles.ring}
-              style={{ "--ring": lead.winRate } as React.CSSProperties}
+              style={
+                { "--ring": Math.round((lead.wins / totalWins) * 100) } as React.CSSProperties
+              }
             >
               <div className={styles.ringInner}>
                 <CountUp
                   className={`${styles.ringPct} font-display`}
-                  value={lead.winRate}
-                  suffix="%"
+                  value={lead.wins}
                   duration={1300}
                 />
-                <div className={styles.ringLabel}>WIN RATE</div>
+                <div className={styles.ringLabel}>WINS</div>
               </div>
             </div>
           </section>
@@ -265,8 +267,8 @@ export default function Dashboard() {
                           <div className={styles.grow} />
                           <CountUp
                             className={`${styles.gameLeaderRate} font-display`}
-                            value={gs.leaderWinRate}
-                            suffix="%"
+                            value={gs.leaderWins}
+                            suffix={gs.leaderWins === 1 ? " win" : " wins"}
                           />
                         </>
                       ) : (
@@ -288,7 +290,7 @@ export default function Dashboard() {
         <section className={`${styles.panel} ${styles.standingsPanel}`}>
           <div className={styles.panelHeadRow}>
             <div className={`${styles.sectionTitle} font-display`}>Overall Standings</div>
-            <div className={styles.panelKicker}>WIN RATE</div>
+            <div className={styles.panelKicker}>WINS</div>
           </div>
           {table.length ? (
             table.map((row) => (
@@ -298,13 +300,12 @@ export default function Dashboard() {
                 <div className={styles.minw0}>
                   <div className={styles.standNameRow}>
                     <span className={`${styles.standName} font-display`}>{row.player.name}</span>
-                    {row.rank === 1 && row.played > 0 && (
+                    {row.rank === 1 && row.wins > 0 && (
                       <span className={styles.championBadge}>LEADER</span>
                     )}
                   </div>
                   <div className={styles.standMeta}>
-                    {formatRecord(row.wins, row.losses)} · {row.played} night
-                    {row.played === 1 ? "" : "s"}
+                    {row.played} night{row.played === 1 ? "" : "s"} played
                   </div>
                 </div>
                 <div className={styles.grow} />
@@ -313,14 +314,14 @@ export default function Dashboard() {
                     <div
                       className={styles.barFill}
                       style={{
-                        width: `${row.winRate}%`,
+                        width: `${Math.round((row.wins / topWins) * 100)}%`,
                         height: "100%",
                         borderRadius: 999,
                         background: row.player.color,
                       }}
                     />
                   </div>
-                  <CountUp className={`${styles.standRate} font-display`} value={row.winRate} suffix="%" />
+                  <CountUp className={`${styles.standRate} font-display`} value={row.wins} />
                 </div>
               </div>
             ))

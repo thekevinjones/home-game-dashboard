@@ -159,9 +159,6 @@ export const gameById = (games: Game[], id: GameId): Game | undefined =>
 export const asset = (path: string): string =>
   /^https?:\/\//.test(path) ? path : `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${path}`;
 
-export const formatRecord = (wins: number, losses: number): string =>
-  `${wins}–${losses}`; // en dash
-
 /** "2026-07-04" -> "Sat · Jul 4". Deterministic (UTC), no timezone drift. */
 export function formatMatchDate(iso: string): string {
   const [y, m, d] = iso.split("-").map(Number);
@@ -184,10 +181,10 @@ function playedBy(matches: Match[], id: PlayerId): Match[] {
 export interface StandingRow {
   rank: number;
   player: Player;
+  /** Nights this player took part in (participation, not a win/loss record). */
   played: number;
+  /** Total matches won — the ranking metric. */
   wins: number;
-  losses: number;
-  winRate: number; // 0–100
   /** Current run of consecutive wins across their most recent nights. */
   streak: number;
 }
@@ -201,54 +198,37 @@ export function standings(players: Player[], matches: Match[]): StandingRow[] {
       if (m.winnerId === player.id) streak++;
       else break;
     }
-    return {
-      player,
-      played: played.length,
-      wins,
-      losses: played.length - wins,
-      winRate: played.length ? Math.round((wins / played.length) * 100) : 0,
-      streak,
-    };
+    return { player, played: played.length, wins, streak };
   });
-  rows.sort(
-    (a, b) =>
-      b.winRate - a.winRate ||
-      b.wins - a.wins ||
-      a.player.name.localeCompare(b.player.name)
-  );
+  // Rank by total wins (desc); ties broken by name for a stable order.
+  rows.sort((a, b) => b.wins - a.wins || a.player.name.localeCompare(b.player.name));
   return rows.map((r, i) => ({ rank: i + 1, ...r }));
 }
 
-/** Current overall leader = top of the standings among players with ≥1 night. */
+/** Current overall leader = the player with the most wins (needs ≥1 win). */
 export function leader(players: Player[], matches: Match[]): StandingRow | null {
-  return standings(players, matches).find((r) => r.played > 0) ?? null;
+  return standings(players, matches).find((r) => r.wins > 0) ?? null;
 }
 
 export interface GameStat {
   game: Game;
   nights: number;
+  /** Player with the most wins at this game. */
   leader: Player | null;
-  leaderWinRate: number; // 0–100
+  leaderWins: number;
 }
 
 export function gameStats(games: Game[], matches: Match[], players: Player[]): GameStat[] {
   return games.map((game) => {
     const gm = matches.filter((m) => m.gameId === game.id);
-    const tally = new Map<PlayerId, { played: number; wins: number }>();
-    for (const m of gm) {
-      for (const pid of m.participantIds) {
-        const t = tally.get(pid) ?? { played: 0, wins: 0 };
-        t.played++;
-        if (m.winnerId === pid) t.wins++;
-        tally.set(pid, t);
-      }
-    }
+    const wins = new Map<PlayerId, number>();
+    for (const m of gm) wins.set(m.winnerId, (wins.get(m.winnerId) ?? 0) + 1);
+
     let leaderId: PlayerId | null = null;
-    let best = -1;
-    for (const [pid, t] of tally) {
-      const rate = t.wins / t.played;
-      if (rate > best) {
-        best = rate;
+    let best = 0;
+    for (const [pid, w] of wins) {
+      if (w > best) {
+        best = w;
         leaderId = pid;
       }
     }
@@ -256,7 +236,7 @@ export function gameStats(games: Game[], matches: Match[], players: Player[]): G
       game,
       nights: gm.length,
       leader: leaderId ? playerById(players, leaderId) ?? null : null,
-      leaderWinRate: best >= 0 ? Math.round(best * 100) : 0,
+      leaderWins: best,
     };
   });
 }
