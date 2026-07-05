@@ -16,6 +16,7 @@ import {
   formatRecord,
   formatMatchDate,
   loadData,
+  subscribeToData,
   asset,
   type DashboardData,
   type Player,
@@ -106,11 +107,23 @@ export default function Dashboard() {
 
   useEffect(() => {
     let active = true;
-    loadData()
-      .then((d) => active && setData(d))
-      .catch((e) => active && setError(e?.message ?? String(e)));
+    const refresh = () =>
+      loadData()
+        .then((d) => {
+          if (!active) return;
+          setData(d);
+          setError(null);
+        })
+        .catch((e) => active && setError(e?.message ?? String(e)));
+
+    refresh();
+    // Live sync: re-fetch whenever players/games/matches change on any device
+    // (e.g. someone submits the add-match form), so every open dashboard updates
+    // without a manual refresh.
+    const unsubscribe = subscribeToData(refresh);
     return () => {
       active = false;
+      unsubscribe();
     };
   }, []);
 

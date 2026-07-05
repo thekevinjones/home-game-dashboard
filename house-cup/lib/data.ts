@@ -124,6 +124,26 @@ export async function insertMatch(m: NewMatch): Promise<void> {
   if (error) throw error;
 }
 
+/**
+ * Subscribe to live changes on players/games/matches. `onChange` fires on every
+ * INSERT/UPDATE/DELETE (e.g. when the add-match form writes a new result on
+ * another device) — the dashboard re-runs loadData() from it. Returns an
+ * unsubscribe function. Requires the tables in the `supabase_realtime`
+ * publication (see supabase/migrations/0002_enable_realtime.sql).
+ */
+export function subscribeToData(onChange: () => void): () => void {
+  const sb = getSupabase();
+  const channel = sb
+    .channel("house-cup-changes")
+    .on("postgres_changes", { event: "*", schema: "public", table: "players" }, onChange)
+    .on("postgres_changes", { event: "*", schema: "public", table: "games" }, onChange)
+    .on("postgres_changes", { event: "*", schema: "public", table: "matches" }, onChange)
+    .subscribe();
+  return () => {
+    void sb.removeChannel(channel);
+  };
+}
+
 // --- Lookups & formatting ----------------------------------------------------
 
 export const playerById = (players: Player[], id: PlayerId): Player | undefined =>
