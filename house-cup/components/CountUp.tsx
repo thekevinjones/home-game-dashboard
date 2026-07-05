@@ -3,8 +3,15 @@
 import { useEffect, useRef, useState } from "react";
 
 /**
- * Counts up from 0 to `value` once it scrolls into view.
- * Respects prefers-reduced-motion (renders the final value immediately).
+ * Tweens the displayed number toward `value` with an easeOutCubic curve.
+ *
+ * - Counts up from 0 when it first appears, and re-animates from the current
+ *   number to the new `value` whenever it changes — so live (realtime) updates
+ *   are reflected, never frozen at the first value.
+ * - Guarantees it lands on the exact `value` via a timeout safety-net, even if
+ *   requestAnimationFrame is throttled (e.g. a background tab runs no frames),
+ *   so a number never sticks at a stale/zero value.
+ * - Respects prefers-reduced-motion (snaps to the value with no animation).
  */
 export function CountUp({
   value,
@@ -18,42 +25,43 @@ export function CountUp({
   className?: string;
 }) {
   const [display, setDisplay] = useState(0);
-  const ref = useRef<HTMLSpanElement>(null);
-  const started = useRef(false);
+  const fromRef = useRef(0); // number we're animating from (the last one shown)
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+    const set = (v: number) => {
+      fromRef.current = v;
+      setDisplay(v);
+    };
 
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) {
-      setDisplay(value);
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      set(value);
       return;
     }
 
-    const run = () => {
-      if (started.current) return;
-      started.current = true;
-      const start = performance.now();
-      const tick = (t: number) => {
-        const p = Math.min(1, (t - start) / duration);
-        const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
-        setDisplay(Math.round(eased * value));
-        if (p < 1) requestAnimationFrame(tick);
-      };
-      requestAnimationFrame(tick);
-    };
+    const from = fromRef.current;
+    const start = performance.now();
+    let raf = 0;
 
-    const obs = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && run()),
-      { threshold: 0.35 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
+    const tick = (t: number) => {
+      const p = Math.min(1, (t - start) / duration);
+      const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
+      set(Math.round(from + (value - from) * eased));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+
+    // Safety-net: if frames never run (throttled/background tab), still land on
+    // the exact value. A no-op when the tween already reached it.
+    const settle = setTimeout(() => set(value), duration + 300);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(settle);
+    };
   }, [value, duration]);
 
   return (
-    <span ref={ref} className={className}>
+    <span className={className}>
       {display}
       {suffix}
     </span>
