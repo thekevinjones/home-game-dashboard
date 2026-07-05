@@ -62,6 +62,12 @@ for (const [name, c] of Object.entries(crops)) {
       .composite([{ input: right, left: width - half, top: 0 }])
       .png()
       .toBuffer();
+    // the source crop has transparent margins above/below the parchment; trim
+    // them so the 9-slice borders land on parchment, not empty space (else the
+    // banner renders with cut-off gaps top and bottom)
+    buf = await sharp(buf).trim({ threshold: 12 }).png().toBuffer();
+    const tm = await sharp(buf).metadata();
+    console.log(`  banner trimmed to ${tm.width}x${tm.height}`);
   }
 
   await sharp(buf).toFile(path.join(c.out, `${name}.png`));

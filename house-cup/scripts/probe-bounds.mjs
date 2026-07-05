@@ -1,31 +1,28 @@
-// Measure the transparent interior opening of the Panel_Frame_Large_Catan.
+// Inspect vertical alpha profile of the current banner sprite to see whether
+// the 9-slice is catching transparent margins (→ parchment looks cut off).
 import sharp from "sharp";
 
-const SHEET = "../design-handoff/updated.png";
-const FR = { left: 19, top: 45, width: 214, height: 162 };
-const { data, info } = await sharp(SHEET)
-  .extract(FR)
-  .raw()
-  .toBuffer({ resolveWithObject: true });
+const B = "app/theme/sprites/banner.png";
+const { data, info } = await sharp(B).raw().toBuffer({ resolveWithObject: true });
 const alpha = (x, y) => data[(y * info.width + x) * info.channels + 3];
+console.log(`banner: ${info.width}x${info.height}`);
 
-// scan center row/col for the transparent gap (border -> hole -> border)
-function gap(label, coords) {
-  let runs = [];
-  let start = null;
-  for (const [x, y, t] of coords) {
-    const transp = alpha(x, y) < 40;
-    if (transp && start === null) start = t;
-    if (!transp && start !== null) {
-      if (t - start > 8) runs.push([start, t - 1]);
-      start = null;
+// opaque bbox
+let minX = Infinity, minY = Infinity, maxX = -1, maxY = -1;
+for (let y = 0; y < info.height; y++)
+  for (let x = 0; x < info.width; x++)
+    if (alpha(x, y) > 24) {
+      if (x < minX) minX = x;
+      if (x > maxX) maxX = x;
+      if (y < minY) minY = y;
+      if (y > maxY) maxY = y;
     }
-  }
-  console.log(label, JSON.stringify(runs));
-}
+console.log(`opaque bbox: x ${minX}..${maxX} y ${minY}..${maxY}`);
 
-const w = info.width, h = info.height;
-gap(`row y=${(h / 2) | 0}`, Array.from({ length: w }, (_, x) => [x, (h / 2) | 0, x]));
-gap(`row y=${(h * 0.75) | 0}`, Array.from({ length: w }, (_, x) => [x, (h * 0.75) | 0, x]));
-gap(`col x=${(w / 2) | 0}`, Array.from({ length: h }, (_, y) => [(w / 2) | 0, y, y]));
-gap(`col x=${(w * 0.7) | 0}`, Array.from({ length: h }, (_, y) => [(w * 0.7) | 0, y, y]));
+// at the horizontal center, where does parchment start/end vertically?
+const cx = (info.width / 2) | 0;
+let top = null, bot = null;
+for (let y = 0; y < info.height; y++) {
+  if (alpha(cx, y) > 24) { if (top === null) top = y; bot = y; }
+}
+console.log(`center column x=${cx}: parchment y ${top}..${bot} (of ${info.height})`);
