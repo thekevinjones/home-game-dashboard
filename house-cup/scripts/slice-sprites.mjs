@@ -14,13 +14,15 @@ mkdirSync(PUB_OUT, { recursive: true });
 const crops = {
   // parchment banner (caret glyph removed by mirroring the left half)
   banner: { left: 1285, top: 48, width: 340, height: 136, out: CSS_OUT },
-  // hero leather panel: only its left ~half is visible (photo frame overlaps
-  // the right), so we mirror it into a full symmetric frame
-  "panel-left": { left: 35, top: 213, width: 865, height: 749, out: null },
+  // hero leather panel: only its top-left quadrant is fully clean (the photo
+  // frame overlaps the right, and the bottom stitch is too dim to survive
+  // 9-slice compression), so we mirror the quadrant both ways
+  "panel-quadrant": { left: 35, top: 215, width: 865, height: 370, out: null },
   "photo-frame": { left: 927, top: 221, width: 870, height: 735, out: CSS_OUT },
   "row-plaque": { left: 101, top: 1903, width: 961, height: 171, out: CSS_OUT },
   porthole: { left: 1242, top: 1135, width: 192, height: 201, out: CSS_OUT },
-  "porthole-ring": { left: 1242, top: 1135, width: 192, height: 201, out: CSS_OUT },
+  // the thin elegant porthole (sheet top-right) → hero photo window ring
+  "window-ring": { left: 1657, top: 31, width: 154, height: 156, out: CSS_OUT },
   leader: { left: 1463, top: 1184, width: 205, height: 74, out: CSS_OUT },
   pill: { left: 1431, top: 1357, width: 260, height: 81, out: CSS_OUT },
   medal: { left: 1263, top: 1449, width: 150, height: 122, out: CSS_OUT },
@@ -82,12 +84,12 @@ for (const [name, c] of Object.entries(crops)) {
       .toBuffer();
   }
 
-  if (name === "porthole-ring") {
+  if (name === "window-ring") {
     // porthole with its solid center punched out → stretchable window ring
     const { width, height } = crops[name];
     const mask = Buffer.from(
       `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">
-        <ellipse cx="96" cy="98" rx="63" ry="64" fill="#000"/>
+        <ellipse cx="77" cy="77" rx="59" ry="60" fill="#000"/>
       </svg>`
     );
     buf = await sharp(buf)
@@ -100,36 +102,41 @@ for (const [name, c] of Object.entries(crops)) {
   console.log(`wrote ${name}.png`);
 }
 
-// full hero panel frame = visible left half + mirrored copy.
-// First erase the parchment banner baked onto the leather (local 86..529 x
-// 127..207) with a patch of plain leather sampled below it, softly blurred.
+// full hero panel frame = top-left quadrant mirrored horizontally and
+// vertically, so every edge carries the crisp top stitching and every corner
+// the brass cap. First erase the parchment banner baked onto the leather
+// (local ~86..529 x ~125..205) with a patch of plain leather, softly blurred.
 {
-  let leftBuf = await extract("panel-left");
-  const leatherPatch = await sharp(leftBuf)
+  let quad = await extract("panel-quadrant");
+  const leatherPatch = await sharp(quad)
     .extract({ left: 76, top: 250, width: 463, height: 118 })
     .blur(1.5)
     .png()
     .toBuffer();
-  leftBuf = await sharp(leftBuf)
-    .composite([{ input: leatherPatch, left: 76, top: 110 }])
+  quad = await sharp(quad)
+    .composite([{ input: leatherPatch, left: 76, top: 108 }])
     .png()
     .toBuffer();
-  const rightBuf = await sharp(leftBuf).flop().png().toBuffer();
-  const { width, height } = crops["panel-left"];
+  const { width, height } = crops["panel-quadrant"];
+  const tr = await sharp(quad).flop().png().toBuffer();
+  const bl = await sharp(quad).flip().png().toBuffer();
+  const br = await sharp(quad).flop().flip().png().toBuffer();
   await sharp({
     create: {
       width: width * 2,
-      height,
+      height: height * 2,
       channels: 4,
       background: { r: 0, g: 0, b: 0, alpha: 0 },
     },
   })
     .composite([
-      { input: leftBuf, left: 0, top: 0 },
-      { input: rightBuf, left: width, top: 0 },
+      { input: quad, left: 0, top: 0 },
+      { input: tr, left: width, top: 0 },
+      { input: bl, left: 0, top: height },
+      { input: br, left: width, top: height },
     ])
     .png()
     .toFile(path.join(CSS_OUT, "panel.png"));
-  console.log("wrote panel.png (mirrored)");
+  console.log("wrote panel.png (quadrant-mirrored)");
 }
 console.log("done");

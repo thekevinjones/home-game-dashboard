@@ -184,7 +184,7 @@
 /* the game art shows only through the porthole window */
 .heroPhoto img,
 .heroPhoto .gameArtFallback {
-  clip-path: ellipse(33% 32% at 50% 49%);
+  clip-path: ellipse(39.5% 40% at 50% 49%);
 }
 /* painted brass window ring stretched over the photo */
 .heroPhoto::before {
@@ -193,7 +193,7 @@
   inset: 1% 1.5%;
   z-index: 1;
   pointer-events: none;
-  background: url("./theme/sprites/porthole-ring.png") center / 100% 100% no-repeat;
+  background: url("./theme/sprites/window-ring.png") center / 100% 100% no-repeat;
 }
 /* painted rectangular frame around the whole window */
 .heroPhoto::after {
