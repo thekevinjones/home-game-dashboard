@@ -197,14 +197,8 @@ export default function Dashboard() {
                     <div className={styles.recentParticipants}>
                       <span className={styles.recentPartLabel}>Played by</span>
                       {parts.map((p) => (
-                        <span
-                          key={p.id}
-                          className={`${styles.rosterChip} ${
-                            p.id === latest.winnerId ? styles.rosterChipWin : ""
-                          }`}
-                        >
-                          <Avatar player={p} size={24} ring={0} />
-                          {p.name}
+                        <span key={p.id} title={p.name} style={{ display: "flex" }}>
+                          <Avatar player={p} size={32} />
                         </span>
                       ))}
                     </div>
