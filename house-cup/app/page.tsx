@@ -177,7 +177,7 @@ export default function Dashboard() {
       )}
       <div className={styles.gameScrim} />
       <div className={styles.gameNights}>
-        {gs.nights} night{gs.nights === 1 ? "" : "s"}
+        {gs.nights} play{gs.nights === 1 ? "" : "s"}
       </div>
       <div className={styles.gameFooter}>
         <div className={`${styles.gameName} font-display`}>{gs.game.name}</div>
@@ -341,29 +341,42 @@ export default function Dashboard() {
               {champ && (
                 <div className={styles.standTop}>
                   <div className={`${styles.standTopRank} font-display`}>1</div>
-                  <Avatar player={champ.player} size={92} ring={4} />
+                  <Avatar player={champ.player} size={54} ring={4} />
                   <div className={styles.minw0}>
-                    <div className={styles.standTopBadgeRow}>
+                    <div className={styles.standNameRow}>
+                      <span className={`${styles.standTopName} font-display`}>
+                        {champ.player.name}
+                      </span>
                       <span className={styles.championBadge}>LEADER</span>
-                      {champ.streak > 1 && (
-                        <span className={styles.standTopStreak}>{champ.streak}-night streak</span>
+                      {champ.played > 0 && (
+                        <span className={`${styles.winRatePill} ${styles.winRatePillTop}`}>
+                          {champ.winRate}% win rate
+                        </span>
                       )}
                     </div>
-                    <div className={`${styles.standTopName} font-display`}>{champ.player.name}</div>
                     <div className={styles.standMeta}>
-                      {champ.played} night{champ.played === 1 ? "" : "s"} played
+                      {champ.played} game{champ.played === 1 ? "" : "s"} played
+                      {champ.streak > 1 ? ` · ${champ.streak}-game streak` : ""}
                     </div>
                   </div>
                   <div className={styles.grow} />
-                  <div className={styles.standTopWins}>
+                  <div className={styles.standBarWrap}>
+                    <div className={styles.standBarTrack}>
+                      <div
+                        className={styles.barFill}
+                        style={{
+                          width: `${Math.round((champ.wins / topWins) * 100)}%`,
+                          height: "100%",
+                          borderRadius: 999,
+                          background: champ.player.color,
+                        }}
+                      />
+                    </div>
                     <CountUp
-                      className={`${styles.standTopWinsNum} font-display`}
+                      className={`${styles.standTopRate} font-display`}
                       value={champ.wins}
                       duration={1300}
                     />
-                    <div className={styles.standTopWinsLabel}>
-                      {champ.wins === 1 ? "WIN" : "WINS"}
-                    </div>
                   </div>
                 </div>
               )}
@@ -374,9 +387,12 @@ export default function Dashboard() {
                   <div className={styles.minw0}>
                     <div className={styles.standNameRow}>
                       <span className={`${styles.standName} font-display`}>{row.player.name}</span>
+                      {row.played > 0 && (
+                        <span className={styles.winRatePill}>{row.winRate}% win rate</span>
+                      )}
                     </div>
                     <div className={styles.standMeta}>
-                      {row.played} night{row.played === 1 ? "" : "s"} played
+                      {row.played} game{row.played === 1 ? "" : "s"} played
                     </div>
                   </div>
                   <div className={styles.grow} />

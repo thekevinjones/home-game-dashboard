@@ -333,60 +333,56 @@
   margin-right: 4px;
 }
 
-/* ---- standings: featured #1 ---- */
+/* ---- standings: featured #1 ----
+   Same column geometry as .standRow (rank 30 · gap 18 · barWrap 250 · number 74)
+   and the same horizontal padding, so the wins numbers stay vertically aligned
+   with the rows below — just emphasized (tinted card, bigger type, badge). */
 .standTop {
   display: flex;
   align-items: center;
-  gap: 20px;
-  padding: 22px;
+  gap: 18px;
+  padding: 20px;
   margin-bottom: 14px;
   border-radius: 22px;
-  background: linear-gradient(135deg, rgba(245, 179, 82, 0.18), rgba(245, 179, 82, 0.05));
-  border: 1px solid rgba(245, 179, 82, 0.35);
+  background: linear-gradient(135deg, rgba(245, 179, 82, 0.16), rgba(245, 179, 82, 0.04));
+  border: 1px solid rgba(245, 179, 82, 0.4);
 }
 .standTopRank {
-  width: 34px;
+  width: 30px;
   flex: none;
   text-align: center;
   font-weight: 800;
   font-size: 40px;
   color: var(--amber);
 }
-.standTopBadgeRow {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 6px;
-}
-.standTopStreak {
-  font-weight: 600;
-  font-size: 13px;
-  color: var(--ink-dim);
-}
 .standTopName {
   font-weight: 800;
-  font-size: 40px;
+  font-size: 36px;
   line-height: 1;
   color: var(--ink);
 }
-.standTopWins {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  flex: none;
-}
-.standTopWinsNum {
+.standTopRate {
+  width: 74px;
+  text-align: right;
   font-weight: 800;
-  font-size: 54px;
-  line-height: 1;
+  font-size: 40px;
   color: var(--ink);
 }
-.standTopWinsLabel {
+
+/* small "special" per-person win-rate pill */
+.winRatePill {
   font-weight: 700;
   font-size: 12px;
-  letter-spacing: 0.18em;
   color: var(--amber-soft);
-  margin-top: 3px;
+  background: rgba(245, 179, 82, 0.16);
+  border: 1px solid rgba(245, 179, 82, 0.28);
+  padding: 2px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+  flex: none;
+}
+.winRatePillTop {
+  font-size: 13px;
 }
 
 /* ---- section heading ---- */
@@ -560,7 +556,7 @@
   display: flex;
   align-items: center;
   gap: 18px;
-  padding: 13px 2px;
+  padding: 13px 20px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.07);
 }
 .standRank {
@@ -579,6 +575,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-wrap: wrap;
 }
 .championBadge {
   font-weight: 800;
