@@ -1,0 +1,140 @@
+/* ---- stat tiles ---- */
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 14px;
+}
+.tile {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--panel-border);
+  border-radius: 16px;
+  padding: 16px 18px;
+}
+.tileValue {
+  font-weight: 800;
+  font-size: 34px;
+  line-height: 1;
+  color: var(--ink);
+}
+.tileValueAccent {
+  color: var(--amber);
+}
+.tileLabel {
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin-top: 8px;
+}
+
+/* ---- horizontal bar chart ---- */
+.bars {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.barRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.barLabel {
+  width: 150px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--ink);
+  min-width: 0;
+}
+.barLabelText {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.barMain {
+  flex: 1;
+  min-width: 0;
+}
+.barTrack {
+  height: 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+.barFill {
+  height: 100%;
+  border-radius: 999px;
+  transform-origin: left center;
+  animation: barGrow 0.9s 0.15s both cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.barCaption {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--ink-dim);
+  margin-top: 5px;
+}
+.barValue {
+  width: 54px;
+  flex: none;
+  text-align: right;
+  font-weight: 800;
+  font-size: 20px;
+  color: var(--ink);
+}
+
+/* split (head-to-head) bar */
+.splitTrack {
+  display: flex;
+  height: 14px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+@keyframes barGrow {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+/* ---- trend line ---- */
+.trend {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+.trendArea {
+  fill: rgba(245, 179, 82, 0.14);
+}
+.trendLine {
+  fill: none;
+  stroke: var(--amber);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.trendDot {
+  fill: var(--amber);
+}
+.trendGrid {
+  stroke: rgba(255, 255, 255, 0.12);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+}
+.trendGridLabel {
+  fill: var(--ink-dim);
+  font-size: 10px;
+  font-weight: 600;
+}
+.trendEmpty {
+  color: var(--ink-dim);
+  font-weight: 600;
+  font-size: 15px;
+  padding: 20px 0;
+  text-align: center;
+}

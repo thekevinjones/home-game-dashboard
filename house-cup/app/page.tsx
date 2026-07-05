@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import styles from "./dashboard.module.css";
 import { CountUp } from "@/components/CountUp";
+import { Avatar } from "@/components/Avatar";
 import {
   standings,
   gameStats,
@@ -19,61 +20,6 @@ import {
   type DashboardData,
   type Player,
 } from "@/lib/data";
-
-function initials(name: string): string {
-  return name
-    .split(/\s+/)
-    .filter(Boolean)
-    .map((w) => w[0])
-    .slice(0, 2)
-    .join("")
-    .toUpperCase();
-}
-
-function Avatar({
-  player,
-  size,
-  ring = 2,
-}: {
-  player: Player;
-  size: number;
-  ring?: number;
-}) {
-  const base: React.CSSProperties = {
-    width: size,
-    height: size,
-    boxShadow: `0 0 0 ${ring}px rgba(255,255,255,.25)`,
-  };
-  if (player.avatar) {
-    return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img
-        className={styles.avatar}
-        src={asset(player.avatar)}
-        alt={player.name}
-        style={{ ...base, objectPosition: player.avatarPosition, background: player.color }}
-      />
-    );
-  }
-  return (
-    <div
-      className={styles.avatar}
-      aria-label={player.name}
-      style={{
-        ...base,
-        background: player.color,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        color: "#fff",
-        fontWeight: 800,
-        fontSize: Math.round(size * 0.4),
-      }}
-    >
-      {initials(player.name)}
-    </div>
-  );
-}
 
 function Header({ subtitle }: { subtitle: React.ReactNode }) {
   return (
@@ -168,7 +114,7 @@ export default function Dashboard() {
   const restRows = champ ? table.slice(1) : table;
 
   const gameCards = gstats.map((gs) => (
-    <div key={gs.game.id} className={styles.gameCard}>
+    <Link key={gs.game.id} href={`/game?id=${gs.game.id}`} className={styles.gameCard}>
       {gs.game.art ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img className={styles.gameArt} src={asset(gs.game.art)} alt={gs.game.name} />
@@ -198,7 +144,7 @@ export default function Dashboard() {
           )}
         </div>
       </div>
-    </div>
+    </Link>
   ));
   const collapseGames = gameCards.length > 3;
 
@@ -339,7 +285,7 @@ export default function Dashboard() {
           ) : (
             <>
               {champ && (
-                <div className={styles.standTop}>
+                <Link href={`/player?id=${champ.player.id}`} className={styles.standTop}>
                   <div className={`${styles.standTopRank} font-display`}>1</div>
                   <Avatar player={champ.player} size={54} ring={4} />
                   <div className={styles.minw0}>
@@ -378,10 +324,10 @@ export default function Dashboard() {
                       duration={1300}
                     />
                   </div>
-                </div>
+                </Link>
               )}
               {restRows.map((row) => (
-                <div key={row.player.id} className={styles.standRow}>
+                <Link key={row.player.id} href={`/player?id=${row.player.id}`} className={styles.standRow}>
                   <div className={`${styles.standRank} font-display`}>{row.rank}</div>
                   <Avatar player={row.player} size={54} ring={3} />
                   <div className={styles.minw0}>
@@ -410,7 +356,7 @@ export default function Dashboard() {
                     </div>
                     <CountUp className={`${styles.standRate} font-display`} value={row.wins} />
                   </div>
-                </div>
+                </Link>
               ))}
             </>
           )}

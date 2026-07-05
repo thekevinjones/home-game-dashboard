@@ -333,3 +333,190 @@ export function rivalries(matches: Match[], players: Player[], limit = 2): Rival
       nights: r.nights,
     }));
 }
+
+// --- Drill-through detail views ----------------------------------------------
+
+export interface PerGameStat {
+  game: Game;
+  played: number;
+  wins: number;
+  winRate: number;
+}
+export interface HeadToHead {
+  opponent: Player;
+  shared: number;
+  myWins: number;
+  theirWins: number;
+}
+export interface TimelinePoint {
+  date: string;
+  label: string;
+  cumWins: number;
+  cumGames: number;
+  winRate: number; // cumulative, 0–100
+  won: boolean;
+  gameName: string;
+}
+export interface PersonDetail {
+  player: Player;
+  rank: number;
+  games: number;
+  wins: number;
+  winRate: number;
+  streak: number;
+  perGame: PerGameStat[];
+  headToHead: HeadToHead[];
+  timeline: TimelinePoint[];
+  recent: Match[];
+}
+
+/** Everything the person drill-down needs, all derived from matches. */
+export function personDetail(
+  id: PlayerId,
+  players: Player[],
+  games: Game[],
+  matches: Match[]
+): PersonDetail | null {
+  const player = playerById(players, id);
+  if (!player) return null;
+
+  const row = standings(players, matches).find((r) => r.player.id === id);
+  const mine = matches
+    .filter((m) => m.participantIds.includes(id))
+    .sort((a, b) => a.date.localeCompare(b.date)); // chronological
+
+  let cum = 0;
+  const timeline: TimelinePoint[] = mine.map((m, i) => {
+    const won = m.winnerId === id;
+    if (won) cum++;
+    return {
+      date: m.date,
+      label: formatMatchDate(m.date),
+      cumWins: cum,
+      cumGames: i + 1,
+      winRate: Math.round((cum / (i + 1)) * 100),
+      won,
+      gameName: gameById(games, m.gameId)?.name ?? m.gameId,
+    };
+  });
+
+  const perGameMap = new Map<string, { played: number; wins: number }>();
+  for (const m of mine) {
+    const t = perGameMap.get(m.gameId) ?? { played: 0, wins: 0 };
+    t.played++;
+    if (m.winnerId === id) t.wins++;
+    perGameMap.set(m.gameId, t);
+  }
+  const perGame: PerGameStat[] = [...perGameMap.entries()]
+    .map(([gid, t]) => ({
+      game: gameById(games, gid) ?? { id: gid, name: gid },
+      played: t.played,
+      wins: t.wins,
+      winRate: t.played ? Math.round((t.wins / t.played) * 100) : 0,
+    }))
+    .sort((a, b) => b.wins - a.wins || b.played - a.played);
+
+  const h2hMap = new Map<string, { shared: number; myWins: number; theirWins: number }>();
+  for (const m of mine) {
+    for (const pid of m.participantIds) {
+      if (pid === id) continue;
+      const t = h2hMap.get(pid) ?? { shared: 0, myWins: 0, theirWins: 0 };
+      t.shared++;
+      if (m.winnerId === id) t.myWins++;
+      else if (m.winnerId === pid) t.theirWins++;
+      h2hMap.set(pid, t);
+    }
+  }
+  const headToHead: HeadToHead[] = [...h2hMap.entries()]
+    .map(([pid, t]) => ({ opponent: playerById(players, pid), ...t }))
+    .filter((h): h is HeadToHead => Boolean(h.opponent))
+    .sort((a, b) => b.shared - a.shared);
+
+  return {
+    player,
+    rank: row?.rank ?? 0,
+    games: row?.played ?? mine.length,
+    wins: row?.wins ?? cum,
+    winRate: row?.winRate ?? 0,
+    streak: row?.streak ?? 0,
+    perGame,
+    headToHead,
+    timeline,
+    recent: [...mine].reverse().slice(0, 6),
+  };
+}
+
+export interface GameWinnerStat {
+  player: Player;
+  wins: number;
+  played: number;
+  winRate: number;
+}
+export interface GamePlay {
+  date: string;
+  label: string;
+  winner: Player | null;
+  participants: Player[];
+}
+export interface GameDetail {
+  game: Game;
+  plays: number;
+  distinctWinners: number;
+  lastPlayed: string | null;
+  topWinner: GameWinnerStat | null;
+  winsByPlayer: GameWinnerStat[];
+  history: GamePlay[];
+}
+
+/** Everything the game drill-down needs, all derived from matches. */
+export function gameDetail(
+  id: GameId,
+  players: Player[],
+  games: Game[],
+  matches: Match[]
+): GameDetail | null {
+  const game = gameById(games, id);
+  if (!game) return null;
+
+  const gm = matches
+    .filter((m) => m.gameId === id)
+    .sort((a, b) => a.date.localeCompare(b.date));
+
+  const tally = new Map<string, { wins: number; played: number }>();
+  for (const m of gm) {
+    for (const pid of m.participantIds) {
+      const t = tally.get(pid) ?? { wins: 0, played: 0 };
+      t.played++;
+      if (m.winnerId === pid) t.wins++;
+      tally.set(pid, t);
+    }
+  }
+  const winsByPlayer: GameWinnerStat[] = [...tally.entries()]
+    .map(([pid, t]) => ({
+      player: playerById(players, pid),
+      wins: t.wins,
+      played: t.played,
+      winRate: t.played ? Math.round((t.wins / t.played) * 100) : 0,
+    }))
+    .filter((w): w is GameWinnerStat => Boolean(w.player))
+    .sort((a, b) => b.wins - a.wins || b.played - a.played);
+
+  const history: GamePlay[] = [...gm].reverse().map((m) => ({
+    date: m.date,
+    label: formatMatchDate(m.date),
+    winner: playerById(players, m.winnerId) ?? null,
+    participants: m.participantIds
+      .map((pid) => playerById(players, pid))
+      .filter((p): p is Player => Boolean(p)),
+  }));
+
+  return {
+    game,
+    plays: gm.length,
+    distinctWinners: new Set(gm.map((m) => m.winnerId)).size,
+    lastPlayed: gm.length ? gm[gm.length - 1].date : null,
+    topWinner: winsByPlayer.find((w) => w.wins > 0) ?? null,
+    winsByPlayer,
+    history,
+  };
+}
