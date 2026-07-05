@@ -5,6 +5,7 @@ import { mkdirSync } from "node:fs";
 import path from "node:path";
 
 const SHEET = "../design-handoff/sprites.png.png";
+const UPDATED = "../design-handoff/updated.png"; // labeled revision sheet
 const CSS_OUT = "app/theme/sprites";
 const PUB_OUT = "public/theme";
 mkdirSync(CSS_OUT, { recursive: true });
@@ -18,17 +19,17 @@ const crops = {
   // frame overlaps the right, and the bottom stitch is too dim to survive
   // 9-slice compression), so we mirror the quadrant both ways
   "panel-quadrant": { left: 35, top: 215, width: 865, height: 370, out: null },
-  "photo-frame": { left: 927, top: 221, width: 870, height: 735, out: CSS_OUT },
   "row-plaque": { left: 101, top: 1903, width: 961, height: 171, out: CSS_OUT },
   porthole: { left: 1242, top: 1135, width: 192, height: 201, out: CSS_OUT },
-  // the thin elegant porthole (sheet top-right) → hero photo window ring
-  "window-ring": { left: 1657, top: 31, width: 154, height: 156, out: CSS_OUT },
   leader: { left: 1463, top: 1184, width: 205, height: 74, out: CSS_OUT },
   pill: { left: 1431, top: 1357, width: 260, height: 81, out: CSS_OUT },
   medal: { left: 1263, top: 1449, width: 150, height: 122, out: CSS_OUT },
   divider: { left: 25, top: 2108, width: 1098, height: 21, out: CSS_OUT },
   "torn-card": { left: 643, top: 1104, width: 557, height: 465, out: CSS_OUT },
-  snitch: { left: 954, top: 2152, width: 169, height: 83, out: PUB_OUT },
+  // ornate gold picture frame (updated.png top-left) for the hero game photo
+  "game-frame": { sheet: UPDATED, left: 19, top: 45, width: 214, height: 162, out: CSS_OUT },
+  // golden snitch from updated.png (crisper than the original sheet's)
+  snitch: { sheet: UPDATED, left: 20, top: 905, width: 145, height: 89, out: PUB_OUT },
   "potion-green": { left: 1158, top: 1788, width: 100, height: 127, out: PUB_OUT },
   "vial-blue": { left: 1161, top: 1921, width: 103, height: 153, out: PUB_OUT },
   "vial-pink": { left: 1152, top: 2085, width: 104, height: 150, out: PUB_OUT },
@@ -39,8 +40,8 @@ const meta = await sheet.metadata();
 console.log(`sheet: ${meta.width}x${meta.height}`);
 
 async function extract(name) {
-  const { left, top, width, height } = crops[name];
-  return sharp(SHEET).extract({ left, top, width, height }).png().toBuffer();
+  const { sheet = SHEET, left, top, width, height } = crops[name];
+  return sharp(sheet).extract({ left, top, width, height }).png().toBuffer();
 }
 
 for (const [name, c] of Object.entries(crops)) {
@@ -59,41 +60,6 @@ for (const [name, c] of Object.entries(crops)) {
     const right = await sharp(left).flop().png().toBuffer();
     buf = await sharp(buf)
       .composite([{ input: right, left: width - half, top: 0 }])
-      .png()
-      .toBuffer();
-  }
-
-  if (name === "photo-frame") {
-    // punch everything inside the rect frame band (~30px) — the elliptical
-    // window ring is layered separately from the porthole sprite in CSS
-    const { width, height } = crops[name];
-    const inset = 30;
-    const hole = await sharp({
-      create: {
-        width: width - inset * 2,
-        height: height - inset * 2,
-        channels: 4,
-        background: { r: 0, g: 0, b: 0, alpha: 1 },
-      },
-    })
-      .png()
-      .toBuffer();
-    buf = await sharp(buf)
-      .composite([{ input: hole, left: inset, top: inset, blend: "dest-out" }])
-      .png()
-      .toBuffer();
-  }
-
-  if (name === "window-ring") {
-    // porthole with its solid center punched out → stretchable window ring
-    const { width, height } = crops[name];
-    const mask = Buffer.from(
-      `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">
-        <ellipse cx="77" cy="77" rx="59" ry="60" fill="#000"/>
-      </svg>`
-    );
-    buf = await sharp(buf)
-      .composite([{ input: mask, left: 0, top: 0, blend: "dest-out" }])
       .png()
       .toBuffer();
   }
