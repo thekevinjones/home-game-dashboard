@@ -181,14 +181,28 @@
   object-fit: cover;
   object-position: 50% 32%;
 }
-/* painted picture frame around the hero photo */
+/* the game art shows only through the porthole window */
+.heroPhoto img,
+.heroPhoto .gameArtFallback {
+  clip-path: ellipse(33% 32% at 50% 49%);
+}
+/* painted brass window ring stretched over the photo */
+.heroPhoto::before {
+  content: "";
+  position: absolute;
+  inset: 1% 1.5%;
+  z-index: 1;
+  pointer-events: none;
+  background: url("./theme/sprites/porthole-ring.png") center / 100% 100% no-repeat;
+}
+/* painted rectangular frame around the whole window */
 .heroPhoto::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  border: 28px solid transparent;
-  border-image: url("./theme/sprites/photo-frame.png") 62;
+  border: 15px solid transparent;
+  border-image: url("./theme/sprites/photo-frame.png") 30;
 }
 .heroSeam {
   display: none;

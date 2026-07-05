@@ -12,14 +12,15 @@ mkdirSync(PUB_OUT, { recursive: true });
 
 // crop boxes in original 1856x2304 pixel space
 const crops = {
-  // parchment banner (has a caret glyph we erase below)
-  banner: { left: 1290, top: 55, width: 332, height: 116, out: CSS_OUT },
+  // parchment banner (caret glyph removed by mirroring the left half)
+  banner: { left: 1285, top: 48, width: 340, height: 136, out: CSS_OUT },
   // hero leather panel: only its left ~half is visible (photo frame overlaps
   // the right), so we mirror it into a full symmetric frame
   "panel-left": { left: 35, top: 213, width: 865, height: 749, out: null },
   "photo-frame": { left: 927, top: 221, width: 870, height: 735, out: CSS_OUT },
   "row-plaque": { left: 101, top: 1903, width: 961, height: 171, out: CSS_OUT },
   porthole: { left: 1242, top: 1135, width: 192, height: 201, out: CSS_OUT },
+  "porthole-ring": { left: 1242, top: 1135, width: 192, height: 201, out: CSS_OUT },
   leader: { left: 1463, top: 1184, width: 205, height: 74, out: CSS_OUT },
   pill: { left: 1431, top: 1357, width: 260, height: 81, out: CSS_OUT },
   medal: { left: 1263, top: 1449, width: 150, height: 122, out: CSS_OUT },
@@ -45,22 +46,26 @@ for (const [name, c] of Object.entries(crops)) {
   let buf = await extract(name);
 
   if (name === "banner") {
-    // erase the dropdown caret (local ~271..302 x 43..66): cover with a patch
-    // sampled directly below it so the horizontal shading matches
-    const patch = await sharp(buf)
-      .extract({ left: 266, top: 74, width: 42, height: 34 })
+    // the right side carries a baked dropdown caret — the banner is close to
+    // symmetric, so rebuild the right half as a mirror of the left half
+    const { width, height } = crops[name];
+    const half = Math.floor(width / 2);
+    const left = await sharp(buf)
+      .extract({ left: 0, top: 0, width: half, height })
       .png()
       .toBuffer();
+    const right = await sharp(left).flop().png().toBuffer();
     buf = await sharp(buf)
-      .composite([{ input: patch, left: 266, top: 38 }])
+      .composite([{ input: right, left: width - half, top: 0 }])
       .png()
       .toBuffer();
   }
 
   if (name === "photo-frame") {
-    // border-image discards the middle — punch it transparent to save bytes
+    // punch everything inside the rect frame band (~30px) — the elliptical
+    // window ring is layered separately from the porthole sprite in CSS
     const { width, height } = crops[name];
-    const inset = 62;
+    const inset = 30;
     const hole = await sharp({
       create: {
         width: width - inset * 2,
@@ -73,6 +78,20 @@ for (const [name, c] of Object.entries(crops)) {
       .toBuffer();
     buf = await sharp(buf)
       .composite([{ input: hole, left: inset, top: inset, blend: "dest-out" }])
+      .png()
+      .toBuffer();
+  }
+
+  if (name === "porthole-ring") {
+    // porthole with its solid center punched out → stretchable window ring
+    const { width, height } = crops[name];
+    const mask = Buffer.from(
+      `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">
+        <ellipse cx="96" cy="98" rx="63" ry="64" fill="#000"/>
+      </svg>`
+    );
+    buf = await sharp(buf)
+      .composite([{ input: mask, left: 0, top: 0, blend: "dest-out" }])
       .png()
       .toBuffer();
   }
