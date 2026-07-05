@@ -106,7 +106,7 @@ export default function Dashboard() {
   const gstats = gameStats(games, matches, players);
   const recent = recentMatches(matches);
   const played = mostPlayed(games, matches).filter((m) => m.nights > 0);
-  const rivals = rivalries(matches, players);
+  const rivals = rivalries(matches, players, 4);
   const latest = recent[0];
   const topWins = Math.max(1, ...table.map((r) => r.wins)); // bar scale
   // #1 is featured only once someone has actually won.
@@ -287,7 +287,10 @@ export default function Dashboard() {
               {champ && (
                 <Link href={`/player?id=${champ.player.id}`} className={styles.standTop}>
                   <div className={`${styles.standTopRank} font-display`}>1</div>
-                  <Avatar player={champ.player} size={54} ring={4} />
+                  <div className={styles.champAvatarWrap}>
+                    <Avatar player={champ.player} size={54} ring={4} />
+                    <span className={styles.champStar} aria-label="1st place">★</span>
+                  </div>
                   <div className={styles.minw0}>
                     <div className={styles.standNameRow}>
                       <span className={`${styles.standTopName} font-display`}>
@@ -362,7 +365,43 @@ export default function Dashboard() {
           )}
         </section>
 
-        {/* bottom: recent + most played + rivalries */}
+        {/* top rivalries — full width, right after standings */}
+        <section className={`${styles.panel} ${styles.rivalriesPanel}`}>
+          <div className={`${styles.sideTitle} font-display`}>Top Rivalries</div>
+          {rivals.length ? (
+            <div className={styles.rivList}>
+              {rivals.map((riv) => {
+                const total = riv.aWins + riv.bWins;
+                const aPct = total ? Math.round((riv.aWins / total) * 100) : 50;
+                return (
+                  <div key={`${riv.a.id}|${riv.b.id}`} className={styles.rivItem}>
+                    <div className={styles.rivHead}>
+                      <div className={styles.rivSide}>
+                        <Avatar player={riv.a} size={34} />
+                        <span className={styles.rivName}>{riv.a.name}</span>
+                      </div>
+                      <span className={`${styles.rivScore} font-display`}>
+                        {riv.aWins}&ndash;{riv.bWins}
+                      </span>
+                      <div className={styles.rivSide}>
+                        <span className={styles.rivName}>{riv.b.name}</span>
+                        <Avatar player={riv.b} size={34} />
+                      </div>
+                    </div>
+                    <div className={styles.rivBar}>
+                      <div style={{ width: `${aPct}%`, background: riv.a.color }} />
+                      <div style={{ flex: 1, background: riv.b.color }} />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div className={styles.empty}>No rivalries yet.</div>
+          )}
+        </section>
+
+        {/* bottom: recent game nights + most played (50/50) */}
         <section className={styles.bottomRow}>
           <div className={`${styles.panel} ${styles.recentPanel}`}>
             <div className={styles.panelHeadRow}>
@@ -407,62 +446,25 @@ export default function Dashboard() {
             )}
           </div>
 
-          <div className={styles.sideCol}>
-            <div className={`${styles.panel} ${styles.sidePanel}`}>
-              <div className={`${styles.sideTitle} font-display`}>Most Played</div>
-              {played.length ? (
-                <div className={styles.mostList}>
-                  {played.map(({ game, nights, pct }) => (
-                    <div key={game.id}>
-                      <div className={styles.mostHead}>
-                        <span className={styles.mostName}>{game.name}</span>
-                        <span className={styles.mostCount}>{nights}</span>
-                      </div>
-                      <div className={styles.mostTrack}>
-                        <div className={styles.mostFill} style={{ width: `${pct}%` }} />
-                      </div>
+          <div className={`${styles.panel} ${styles.mostPlayedPanel}`}>
+            <div className={`${styles.sideTitle} font-display`}>Most Played</div>
+            {played.length ? (
+              <div className={styles.mostList}>
+                {played.map(({ game, nights, pct }) => (
+                  <div key={game.id}>
+                    <div className={styles.mostHead}>
+                      <span className={styles.mostName}>{game.name}</span>
+                      <span className={styles.mostCount}>{nights}</span>
                     </div>
-                  ))}
-                </div>
-              ) : (
-                <div className={styles.empty}>Nothing played yet.</div>
-              )}
-            </div>
-
-            <div className={`${styles.panel} ${styles.sidePanel} ${styles.sidePanelGrow}`}>
-              <div className={`${styles.sideTitle} font-display`}>Top Rivalries</div>
-              {rivals.length ? (
-                <div className={styles.rivList}>
-                  {rivals.map((riv) => {
-                    const total = riv.aWins + riv.bWins;
-                    const aPct = total ? Math.round((riv.aWins / total) * 100) : 50;
-                    return (
-                      <div key={`${riv.a.id}|${riv.b.id}`}>
-                        <div className={styles.rivHead}>
-                          <div className={styles.rivSide}>
-                            <Avatar player={riv.a} size={34} />
-                            <span className={styles.rivName}>{riv.a.name}</span>
-                          </div>
-                          <span className={`${styles.rivScore} font-display`}>
-                            {riv.aWins}&ndash;{riv.bWins}
-                          </span>
-                          <div className={styles.rivSide}>
-                            <span className={styles.rivName}>{riv.b.name}</span>
-                            <Avatar player={riv.b} size={34} />
-                          </div>
-                        </div>
-                        <div className={styles.rivBar}>
-                          <div style={{ width: `${aPct}%`, background: riv.a.color }} />
-                          <div style={{ flex: 1, background: riv.b.color }} />
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              ) : (
-                <div className={styles.empty}>No rivalries yet.</div>
-              )}
-            </div>
+                    <div className={styles.mostTrack}>
+                      <div className={styles.mostFill} style={{ width: `${pct}%` }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className={styles.empty}>Nothing played yet.</div>
+            )}
           </div>
         </section>
       </main>
