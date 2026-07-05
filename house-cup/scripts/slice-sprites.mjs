@@ -13,8 +13,9 @@ mkdirSync(PUB_OUT, { recursive: true });
 
 // crop boxes in original 1856x2304 pixel space
 const crops = {
-  // parchment banner (caret glyph removed by mirroring the left half)
-  banner: { left: 1285, top: 48, width: 340, height: 136, out: CSS_OUT },
+  // parchment banner: updated.png On-The-Table scroll, baked text erased
+  // below by per-column vertical interpolation (seam-free blank scroll)
+  banner: { sheet: UPDATED, left: 22, top: 246, width: 182, height: 54, out: null },
   // hero leather panel: only its top-left quadrant is fully clean (the photo
   // frame overlaps the right, and the bottom stitch is too dim to survive
   // 9-slice compression), so we mirror the quadrant both ways
@@ -48,30 +49,72 @@ for (const [name, c] of Object.entries(crops)) {
   if (!c.out) continue;
   let buf = await extract(name);
 
-  if (name === "banner") {
-    // the right side carries a baked dropdown caret — the banner is close to
-    // symmetric, so rebuild the right half as a mirror of the left half
-    const { width, height } = crops[name];
-    const half = Math.floor(width / 2);
-    const left = await sharp(buf)
-      .extract({ left: 0, top: 0, width: half, height })
-      .png()
-      .toBuffer();
-    const right = await sharp(left).flop().png().toBuffer();
-    buf = await sharp(buf)
-      .composite([{ input: right, left: width - half, top: 0 }])
-      .png()
-      .toBuffer();
-    // the source crop has transparent margins above/below the parchment; trim
-    // them so the 9-slice borders land on parchment, not empty space (else the
-    // banner renders with cut-off gaps top and bottom)
-    buf = await sharp(buf).trim({ threshold: 12 }).png().toBuffer();
-    const tm = await sharp(buf).metadata();
-    console.log(`  banner trimmed to ${tm.width}x${tm.height}`);
-  }
-
   await sharp(buf).toFile(path.join(c.out, `${name}.png`));
   console.log(`wrote ${name}.png`);
+}
+
+// Parchment banner: the updated.png scroll has "On The Table" baked across
+// almost its full width. Rebuild a blank banner as [left roll cap] +
+// [column-averaged smooth middle] + [right cap incl. the only clean strip].
+// Averaging kills texture noise so the 9-slice middle stretches smoothly.
+{
+  const { width: W, height: H } = crops.banner;
+  const { data } = await sharp(await extract("banner"))
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+
+  // the sheet's olive label text bleeds into the crop's top rows; the banner
+  // itself starts at row ~3, so wipe rows 0..2 and clear olive remnants below
+  for (let y = 0; y < 6; y++) {
+    for (let x = 0; x < W; x++) {
+      const i = (y * W + x) * 4;
+      const olive = data[i + 3] > 0 && data[i] < 160 && data[i + 1] > data[i] - 12;
+      if (y < 3 || olive) {
+        data[i] = data[i + 1] = data[i + 2] = data[i + 3] = 0;
+      }
+    }
+  }
+
+  // mask dark text pixels (only in the middle rows — banner edges are dark too)
+  const mask = new Uint8Array(W * H);
+  for (let y = 6; y < H - 9; y++) {
+    for (let x = 0; x < W; x++) {
+      const i = (y * W + x) * 4;
+      if (data[i + 3] > 100 && data[i] < 150 && data[i + 1] < 120) mask[y * W + x] = 1;
+    }
+  }
+  // dilate twice to catch antialiased halos
+  for (let pass = 0; pass < 2; pass++) {
+    const src = mask.slice();
+    for (let y = 1; y < H - 1; y++)
+      for (let x = 1; x < W - 1; x++)
+        if (src[y * W + x - 1] || src[y * W + x + 1] || src[(y - 1) * W + x] || src[(y + 1) * W + x])
+          mask[y * W + x] = 1;
+  }
+  // per-column: replace each masked run by interpolating parchment above/below
+  for (let x = 0; x < W; x++) {
+    let y = 0;
+    while (y < H) {
+      if (!mask[y * W + x]) { y++; continue; }
+      let a = y;
+      while (y < H && mask[y * W + x]) y++;
+      const b = y - 1;
+      const top = Math.max(0, a - 1);
+      const bot = Math.min(H - 1, b + 1);
+      for (let yy = a; yy <= b; yy++) {
+        const t = (yy - top) / Math.max(1, bot - top);
+        for (let ch = 0; ch < 4; ch++) {
+          const vTop = data[(top * W + x) * 4 + ch];
+          const vBot = data[(bot * W + x) * 4 + ch];
+          data[(yy * W + x) * 4 + ch] = Math.round(vTop + (vBot - vTop) * t);
+        }
+      }
+    }
+  }
+  await sharp(data, { raw: { width: W, height: H, channels: 4 } })
+    .png()
+    .toFile(path.join(CSS_OUT, "banner.png"));
+  console.log("wrote banner.png (text erased by vertical inpaint)");
 }
 
 // full hero panel frame = top-left quadrant mirrored horizontally and

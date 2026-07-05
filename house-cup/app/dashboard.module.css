@@ -249,8 +249,8 @@
   gap: 10px;
   align-self: flex-start;
   border: solid transparent;
-  border-width: 12px 26px;
-  border-image: url("./theme/sprites/banner.png") 12 50 fill;
+  border-width: 10px 20px;
+  border-image: url("./theme/sprites/banner.png") 12 24 fill;
   padding: 0 2px;
   filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.45));
 }
@@ -496,8 +496,8 @@
   display: inline-flex;
   align-items: center;
   border: solid transparent;
-  border-width: 15px 32px;
-  border-image: url("./theme/sprites/banner.png") 12 50 fill;
+  border-width: 12px 24px;
+  border-image: url("./theme/sprites/banner.png") 12 24 fill;
   padding: 0 2px;
   font-weight: 800;
   font-size: 25px;
@@ -564,8 +564,8 @@
   color: var(--parchment-ink);
   background: none;
   border: solid transparent;
-  border-width: 11px 26px;
-  border-image: url("./theme/sprites/banner.png") 12 50 fill;
+  border-width: 10px 20px;
+  border-image: url("./theme/sprites/banner.png") 12 24 fill;
   padding: 0 2px;
   filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.5));
   transition: transform 0.15s ease, filter 0.2s ease;
