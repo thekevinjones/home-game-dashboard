@@ -135,7 +135,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 42px 46px;
+  padding: 20px 24px;
   height: auto;
   min-height: 300px;
 }
@@ -149,38 +149,31 @@
 .gameArtFallback {
   position: absolute;
   inset: 0;
-  background: radial-gradient(120% 90% at 30% 20%, rgba(120, 96, 210, 0.25), transparent 55%),
-    url("./theme/panel-texture.svg") repeat;
-  background-size: auto, 320px 320px;
+  background: url("./theme/sprites/torn-card.png") center / 100% 100% no-repeat;
+}
+/* torn-parchment cards carry their own edges — drop the frame/shadow */
+.gameCard:has(.gameArtFallback) {
+  box-shadow: none;
+}
+.gameCard:has(.gameArtFallback)::after {
+  display: none;
 }
 .hero {
   position: relative;
   height: 420px;
-  border-radius: 26px;
-  overflow: hidden;
-  background: linear-gradient(135deg, rgba(96, 74, 168, 0.22), rgba(18, 12, 38, 0.5) 62%),
-    url("./theme/panel-texture.svg") repeat;
-  background-size: auto, 320px 320px;
-  box-shadow: 0 26px 60px -22px rgba(0, 0, 0, 0.75), inset 0 0 80px rgba(0, 0, 0, 0.3);
-}
-/* ornate gold frame overlay */
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  pointer-events: none;
-  border: 33px solid transparent;
-  border-image: url("./theme/panel-frame.svg") 33;
+  border: 26px solid transparent;
+  border-image: url("./theme/sprites/panel.png") 72 fill;
+  border-radius: 20px;
+  box-shadow: 0 26px 60px -22px rgba(0, 0, 0, 0.75);
 }
 .heroPhoto {
   position: absolute;
-  top: 20px;
-  right: 20px;
-  bottom: 20px;
-  width: calc(50% - 20px);
+  top: -4px;
+  right: -4px;
+  bottom: -4px;
+  width: calc(50% + 4px);
   overflow: hidden;
-  border-radius: 14px;
+  border-radius: 12px;
 }
 .heroPhoto img {
   width: 100%;
@@ -188,14 +181,14 @@
   object-fit: cover;
   object-position: 50% 32%;
 }
-/* picture frame around the hero photo */
+/* painted picture frame around the hero photo */
 .heroPhoto::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  border: 27px solid transparent;
-  border-image: url("./theme/photo-frame.svg") 27;
+  border: 28px solid transparent;
+  border-image: url("./theme/sprites/photo-frame.png") 62;
 }
 .heroSeam {
   display: none;
@@ -209,7 +202,7 @@
   top: 0;
   bottom: 0;
   width: 50%;
-  padding: 42px 46px;
+  padding: 20px 24px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -221,7 +214,7 @@
   position: absolute;
   left: 36%;
   top: 40%;
-  width: 92px;
+  width: 104px;
   height: auto;
   z-index: 2;
   pointer-events: none;
@@ -231,8 +224,8 @@
 .heroPotion {
   position: absolute;
   left: 42%;
-  bottom: 26px;
-  width: 34px;
+  bottom: 10px;
+  width: 42px;
   height: auto;
   z-index: 2;
   pointer-events: none;
@@ -254,8 +247,8 @@
   gap: 10px;
   align-self: flex-start;
   border: solid transparent;
-  border-width: 14px 34px;
-  border-image: url("./theme/scroll-banner.svg") 16 40 fill;
+  border-width: 12px 26px;
+  border-image: url("./theme/sprites/banner.png") 28 55 fill;
   padding: 0 2px;
   filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.45));
 }
@@ -395,22 +388,14 @@
   margin-right: 4px;
 }
 
-/* ---- gilded avatar porthole ---- */
+/* ---- painted brass porthole around avatars ---- */
 .portrait {
   position: relative;
   display: flex;
   flex: none;
-  padding: 3px;
+  padding: 9px;
   border-radius: 50%;
-  background: conic-gradient(
-    from 220deg,
-    #8a6220,
-    #f0d488 20%,
-    #a87c2e 45%,
-    #ecd189 70%,
-    #8a6220 100%
-  );
-  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+  background: url("./theme/sprites/porthole.png") center / 100% 100% no-repeat;
 }
 
 /* ---- standings: featured #1 ----
@@ -419,21 +404,24 @@
    with the rows below — just emphasized (gilded plaque, bigger type, badge). */
 .standTop {
   position: relative;
+  z-index: 0;
   display: flex;
   align-items: center;
   gap: 18px;
   padding: 20px;
   margin-bottom: 14px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, rgba(212, 169, 78, 0.16), rgba(212, 169, 78, 0.04));
+  border-radius: 14px;
+  box-shadow: 0 0 0 2px rgba(240, 201, 108, 0.35), 0 0 26px rgba(240, 201, 108, 0.14);
 }
 .standTop::before {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: -1;
   pointer-events: none;
   border: 18px solid transparent;
-  border-image: url("./theme/row-frame-gold.svg") 18;
+  border-image: url("./theme/sprites/row-plaque.png") 36 fill;
+  filter: brightness(1.18) saturate(1.05);
 }
 
 /* champion avatar + star medallion */
@@ -442,23 +430,19 @@
   flex: none;
   display: flex;
 }
+/* painted laurel medallion on the champion's porthole */
 .champStar {
   position: absolute;
-  right: -5px;
-  bottom: -5px;
+  right: -8px;
+  bottom: -6px;
   z-index: 2;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
+  width: 32px;
+  height: 32px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  line-height: 1;
-  color: #3a2405;
-  background: linear-gradient(135deg, var(--gold-bright), var(--gold));
-  border: 2px solid #4e3a17;
-  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.45);
+  font-size: 0;
+  color: transparent;
+  background: url("./theme/sprites/medal.png") center / contain no-repeat;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
 }
 .standTopRank {
   width: 30px;
@@ -483,15 +467,15 @@
   color: var(--ink);
 }
 
-/* small "special" per-person win-rate pill */
+/* small "special" per-person win-rate pill (painted navy capsule) */
 .winRatePill {
   font-weight: 700;
   font-size: 12px;
-  color: var(--amber-soft);
-  background: rgba(212, 169, 78, 0.14);
-  border: 1px solid rgba(212, 169, 78, 0.4);
-  padding: 2px 10px;
-  border-radius: 999px;
+  color: #cfc9e8;
+  border: solid transparent;
+  border-width: 10px 13px;
+  border-image: url("./theme/sprites/pill.png") 39 40 fill;
+  padding: 0 2px;
   white-space: nowrap;
   flex: none;
 }
@@ -510,8 +494,8 @@
   display: inline-flex;
   align-items: center;
   border: solid transparent;
-  border-width: 16px 42px;
-  border-image: url("./theme/scroll-banner.svg") 16 40 fill;
+  border-width: 15px 32px;
+  border-image: url("./theme/sprites/banner.png") 28 55 fill;
   padding: 0 2px;
   font-weight: 800;
   font-size: 25px;
@@ -578,8 +562,8 @@
   color: var(--parchment-ink);
   background: none;
   border: solid transparent;
-  border-width: 12px 32px;
-  border-image: url("./theme/scroll-banner.svg") 16 40 fill;
+  border-width: 11px 26px;
+  border-image: url("./theme/sprites/banner.png") 28 55 fill;
   padding: 0 2px;
   filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.5));
   transition: transform 0.15s ease, filter 0.2s ease;
@@ -631,17 +615,15 @@
 }
 .gameNights {
   position: absolute;
-  top: 13px;
-  right: 13px;
-  background: linear-gradient(180deg, #f0e0b4, #dcc189);
-  border: 1px solid rgba(122, 92, 46, 0.55);
-  padding: 5px 12px;
-  border-radius: 8px;
-  font-family: var(--font-serif), Georgia, serif;
-  font-weight: 700;
+  top: 10px;
+  right: 10px;
+  font-weight: 600;
   font-size: 13px;
-  color: var(--parchment-ink);
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+  color: #b9b3d6;
+  border: solid transparent;
+  border-width: 11px 14px;
+  border-image: url("./theme/sprites/pill.png") 39 40 fill;
+  padding: 0 2px;
 }
 .gameFooter {
   position: absolute;
@@ -673,31 +655,34 @@
   color: var(--amber);
 }
 
-/* ---- panels: textured parchment-purple + ornate frame ---- */
+/* ---- panels: painted leather plaque (sprite, 9-slice with fill) ---- */
 .panel {
   position: relative;
-  background: url("./theme/panel-texture.svg") repeat;
-  background-size: 320px 320px;
-  border-radius: 22px;
-  box-shadow: 0 20px 48px -18px rgba(0, 0, 0, 0.7), inset 0 0 70px rgba(0, 0, 0, 0.28);
-}
-.panel::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  border: 33px solid transparent;
-  border-image: url("./theme/panel-frame.svg") 33;
+  border: 26px solid transparent;
+  border-image: url("./theme/sprites/panel.png") 72 fill;
+  border-radius: 20px;
+  box-shadow: 0 20px 48px -18px rgba(0, 0, 0, 0.7);
 }
 .standingsPanel {
-  padding: 28px 34px;
+  padding: 6px 10px;
 }
 .panelHeadRow {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 18px;
+  padding-bottom: 14px;
+}
+/* painted brass rule under panel headers */
+.panelHeadRow::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 9px;
+  background: url("./theme/sprites/divider.png") center / 100% 100% no-repeat;
 }
 .panelKicker {
   font-family: var(--font-serif), Georgia, serif;
@@ -707,24 +692,25 @@
   color: #cbb27e;
 }
 
-/* ---- standings rows: framed plaques ---- */
+/* ---- standings rows: painted brass plaques ---- */
 .standRow {
   position: relative;
+  z-index: 0;
   display: flex;
   align-items: center;
   gap: 18px;
   padding: 13px 20px;
   margin-bottom: 10px;
   border-radius: 12px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(0, 0, 0, 0.06));
 }
 .standRow::before {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: -1;
   pointer-events: none;
   border: 18px solid transparent;
-  border-image: url("./theme/row-frame.svg") 18;
+  border-image: url("./theme/sprites/row-plaque.png") 36 fill;
 }
 .standRank {
   width: 30px;
@@ -746,15 +732,16 @@
   gap: 10px;
   flex-wrap: wrap;
 }
+/* painted LEADER plaque (text baked into the sprite; DOM text kept for a11y) */
 .championBadge {
-  font-weight: 800;
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  color: var(--gold-bright);
-  background: rgba(60, 40, 12, 0.55);
-  border: 1px solid rgba(212, 169, 78, 0.55);
-  padding: 4px 9px;
-  border-radius: 999px;
+  display: inline-flex;
+  width: 75px;
+  height: 27px;
+  flex: none;
+  font-size: 0;
+  color: transparent;
+  background: url("./theme/sprites/leader.png") center / 100% 100% no-repeat;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
 }
 .standMeta {
   font-weight: 500;
@@ -816,7 +803,7 @@
 .recentPanel {
   flex: 1;
   min-width: 0;
-  padding: 26px 34px;
+  padding: 4px 10px;
   display: flex;
   flex-direction: column;
 }
@@ -885,7 +872,7 @@
 
 .mostPlayedPanel {
   flex: 1;
-  padding: 26px 30px;
+  padding: 4px 8px;
 }
 .sideTitle {
   font-weight: 800;
@@ -945,7 +932,7 @@
 
 /* ---- rivalries (full-width panel) ---- */
 .rivalriesPanel {
-  padding: 26px 34px;
+  padding: 4px 10px;
 }
 .rivList {
   display: grid;
@@ -1120,15 +1107,14 @@
   transition: box-shadow 0.3s ease;
 }
 .panel:hover {
-  box-shadow: 0 22px 52px -18px rgba(0, 0, 0, 0.8), inset 0 0 70px rgba(0, 0, 0, 0.28),
-    0 0 0 1px rgba(212, 169, 78, 0.12);
+  box-shadow: 0 22px 52px -18px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(212, 169, 78, 0.12);
 }
 
-.standRow {
-  transition: background 0.25s ease;
+.standRow::before {
+  transition: filter 0.25s ease;
 }
-.standRow:hover {
-  background: linear-gradient(180deg, rgba(240, 212, 136, 0.07), rgba(0, 0, 0, 0.05));
+.standRow:hover::before {
+  filter: brightness(1.25);
 }
 .standRow:hover .avatar {
   transform: scale(1.06);
@@ -1224,6 +1210,30 @@
   }
   .winRatePill {
     font-size: 10px;
+  }
+  /* compact plaques: smaller portholes/rank so names + pills fit */
+  .standRow,
+  .standTop {
+    gap: 10px;
+    padding: 12px 14px;
+  }
+  .standRank,
+  .standTopRank {
+    width: 22px;
+    font-size: 24px;
+  }
+  .portrait {
+    padding: 6px;
+  }
+  .portrait > * {
+    width: 44px !important;
+    height: 44px !important;
+  }
+  .standTopName {
+    font-size: 26px;
+  }
+  .standMeta {
+    font-size: 13px;
   }
   .brandTitle {
     font-size: 28px;

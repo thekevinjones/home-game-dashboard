@@ -174,9 +174,9 @@ export default function Dashboard() {
                 </div>
                 {/* floating wizard-hall decorations */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img className={styles.heroSnitch} src={asset("/theme/snitch.svg")} alt="" />
+                <img className={styles.heroSnitch} src={asset("/theme/snitch.png")} alt="" />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img className={styles.heroPotion} src={asset("/theme/potion.svg")} alt="" />
+                <img className={styles.heroPotion} src={asset("/theme/potion-green.png")} alt="" />
                 <div className={styles.heroText}>
                   <div className={styles.champPill}>
                     <div className={styles.champPillDiamond} />
