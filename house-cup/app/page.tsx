@@ -197,9 +197,15 @@ export default function Dashboard() {
                     <div className={styles.recentParticipants}>
                       <span className={styles.recentPartLabel}>Played by</span>
                       {parts.map((p) => (
-                        <div key={p.id} title={p.name}>
-                          <Avatar player={p} size={30} />
-                        </div>
+                        <span
+                          key={p.id}
+                          className={`${styles.rosterChip} ${
+                            p.id === latest.winnerId ? styles.rosterChipWin : ""
+                          }`}
+                        >
+                          <Avatar player={p} size={24} ring={0} />
+                          {p.name}
+                        </span>
                       ))}
                     </div>
                   )}
@@ -381,6 +387,16 @@ export default function Dashboard() {
                     <div className={styles.recentWhen}>{formatMatchDate(r.date)}</div>
                     <div className={`${styles.recentGame} font-display`}>
                       {gameById(games, r.gameId)?.name ?? r.gameId}
+                    </div>
+                    <div className={styles.recentParts}>
+                      {r.participantIds
+                        .map((pid) => playerById(players, pid))
+                        .filter((p): p is Player => Boolean(p))
+                        .map((p) => (
+                          <span key={p.id} className={styles.recentPartAvatar} title={p.name}>
+                            <Avatar player={p} size={26} ring={0} />
+                          </span>
+                        ))}
                     </div>
                     {winner && (
                       <div className={styles.recentWinner}>

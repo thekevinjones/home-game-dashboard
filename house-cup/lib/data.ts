@@ -38,6 +38,20 @@ export interface Match {
   /** Everyone who played (includes the winner). */
   participantIds: PlayerId[];
   winnerId: PlayerId;
+  /**
+   * Backend-only ISO timestamp of when the row was entered (Supabase now()).
+   * Never displayed — used only as the same-day sort tiebreaker.
+   */
+  createdAt: string;
+}
+
+/** Newest first: by played date, then entry time for same-day games. */
+export function byRecentDesc(a: Match, b: Match): number {
+  return b.date.localeCompare(a.date) || (b.createdAt ?? "").localeCompare(a.createdAt ?? "");
+}
+/** Oldest first (chronological), same tiebreak. */
+export function byChronAsc(a: Match, b: Match): number {
+  return a.date.localeCompare(b.date) || (a.createdAt ?? "").localeCompare(b.createdAt ?? "");
 }
 
 // --- DB row shapes + mapping (snake_case in Postgres -> camelCase app types) --
@@ -60,6 +74,7 @@ interface MatchRow {
   game_id: string;
   participant_ids: string[];
   winner_id: string;
+  created_at: string;
 }
 
 const mapPlayer = (r: PlayerRow): Player => ({
@@ -76,6 +91,7 @@ const mapMatch = (r: MatchRow): Match => ({
   gameId: r.game_id,
   participantIds: r.participant_ids,
   winnerId: r.winner_id,
+  createdAt: r.created_at,
 });
 
 // --- Fetch & insert ----------------------------------------------------------
@@ -93,8 +109,9 @@ export async function loadData(): Promise<DashboardData> {
     sb.from("games").select("id,name,art").order("name"),
     sb
       .from("matches")
-      .select("id,played_on,game_id,participant_ids,winner_id")
-      .order("played_on", { ascending: false }),
+      .select("id,played_on,game_id,participant_ids,winner_id,created_at")
+      .order("played_on", { ascending: false })
+      .order("created_at", { ascending: false }),
   ]);
   if (players.error) throw players.error;
   if (games.error) throw games.error;
@@ -173,9 +190,7 @@ export function formatMatchDate(iso: string): string {
 
 /** Matches a player took part in, most recent first. */
 function playedBy(matches: Match[], id: PlayerId): Match[] {
-  return matches
-    .filter((m) => m.participantIds.includes(id))
-    .sort((a, b) => b.date.localeCompare(a.date));
+  return matches.filter((m) => m.participantIds.includes(id)).sort(byRecentDesc);
 }
 
 export interface StandingRow {
@@ -272,9 +287,9 @@ export function gameStats(games: Game[], matches: Match[], players: Player[]): G
   });
 }
 
-/** Most recent matches first. */
+/** Most recent matches first (same-day ties broken by entry time). */
 export function recentMatches(matches: Match[], limit = 5): Match[] {
-  return [...matches].sort((a, b) => b.date.localeCompare(a.date)).slice(0, limit);
+  return [...matches].sort(byRecentDesc).slice(0, limit);
 }
 
 export interface MostPlayed {
@@ -383,7 +398,7 @@ export function personDetail(
   const row = standings(players, matches).find((r) => r.player.id === id);
   const mine = matches
     .filter((m) => m.participantIds.includes(id))
-    .sort((a, b) => a.date.localeCompare(b.date)); // chronological
+    .sort(byChronAsc); // chronological (same-day by entry time)
 
   let cum = 0;
   const timeline: TimelinePoint[] = mine.map((m, i) => {
@@ -478,9 +493,7 @@ export function gameDetail(
   const game = gameById(games, id);
   if (!game) return null;
 
-  const gm = matches
-    .filter((m) => m.gameId === id)
-    .sort((a, b) => a.date.localeCompare(b.date));
+  const gm = matches.filter((m) => m.gameId === id).sort(byChronAsc);
 
   const tally = new Map<string, { wins: number; played: number }>();
   for (const m of gm) {
