@@ -585,6 +585,10 @@
   transition: transform 0.15s ease, filter 0.2s ease;
 }
 .showLess {
+  /* block-level + fit-content so the auto side-margins center it (an
+     inline-flex box would ignore them and sit left-aligned) */
+  display: flex;
+  width: fit-content;
   margin: 14px auto 0;
   cursor: pointer;
 }
