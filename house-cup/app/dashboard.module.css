@@ -165,6 +165,8 @@
   border-image: url("./theme/sprites/panel.png") 72 fill;
   border-radius: 20px;
   box-shadow: 0 26px 60px -22px rgba(0, 0, 0, 0.75);
+  /* keep the glare sweep (::after) contained within the framed card */
+  overflow: hidden;
 }
 .heroPhoto {
   position: absolute;
@@ -1041,11 +1043,19 @@
 
 @keyframes sheen {
   0% {
-    transform: translateX(-120%) skewX(-18deg);
+    opacity: 0;
+    transform: translateX(-160%) skewX(-14deg) scaleX(0.85);
   }
-  60%,
+  18% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+    transform: translateX(210%) skewX(-14deg) scaleX(1);
+  }
   100% {
-    transform: translateX(320%) skewX(-18deg);
+    opacity: 0;
+    transform: translateX(300%) skewX(-14deg) scaleX(1.9);
   }
 }
 
@@ -1091,22 +1101,24 @@
   animation: growX 1s 0.35s both cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-/* hero sheen sweep */
+/* hero glare sweep — spans the full card height, clipped by the hero's
+   overflow:hidden so it never spills past the frame. */
 .hero::after {
   content: "";
   position: absolute;
-  top: 0;
-  bottom: 0;
+  top: -20%;
+  bottom: -20%;
   left: 0;
-  width: 60px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 235, 190, 0.1),
-    transparent
-  );
-  animation: sheen 5.5s ease-in-out 1s infinite;
+  width: 40%;
   pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    rgba(255, 238, 200, 0.16) 50%,
+    transparent 100%
+  );
+  transform: translateX(-160%) skewX(-14deg);
+  animation: sheen 6s ease-in-out infinite;
 }
 
 /* hover interactions */
