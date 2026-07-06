@@ -169,6 +169,7 @@ export default function Dashboard() {
               .map((id) => playerById(players, id))
               .filter((p): p is Player => Boolean(p));
             return (
+              <div className={styles.heroWrap}>
               <section className={styles.hero}>
                 <div className={styles.heroPhoto}>
                   {g?.art ? (
@@ -178,11 +179,6 @@ export default function Dashboard() {
                     <div className={styles.gameArtFallback} />
                   )}
                 </div>
-                {/* floating wizard-hall decorations */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img className={styles.heroSnitch} src={asset("/theme/snitch.png")} alt="" />
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img className={styles.heroPotion} src={asset("/theme/potion-green.png")} alt="" />
                 <div className={styles.heroText}>
                   <div className={styles.champPill}>
                     <div className={styles.champPillDiamond} />
@@ -225,6 +221,13 @@ export default function Dashboard() {
                   )}
                 </div>
               </section>
+              {/* floating wizard-hall decorations — hang off the card edges,
+                  over the ornate frame, for depth */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img className={styles.heroSnitch} src={asset("/theme/snitch.png")} alt="" />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img className={styles.heroPotion} src={asset("/theme/potion-green.png")} alt="" />
+              </div>
             );
           })()
         ) : (
