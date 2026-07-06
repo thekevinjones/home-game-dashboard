@@ -21,26 +21,27 @@ import {
   type Player,
 } from "@/lib/data";
 
-function Header({ subtitle }: { subtitle: React.ReactNode }) {
+function Header({ subtitle, lastHref }: { subtitle: React.ReactNode; lastHref?: string }) {
+  // left: "last played" (links to that game when available); center: logo;
+  // right: add-match button.
+  const lastPlayed = lastHref ? (
+    <Link href={lastHref} className={`${styles.headerSide} font-serif`}>
+      {subtitle}
+    </Link>
+  ) : (
+    <span className={`${styles.headerSide} font-serif`}>{subtitle}</span>
+  );
   return (
     <header className={styles.siteHeader}>
       <div className={styles.headerInner}>
-        <div className={styles.brand}>
+        {lastPlayed}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img className={styles.headerLogo} src={asset("/logo.png")} alt="The Jones House Cup" />
+        <Link href="/add-match" className={`${styles.addResult} font-serif`}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className={styles.crest} src={asset("/theme/crest.svg")} alt="House crest" />
-          <div>
-            <div className={`${styles.brandTitle} font-brand`}>The Jones House Cup</div>
-            <div className={`${styles.brandSub} font-serif`}>Family Tournament · Standings</div>
-          </div>
-        </div>
-        <div className={styles.headerRight}>
-          <div className={`${styles.headerDate} font-serif`}>{subtitle}</div>
-          <Link href="/add-match" className={`${styles.addResult} font-serif`}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className={styles.quill} src={asset("/theme/quill.svg")} alt="" />
-            Summon a Result
-          </Link>
-        </div>
+          <img className={styles.quill} src={asset("/theme/quill.svg")} alt="" />
+          Summon a Result
+        </Link>
       </div>
     </header>
   );
@@ -151,7 +152,10 @@ export default function Dashboard() {
 
   return (
     <div className={styles.page}>
-      <Header subtitle={latest ? `Last played ${formatMatchDate(latest.date)}` : "No games yet"} />
+      <Header
+        subtitle={latest ? `Last played ${formatMatchDate(latest.date)}` : "No games yet"}
+        lastHref={latest ? `/game?id=${latest.gameId}` : undefined}
+      />
 
       <main className={styles.main}>
         {/* hero — most recent game played */}
