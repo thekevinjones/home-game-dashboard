@@ -390,13 +390,32 @@
   margin-right: 4px;
 }
 
-/* ---- painted brass porthole around avatars ---- */
+/* ---- painted brass porthole around avatars ----
+   The avatar is a plain (static) child, so it paints BEHIND the absolutely-
+   positioned pseudos below: an inner shadow (::before) recesses it, and the
+   brass frame (::after) sits on top and overlaps its rim. */
 .portrait {
   position: relative;
   display: flex;
   flex: none;
   padding: 9px;
   border-radius: 50%;
+}
+/* inset shadow cast over the avatar so it reads as recessed behind the frame */
+.portrait::before {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  border-radius: 50%;
+  pointer-events: none;
+  box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.62), inset 0 0 0 1px rgba(0, 0, 0, 0.35);
+}
+/* the brass porthole frame, on top of the avatar */
+.portrait::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
   background: url("./theme/sprites/porthole.png") center / 100% 100% no-repeat;
 }
 
@@ -437,7 +456,7 @@
   position: absolute;
   right: -8px;
   bottom: -6px;
-  z-index: 2;
+  z-index: 3;
   width: 32px;
   height: 32px;
   display: flex;
