@@ -40,13 +40,13 @@
 .headerLogo {
   position: absolute;
   left: 50%;
-  top: 4px;
+  top: -50px; /* let the top bleed off the screen edge — the crest reads fine */
   transform: translateX(-50%);
-  height: 132px;
+  height: 264px;
   width: auto;
   z-index: 5;
   pointer-events: none;
-  filter: drop-shadow(0 10px 16px rgba(0, 0, 0, 0.6));
+  filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.62));
 }
 .headerSide {
   justify-self: start;
@@ -1210,7 +1210,8 @@
     padding: 12px 24px;
   }
   .headerLogo {
-    height: 108px;
+    height: 208px;
+    top: -40px;
   }
   .main {
     padding: 54px 24px 56px;
@@ -1236,8 +1237,8 @@
     gap: 8px;
   }
   .headerLogo {
-    height: 74px;
-    top: 6px;
+    height: 150px;
+    top: -26px;
   }
   .main {
     padding-top: 44px;
