@@ -226,7 +226,7 @@ export default function Dashboard() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img className={styles.heroSnitch} src={asset("/theme/snitch.png")} alt="" />
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img className={styles.heroPotion} src={asset("/theme/potion-green.png")} alt="" />
+              <img className={styles.heroPotion} src={asset("/theme/potion-green-v2.png")} alt="" />
               </div>
             );
           })()
