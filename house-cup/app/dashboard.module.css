@@ -403,6 +403,13 @@
   gap: 14px;
   margin-top: 24px;
 }
+/* portholes sit side by side when a team wins together */
+.recentWinnerBigPortraits {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+}
 .recentWinnerBigName {
   font-weight: 800;
   font-size: 26px;
@@ -428,6 +435,17 @@
   font-size: 14px;
   color: var(--ink-dim);
   margin-right: 4px;
+}
+/* "Played by" avatars, barely stacked on top of one another */
+.recentPartStack {
+  display: flex;
+}
+.recentPartStackAvatar {
+  display: flex;
+  margin-left: -10px;
+}
+.recentPartStackAvatar:first-child {
+  margin-left: 0;
 }
 
 /* ---- painted brass porthole around avatars ----
@@ -790,8 +808,14 @@
   gap: 10px;
   flex-wrap: wrap;
 }
-/* painted LEADER plaque (text baked into the sprite; DOM text kept for a11y) */
+/* painted LEADER plaque (text baked into the sprite; DOM text kept for a11y).
+   Anchored to the top-right of the featured #1 card rather than sitting inline
+   next to the name. */
 .championBadge {
+  position: absolute;
+  top: -12px;
+  right: 18px;
+  z-index: 2;
   display: inline-flex;
   width: 75px;
   height: 27px;
@@ -890,31 +914,32 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.recentParts {
-  display: flex;
-  flex: none;
-  margin-right: 6px;
-}
 .recentWinner .recentWinnerName {
-  max-width: 130px;
+  max-width: 150px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.recentPartAvatar {
-  display: inline-flex;
-  border-radius: 50%;
-  margin-left: -8px;
-  box-shadow: 0 0 0 2px #2c2452;
-}
-.recentPartAvatar:first-child {
-  margin-left: 0;
-}
+/* winner avatars, right-aligned; slightly stacked for a team win */
 .recentWinner {
   display: flex;
   align-items: center;
   gap: 10px;
   flex: none;
+  margin-left: auto;
+}
+.recentWinnerAvatars {
+  display: flex;
+  flex: none;
+}
+.recentWinnerAvatar {
+  display: inline-flex;
+  border-radius: 50%;
+  margin-left: -8px;
+  box-shadow: 0 0 0 2px #2c2452;
+}
+.recentWinnerAvatar:first-child {
+  margin-left: 0;
 }
 .recentWinnerName {
   font-weight: 700;
@@ -930,7 +955,7 @@
 
 .mostPlayedPanel {
   flex: 1;
-  padding: 4px 8px;
+  padding: 8px 22px;
 }
 .sideTitle {
   font-weight: 800;

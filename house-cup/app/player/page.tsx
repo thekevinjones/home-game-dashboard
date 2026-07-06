@@ -13,6 +13,7 @@ import {
   playerById,
   formatMatchDate,
   type DashboardData,
+  type Player,
 } from "@/lib/data";
 
 export default function PlayerDetailPage() {
@@ -189,8 +190,10 @@ export default function PlayerDetailPage() {
         {d.recent.length ? (
           <div className={styles.list}>
             {d.recent.map((m) => {
-              const won = m.winnerId === d.player.id;
-              const winner = playerById(data.players, m.winnerId);
+              const won = m.winnerIds.includes(d.player.id);
+              const winners = m.winnerIds
+                .map((wid) => playerById(data.players, wid))
+                .filter((p): p is Player => Boolean(p));
               return (
                 <div key={m.id} className={styles.listRow}>
                   <div className={styles.listWhen}>{formatMatchDate(m.date)}</div>
@@ -201,7 +204,9 @@ export default function PlayerDetailPage() {
                     {won ? (
                       <span className={styles.wonTag}>WON</span>
                     ) : (
-                      <span className={styles.lostTag}>{winner ? `${winner.name} won` : "—"}</span>
+                      <span className={styles.lostTag}>
+                        {winners.length ? `${winners.map((w) => w.name).join(" & ")} won` : "—"}
+                      </span>
                     )}
                   </div>
                 </div>

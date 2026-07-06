@@ -162,7 +162,9 @@ export default function Dashboard() {
         {latest ? (
           (() => {
             const g = gameById(games, latest.gameId);
-            const winner = playerById(players, latest.winnerId);
+            const winners = latest.winnerIds
+              .map((id) => playerById(players, id))
+              .filter((p): p is Player => Boolean(p));
             const parts = latest.participantIds
               .map((id) => playerById(players, id))
               .filter((p): p is Player => Boolean(p));
@@ -190,27 +192,35 @@ export default function Dashboard() {
                     {g?.name ?? latest.gameId}
                   </div>
                   <div className={styles.recentHeroDate}>{formatMatchDate(latest.date)}</div>
-                  {winner && (
+                  {winners.length > 0 && (
                     <div className={styles.recentWinnerBig}>
-                      <span className={styles.portrait}>
-                        <Avatar player={winner} size={54} ring={0} />
-                      </span>
+                      <div className={styles.recentWinnerBigPortraits}>
+                        {winners.map((w) => (
+                          <span key={w.id} className={styles.portrait} title={w.name}>
+                            <Avatar player={w} size={54} ring={0} />
+                          </span>
+                        ))}
+                      </div>
                       <div className={styles.minw0}>
                         <div className={`${styles.recentWinnerBigName} font-display`}>
-                          {winner.name}
+                          {winners.map((w) => w.name).join(" & ")}
                         </div>
-                        <div className={styles.recentWonLabel}>WON</div>
+                        <div className={styles.recentWonLabel}>
+                          {winners.length > 1 ? "WON TOGETHER" : "WON"}
+                        </div>
                       </div>
                     </div>
                   )}
                   {parts.length > 0 && (
                     <div className={styles.recentParticipants}>
                       <span className={styles.recentPartLabel}>Played by</span>
-                      {parts.map((p) => (
-                        <span key={p.id} title={p.name} style={{ display: "flex" }}>
-                          <Avatar player={p} size={32} />
-                        </span>
-                      ))}
+                      <div className={styles.recentPartStack}>
+                        {parts.map((p) => (
+                          <span key={p.id} title={p.name} className={styles.recentPartStackAvatar}>
+                            <Avatar player={p} size={32} />
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   )}
                 </div>
@@ -296,6 +306,7 @@ export default function Dashboard() {
             <>
               {champ && (
                 <Link href={`/player?id=${champ.player.id}`} className={styles.standTop}>
+                  <span className={styles.championBadge}>LEADER</span>
                   <div className={`${styles.standTopRank} font-display`}>1</div>
                   <div className={`${styles.champAvatarWrap} ${styles.portrait}`}>
                     <Avatar player={champ.player} size={54} ring={0} />
@@ -306,7 +317,6 @@ export default function Dashboard() {
                       <span className={`${styles.standTopName} font-display`}>
                         {champ.player.name}
                       </span>
-                      <span className={styles.championBadge}>LEADER</span>
                       {champ.played > 0 && (
                         <span className={`${styles.winRatePill} ${styles.winRatePillTop}`}>
                           {champ.winRate}% win rate
@@ -426,27 +436,27 @@ export default function Dashboard() {
             </div>
             {recent.length ? (
               recent.map((r) => {
-                const winner = playerById(players, r.winnerId);
+                const winners = r.winnerIds
+                  .map((wid) => playerById(players, wid))
+                  .filter((p): p is Player => Boolean(p));
                 return (
                   <div key={r.id} className={styles.recentRow}>
                     <div className={styles.recentWhen}>{formatMatchDate(r.date)}</div>
                     <div className={`${styles.recentGame} font-display`}>
                       {gameById(games, r.gameId)?.name ?? r.gameId}
                     </div>
-                    <div className={styles.recentParts}>
-                      {r.participantIds
-                        .map((pid) => playerById(players, pid))
-                        .filter((p): p is Player => Boolean(p))
-                        .map((p) => (
-                          <span key={p.id} className={styles.recentPartAvatar} title={p.name}>
-                            <Avatar player={p} size={26} ring={0} />
-                          </span>
-                        ))}
-                    </div>
-                    {winner && (
+                    {winners.length > 0 && (
                       <div className={styles.recentWinner}>
-                        <Avatar player={winner} size={36} />
-                        <span className={styles.recentWinnerName}>{winner.name}</span>
+                        <div className={styles.recentWinnerAvatars}>
+                          {winners.map((w) => (
+                            <span key={w.id} className={styles.recentWinnerAvatar} title={w.name}>
+                              <Avatar player={w} size={30} ring={0} />
+                            </span>
+                          ))}
+                        </div>
+                        <span className={styles.recentWinnerName}>
+                          {winners.map((w) => w.name).join(" & ")}
+                        </span>
                         <span className={styles.recentWonTag}>WON</span>
                       </div>
                     )}

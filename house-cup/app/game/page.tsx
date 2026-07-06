@@ -158,15 +158,20 @@ export default function GameDetailPage() {
               <div key={i} className={styles.listRow}>
                 <div className={styles.listWhen}>{h.label}</div>
                 <div className={styles.listMain}>
-                  {h.winner ? (
-                    <Link
-                      href={`/player?id=${h.winner.id}`}
-                      style={{ display: "inline-flex", alignItems: "center", gap: 8 }}
-                    >
-                      <Avatar player={h.winner} size={26} />
-                      {h.winner.name}
+                  {h.winners.length ? (
+                    <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
+                      {h.winners.map((w) => (
+                        <Link
+                          key={w.id}
+                          href={`/player?id=${w.id}`}
+                          style={{ display: "inline-flex", alignItems: "center", gap: 6 }}
+                        >
+                          <Avatar player={w} size={26} />
+                          {w.name}
+                        </Link>
+                      ))}
                       <span className={styles.wonTag}>WON</span>
-                    </Link>
+                    </span>
                   ) : (
                     "—"
                   )}

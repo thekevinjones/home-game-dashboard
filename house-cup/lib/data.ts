@@ -35,9 +35,10 @@ export interface Match {
   /** ISO date the night was played, e.g. "2026-07-04". */
   date: string;
   gameId: GameId;
-  /** Everyone who played (includes the winner). */
+  /** Everyone who played (includes the winners). */
   participantIds: PlayerId[];
-  winnerId: PlayerId;
+  /** Who won — usually one player, but several for team games. */
+  winnerIds: PlayerId[];
   /**
    * Backend-only ISO timestamp of when the row was entered (Supabase now()).
    * Never displayed — used only as the same-day sort tiebreaker.
@@ -73,7 +74,7 @@ interface MatchRow {
   played_on: string;
   game_id: string;
   participant_ids: string[];
-  winner_id: string;
+  winner_ids: string[];
   created_at: string;
 }
 
@@ -90,7 +91,7 @@ const mapMatch = (r: MatchRow): Match => ({
   date: r.played_on,
   gameId: r.game_id,
   participantIds: r.participant_ids,
-  winnerId: r.winner_id,
+  winnerIds: r.winner_ids,
   createdAt: r.created_at,
 });
 
@@ -109,7 +110,7 @@ export async function loadData(): Promise<DashboardData> {
     sb.from("games").select("id,name,art").order("name"),
     sb
       .from("matches")
-      .select("id,played_on,game_id,participant_ids,winner_id,created_at")
+      .select("id,played_on,game_id,participant_ids,winner_ids,created_at")
       .order("played_on", { ascending: false })
       .order("created_at", { ascending: false }),
   ]);
@@ -127,7 +128,7 @@ export interface NewMatch {
   date: string;
   gameId: string;
   participantIds: string[];
-  winnerId: string;
+  winnerIds: string[];
 }
 
 export async function insertMatch(m: NewMatch): Promise<void> {
@@ -136,7 +137,7 @@ export async function insertMatch(m: NewMatch): Promise<void> {
     played_on: m.date,
     game_id: m.gameId,
     participant_ids: m.participantIds,
-    winner_id: m.winnerId,
+    winner_ids: m.winnerIds,
   });
   if (error) throw error;
 }
@@ -193,6 +194,9 @@ function playedBy(matches: Match[], id: PlayerId): Match[] {
   return matches.filter((m) => m.participantIds.includes(id)).sort(byRecentDesc);
 }
 
+/** Did this player win the match? (Handles team games with several winners.) */
+export const didWin = (m: Match, id: PlayerId): boolean => m.winnerIds.includes(id);
+
 export interface StandingRow {
   rank: number;
   player: Player;
@@ -215,10 +219,10 @@ export interface StandingRow {
 export function standings(players: Player[], matches: Match[]): StandingRow[] {
   const rows = players.map((player) => {
     const played = playedBy(matches, player.id);
-    const wins = played.filter((m) => m.winnerId === player.id).length;
+    const wins = played.filter((m) => didWin(m, player.id)).length;
     let streak = 0;
     for (const m of played) {
-      if (m.winnerId === player.id) streak++;
+      if (didWin(m, player.id)) streak++;
       else break;
     }
     return {
@@ -260,7 +264,7 @@ export function gameStats(games: Game[], matches: Match[], players: Player[]): G
       for (const pid of m.participantIds) {
         const t = tally.get(pid) ?? { played: 0, wins: 0 };
         t.played++;
-        if (m.winnerId === pid) t.wins++;
+        if (didWin(m, pid)) t.wins++;
         tally.set(pid, t);
       }
     }
@@ -331,8 +335,12 @@ export function rivalries(matches: Match[], players: Player[], limit = 2): Rival
         const key = `${a}|${b}`;
         const r = pairs.get(key) ?? { a, b, aWins: 0, bWins: 0, nights: 0 };
         r.nights++;
-        if (m.winnerId === a) r.aWins++;
-        else if (m.winnerId === b) r.bWins++;
+        // Only count as a head-to-head win when exactly one of the pair won;
+        // if they won together (same team) it's not a win over each other.
+        const aWon = didWin(m, a);
+        const bWon = didWin(m, b);
+        if (aWon && !bWon) r.aWins++;
+        else if (bWon && !aWon) r.bWins++;
         pairs.set(key, r);
       }
     }
@@ -402,7 +410,7 @@ export function personDetail(
 
   let cum = 0;
   const timeline: TimelinePoint[] = mine.map((m, i) => {
-    const won = m.winnerId === id;
+    const won = didWin(m, id);
     if (won) cum++;
     return {
       date: m.date,
@@ -419,7 +427,7 @@ export function personDetail(
   for (const m of mine) {
     const t = perGameMap.get(m.gameId) ?? { played: 0, wins: 0 };
     t.played++;
-    if (m.winnerId === id) t.wins++;
+    if (didWin(m, id)) t.wins++;
     perGameMap.set(m.gameId, t);
   }
   const perGame: PerGameStat[] = [...perGameMap.entries()]
@@ -437,8 +445,11 @@ export function personDetail(
       if (pid === id) continue;
       const t = h2hMap.get(pid) ?? { shared: 0, myWins: 0, theirWins: 0 };
       t.shared++;
-      if (m.winnerId === id) t.myWins++;
-      else if (m.winnerId === pid) t.theirWins++;
+      // Mirror the rivalry rule: a shared (co-)win counts for neither side.
+      const iWon = didWin(m, id);
+      const theyWon = didWin(m, pid);
+      if (iWon && !theyWon) t.myWins++;
+      else if (theyWon && !iWon) t.theirWins++;
       h2hMap.set(pid, t);
     }
   }
@@ -470,7 +481,8 @@ export interface GameWinnerStat {
 export interface GamePlay {
   date: string;
   label: string;
-  winner: Player | null;
+  /** Winners of this play — usually one, several for team games. */
+  winners: Player[];
   participants: Player[];
 }
 export interface GameDetail {
@@ -500,7 +512,7 @@ export function gameDetail(
     for (const pid of m.participantIds) {
       const t = tally.get(pid) ?? { wins: 0, played: 0 };
       t.played++;
-      if (m.winnerId === pid) t.wins++;
+      if (didWin(m, pid)) t.wins++;
       tally.set(pid, t);
     }
   }
@@ -517,7 +529,9 @@ export function gameDetail(
   const history: GamePlay[] = [...gm].reverse().map((m) => ({
     date: m.date,
     label: formatMatchDate(m.date),
-    winner: playerById(players, m.winnerId) ?? null,
+    winners: m.winnerIds
+      .map((wid) => playerById(players, wid))
+      .filter((p): p is Player => Boolean(p)),
     participants: m.participantIds
       .map((pid) => playerById(players, pid))
       .filter((p): p is Player => Boolean(p)),
@@ -526,7 +540,7 @@ export function gameDetail(
   return {
     game,
     plays: gm.length,
-    distinctWinners: new Set(gm.map((m) => m.winnerId)).size,
+    distinctWinners: new Set(gm.flatMap((m) => m.winnerIds)).size,
     lastPlayed: gm.length ? gm[gm.length - 1].date : null,
     topWinner: winsByPlayer.find((w) => w.wins > 0) ?? null,
     winsByPlayer,

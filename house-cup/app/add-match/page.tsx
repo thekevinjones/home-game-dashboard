@@ -17,7 +17,9 @@ export default function AddMatch() {
   const [date, setDate] = useState("");
   const [gameId, setGameId] = useState("");
   const [participantIds, setParticipantIds] = useState<string[]>([]);
-  const [winnerId, setWinnerId] = useState("");
+  // Winners can be more than one for team games; a single winner is just a
+  // one-element list. Winners are always a subset of the participants.
+  const [winnerIds, setWinnerIds] = useState<string[]>([]);
 
   const [saving, setSaving] = useState(false);
   const [saveErr, setSaveErr] = useState<string | null>(null);
@@ -42,20 +44,30 @@ export default function AddMatch() {
   function toggleParticipant(pid: string) {
     setParticipantIds((prev) => {
       const next = prev.includes(pid) ? prev.filter((x) => x !== pid) : [...prev, pid];
-      if (winnerId && !next.includes(winnerId)) setWinnerId("");
+      // Drop anyone who's no longer playing from the winners list.
+      setWinnerIds((w) => w.filter((id) => next.includes(id)));
       return next;
     });
   }
 
+  function toggleWinner(pid: string) {
+    setWinnerIds((prev) =>
+      prev.includes(pid) ? prev.filter((x) => x !== pid) : [...prev, pid]
+    );
+  }
+
   const orderedParticipants = players
     .filter((p) => participantIds.includes(p.id))
+    .map((p) => p.id);
+  const orderedWinners = players
+    .filter((p) => winnerIds.includes(p.id))
     .map((p) => p.id);
 
   const missing: string[] = [];
   if (!date) missing.push("date");
   if (!gameId) missing.push("game");
   if (participantIds.length === 0) missing.push("who played");
-  if (!winnerId) missing.push("winner");
+  if (winnerIds.length === 0) missing.push("winner");
   const valid = missing.length === 0;
 
   async function submit() {
@@ -63,7 +75,12 @@ export default function AddMatch() {
     setSaving(true);
     setSaveErr(null);
     try {
-      await insertMatch({ date, gameId, participantIds: orderedParticipants, winnerId });
+      await insertMatch({
+        date,
+        gameId,
+        participantIds: orderedParticipants,
+        winnerIds: orderedWinners,
+      });
       router.push("/"); // dashboard re-fetches on load and shows the new result
     } catch (e) {
       setSaveErr((e as { message?: string })?.message ?? String(e));
@@ -155,25 +172,36 @@ export default function AddMatch() {
           )}
         </div>
 
-        {/* winner */}
-        <label className={styles.field}>
-          <span className={styles.label}>Winner</span>
-          <select
-            className={styles.input}
-            value={winnerId}
-            onChange={(e) => setWinnerId(e.target.value)}
-            disabled={participantIds.length === 0}
-          >
-            <option value="">
-              {participantIds.length === 0 ? "Pick who played first…" : "Select the winner…"}
-            </option>
-            {orderedParticipants.map((pid) => (
-              <option key={pid} value={pid}>
-                {players.find((p) => p.id === pid)?.name ?? pid}
-              </option>
-            ))}
-          </select>
-        </label>
+        {/* winner(s) — pick one, or several for a team game */}
+        <div className={styles.field}>
+          <span className={styles.label}>
+            Winner{winnerIds.length > 1 ? "s" : ""}
+          </span>
+          {participantIds.length === 0 ? (
+            <div className={styles.hint}>Pick who played first…</div>
+          ) : (
+            <div className={styles.checkGrid}>
+              {orderedParticipants.map((pid) => {
+                const p = players.find((pl) => pl.id === pid);
+                if (!p) return null;
+                const on = winnerIds.includes(pid);
+                return (
+                  <button
+                    type="button"
+                    key={pid}
+                    className={`${styles.chip} ${on ? styles.chipOn : ""}`}
+                    style={on ? { borderColor: p.color, background: `${p.color}22` } : undefined}
+                    onClick={() => toggleWinner(pid)}
+                    aria-pressed={on}
+                  >
+                    <span className={styles.dot} style={{ background: p.color }} />
+                    {p.name}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+        </div>
       </div>
 
       {/* submit */}
